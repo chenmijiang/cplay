@@ -1,4 +1,6 @@
 var cplay = window.Cplay;
+window.addEventListener('DOMContentLoaded', changeHeight);
+window.addEventListener('resize', changeHeight);
 
 var custom = new Scrollbot(".custom-scroll", 6).setStyle({
     "background": "rgb(226 226 226)",
@@ -9,4 +11,8 @@ var custom = new Scrollbot(".custom-scroll", 6).setStyle({
 
 cplay.create(function (musicfile, lyricsfile) {
     cplay.change(musicfile, lyricsfile);
-},{});
+}, {});
+
+function changeHeight() {
+    document.querySelector("body").style.height = document.documentElement.clientHeight + 'px';
+}

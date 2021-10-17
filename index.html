@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +8,12 @@
         <title>Lyrics timeline production</title>
         <link rel="stylesheet" href="./css/index.min.css">
 </head>
+
 <body>
-        <div class="glass-cover-bg">
-                <div class="glass-bg cplay-bgi"></div>
-        </div>
         <div id="topbar">
                 <div class="more cplay-setting"></div>
         </div>
         <div id="content">
-                <div class="autoheight"></div>
                 <!-- 歌词展示 -->
                 <div class="m-lycifo">
                         <!-- 唱片滚动动画 -->
@@ -40,24 +38,21 @@
                                                         </div>
                                                 </div>
                                         </div>
+
                                 </div>
                         </div>
                         <!-- 歌词编辑区 -->
                         <div class="cnt">
                                 <div class="hd">
-                                        <div class="titl cplay-title"
-                                                title="">
-                                                Tell Your World
-                                        </div>
+                                        <div class="titl cplay-title">Tell Your World</div>
                                 </div>
                                 <p class="artist">歌手：
-                                        <span title="初音未来" class="cplay-artist">初音未来
-                                        </span>
+                                        <span  class="cplay-artist">初音未来</span>
                                 </p>
                                 <div class="show-content">
                                         <div class="lyrics-content">
                                                 <ul class="lyrics-list custom-scroll">
-                                                        <li class="lr-li cplay-lyrics"><span class='cplay-lytime'
+                                                        <li class="lr-li cplay-lyrics active"><span class='cplay-lytime'
                                                                         contenteditable=""
                                                                         style="display:inline-block;">[00:00.000]</span>作词
                                                                 : kz</li>
@@ -195,72 +190,70 @@
                                                 </div>
                                         </div>
                                 </div>
-                        </div>
-                </div>
-                <!-- 进度条 -->
-                <div id="btmbar">
-                        <div class="wrap" id="player-bar">
-                                <div class="play">
-                                        <div class="pbar">
-                                                <span class="current cplay-current">00:39</span>
-                                                <div class="barbg">
-                                                        <div class="cur cplay-ctt">
-                                                                <span class="btn"></span>
-                                                        </div>
-                                                </div>
-                                                <span class="duration cplay-duration">08:30</span>
-                                        </div>
-                                </div>
-                        </div>
-                </div>
-                <!-- 评论功能 -->
-                <div id="comment-box" style="display: none;"></div>
-                <!-- 上传文件 -->
-                <div id="upload-file" class="cplay-upload-file">
-                        <div class="content ">
-                                <div class="file music">
-                                        <div class="des">
-                                                <label for="music-file">音频上传</label>
-                                                <p>仅支持mp3、wav格式</p>
-                                        </div>
-                                        <a href="javascript:;" class="file">
-                                                <i class="icon uploadfile"></i>
-                                                <input type="file" name="music" id='music-file' />
-                                        </a>
 
-                                </div>
-                                <div class="file lyrics">
-                                        <div class="des">
-                                                <label for="lyrics-file">歌词上传</label>
-                                                <p>支持txt、text，歌词每句一行，分段空行</p>
+                        </div>
+                </div>
+        </div>
+        <!-- 进度条 -->
+        <div id="btmbar">
+                <div class="wrap" id="player-bar">
+                        <div class="play">
+                                <div class="pbar">
+                                        <span class="current cplay-current">00:39</span>
+                                        <div class="barbg">
+                                                <div class="cur cplay-ctt">
+                                                        <span class="btn"></span>
+                                                </div>
                                         </div>
-                                        <a href="javascript:;" class="file">
-                                                <i class="icon uploadfile"></i>
-                                                <input type="file" name="lyrics" id="lyrics-file" />
-                                        </a>
-                                </div>
-                                <div class="btns">
-                                        <button id="upload" class="btn cplay-upload">上传</button>
+                                        <span class="duration cplay-duration">08:30</span>
                                 </div>
                         </div>
-                        <div class="close">
-                                <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
-                                        xmlns="http://www.w3.org/2000/svg" p-id="2534" width="200" height="200">
-                                        <path d="M513 98.2c-229.2 0-415 185.8-415 415s185.8 415 415 415 415-185.8 415-415-185.8-415-415-415z m248.2 663.2C694.9 827.7 606.8 864.2 513 864.2s-181.9-36.5-248.2-102.8C198.5 695.1 162 607 162 513.2c0-93.8 36.5-181.9 102.8-248.2 66.3-66.3 154.4-102.8 248.2-102.8S694.9 198.7 761.2 265C827.5 331.3 864 419.5 864 513.2c0 93.8-36.5 181.9-102.8 248.2z"
-                                                p-id="2535"></path>
-                                        <path d="M666.3 357.7c-12.5-12.5-32.8-12.5-45.3 0l-109 109-109-109c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l109 109-109 109c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l109-109 109 109c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-109-109 109-109c12.5-12.5 12.5-32.8 0-45.3z"
-                                                p-id="2536"></path>
-                                </svg>
+                </div>
+        </div>
+        <!-- 评论功能 -->
+        <div id="comment-box" style="display: none;"></div>
+        <!-- 上传文件 -->
+        <div id="upload-file" class="cplay-upload-file">
+                <div class="content ">
+                        <div class="file music">
+                                <div class="des">
+                                        <label for="music-file">音频上传</label>
+                                        <p>仅支持mp3、wav格式</p>
+                                </div>
+                                <a href="javascript:;" class="file">
+                                        <i class="icon uploadfile"></i>
+                                        <input type="file" name="music" id='music-file' />
+                                </a>
+
                         </div>
+                        <div class="file lyrics">
+                                <div class="des">
+                                        <label for="lyrics-file">歌词上传</label>
+                                        <p>支持txt、text，歌词每句一行，分段空行</p>
+                                </div>
+                                <a href="javascript:;" class="file">
+                                        <i class="icon uploadfile"></i>
+                                        <input type="file" name="lyrics" id="lyrics-file" />
+                                </a>
+
+                        </div>
+                        <div class="btns">
+                                <button id="upload" class="btn cplay-upload">上传</button>
+                        </div>
+                </div>
+                <div class="close">
+                        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                p-id="2534" width="200" height="200">
+                                <path d="M513 98.2c-229.2 0-415 185.8-415 415s185.8 415 415 415 415-185.8 415-415-185.8-415-415-415z m248.2 663.2C694.9 827.7 606.8 864.2 513 864.2s-181.9-36.5-248.2-102.8C198.5 695.1 162 607 162 513.2c0-93.8 36.5-181.9 102.8-248.2 66.3-66.3 154.4-102.8 248.2-102.8S694.9 198.7 761.2 265C827.5 331.3 864 419.5 864 513.2c0 93.8-36.5 181.9-102.8 248.2z"
+                                        p-id="2535"></path>
+                                <path d="M666.3 357.7c-12.5-12.5-32.8-12.5-45.3 0l-109 109-109-109c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l109 109-109 109c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l109-109 109 109c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-109-109 109-109c12.5-12.5 12.5-32.8 0-45.3z"
+                                        p-id="2536"></path>
+                        </svg>
                 </div>
         </div>
         <div class="hintBox cplay-hintbox"></div>
         <div class="settingBox cplay-settingbox">
                 <div class="content">
-                        <!-- <div class="more setting">
-                                <div class="title">设置｜setting</div>
-                                <p>歌词滚动速率：<span contenteditable="true" class="sad">300</span>ms</p>
-                        </div> -->
                         <div class="more operator">
                                 <div class="title">操作｜operator</div>
                                 <p>界面右侧四个按钮分别是：上传文件、编辑模式、预览模式、复制歌词</p>
@@ -272,10 +265,15 @@
                         </div>
                         <div class="more about">
                                 <div class="title">关于｜about</div>
-                                <p>这是一款在线歌词时间轴制作的网页，由<span>你歌好听啊</span>制作，联系我：<a
-                                                href="mailTo:jack.chenyuana@gmail.com">jack.chenyuana@gmail.com</a></p>
+                                <p>这是一款仿照网易云风格的在线歌词时间轴制作的网页</p>
+                                <p>制作者：<span>你歌好听啊</span></p>
+                                <p>联系：<a href="mailTo:jack.chenyuana@gmail.com">谷歌邮箱</a> ｜ <a href="https://space.bilibili.com/442642038" target="_Blank">b站账号</a></p>
+                                <p>版本：<a href="https://github.com/Your-songs-are-so-good/cplay" target="_Blank">0.0.2</a></p>
                         </div>
                 </div>
+        </div>
+        <div class="glass-cover-bg">
+                <div class="glass-bg cplay-bgi"></div>
         </div>
         <script src="./js/jsmediatags.min.js"></script>
         <script src="./js/Cplay.min.js"></script>
