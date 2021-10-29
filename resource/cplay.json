@@ -1,5 +1,5 @@
 {
-    "url": "../resource/music.mp3",
+    "url": "./resource/music.mp3",
     "detail": {
         "artist": "初音ミク",
         "title": "Tell Your World",
