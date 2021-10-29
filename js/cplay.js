@@ -2,7 +2,7 @@
     const jsmediatags = window.jsmediatags;
     const imgPath = './img/';
     const contentInner = imgPath + 'contentInner.png';
-    const cplayConfig = "../resource/cplay.json";
+    const cplayConfig = "./resource/cplay.json";
     const classEs = {
         detail: {
             artist: getEle('cplay-artist'),
