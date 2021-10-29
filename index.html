@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="时间轴、滚动轴、音乐、网易云">
+        <meta name="description" content="这是一款仿照网易云风格的在线歌词时间轴制作的网页">
         <title>Lyrics timeline production</title>
+        <link rel="shortcut icon" href="https://chenmi.online/img/icon.ico" type="image/x-icon">
         <link rel="stylesheet" href="./css/index.min.css">
 </head>
-
 <body>
         <div id="topbar">
                 <div class="more cplay-setting"></div>
@@ -47,12 +48,12 @@
                                         <div class="titl cplay-title">Tell Your World</div>
                                 </div>
                                 <p class="artist">歌手：
-                                        <span  class="cplay-artist">初音未来</span>
+                                        <span  class="cplay-artist">初音ミク</span>
                                 </p>
                                 <div class="show-content">
                                         <div class="lyrics-content">
                                                 <ul class="lyrics-list custom-scroll">
-                                                        <li class="lr-li cplay-lyrics active"><span class='cplay-lytime'
+                                                        <li class="lr-li cplay-lyrics"><span class='cplay-lytime'
                                                                         contenteditable=""
                                                                         style="display:inline-block;">[00:00.000]</span>作词
                                                                 : kz</li>
@@ -182,7 +183,6 @@
                                                 <div href="javascript:;" class="cplay-edit" id="edit"><i
                                                                 class="icon edit" title="编辑模式"></i>
                                                 </div>
-                                                <!-- <div href="javascript:;" class="cplay-save" id="save"><i class="icon save"></i></div> -->
                                                 <div href="javascript:;" class="cplay-overview" id="overview"><i
                                                                 class="icon overview" title="预览模式"></i></div>
                                                 <div href="javascript:;" class="cplay-copy" id="copy"><i
@@ -214,7 +214,7 @@
         <div id="comment-box" style="display: none;"></div>
         <!-- 上传文件 -->
         <div id="upload-file" class="cplay-upload-file">
-                <div class="content ">
+                <div class="content">
                         <div class="file music">
                                 <div class="des">
                                         <label for="music-file">音频上传</label>
@@ -224,7 +224,6 @@
                                         <i class="icon uploadfile"></i>
                                         <input type="file" name="music" id='music-file' />
                                 </a>
-
                         </div>
                         <div class="file lyrics">
                                 <div class="des">
@@ -235,10 +234,9 @@
                                         <i class="icon uploadfile"></i>
                                         <input type="file" name="lyrics" id="lyrics-file" />
                                 </a>
-
                         </div>
                         <div class="btns">
-                                <button id="upload" class="btn cplay-upload">上传</button>
+                                <button id="upload" class="btn">上传</button>
                         </div>
                 </div>
                 <div class="close">
@@ -268,7 +266,7 @@
                                 <p>这是一款仿照网易云风格的在线歌词时间轴制作的网页</p>
                                 <p>制作者：<span>你歌好听啊</span></p>
                                 <p>联系：<a href="mailTo:jack.chenyuana@gmail.com">谷歌邮箱</a> ｜ <a href="https://space.bilibili.com/442642038" target="_Blank">b站账号</a></p>
-                                <p>版本：<a href="https://github.com/Your-songs-are-so-good/cplay" target="_Blank">0.0.3</a></p>
+                                <p>版本：<a href="https://github.com/Your-songs-are-so-good/cplay" target="_Blank">0.0.5</a></p>
                         </div>
                 </div>
         </div>
@@ -276,7 +274,7 @@
                 <div class="glass-bg cplay-bgi"></div>
         </div>
         <script src="./js/jsmediatags.min.js"></script>
-        <script src="./js/Cplay.min.js"></script>
+        <script src="./js/cplay.min.js"></script>
         <script src="./js/scrollbot.min.js"></script>
         <script src="./js/index.js"></script>
 </body>
