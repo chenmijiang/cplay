@@ -124,9 +124,9 @@ body {
   display: block;
   width: inherit;
   height: inherit;
-  background-image: url(../img/singlecover.svg);
-  background-position: center;
-  background-size: contain;
+  background-image: url(../img/pic.png);
+  background-position: -252px -125px;
+  background-size: 630px 630px;
   background-repeat: no-repeat;
 }
 
@@ -172,7 +172,9 @@ body {
 }
 
 .btns-fn .play {
-  background-image: url(../img/pause.svg)
+  background-image: url(../img/pic.png);
+  background-size: 350px;
+  background-position: -140px 0px;
 }
 
 .btns-fn .volume {

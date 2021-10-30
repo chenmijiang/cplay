@@ -45,6 +45,7 @@
         this.audio.volume = this.data.options.volume;
         pageViewInit(this, this.data);
         this.pageListen();
+        this.isEnd();
     }
 
     /**
@@ -92,11 +93,11 @@
     Cplay.prototype.playPause = function () {
         if (this.data.isPlayed) {
             this.audio.pause();
-            classEs.play.style.setProperty('background-image', `url(${imgPath}pause.svg)`);
+            classEs.play.style.setProperty('background-position', '-140px 0px');
             classEs.detail.picture.style.setProperty('animation-play-state', 'paused');
         } else {
             this.audio.play();
-            classEs.play.style.setProperty('background-image', `url(${imgPath}play.svg)`);
+            classEs.play.style.setProperty('background-position', '-210px 0px');
             classEs.detail.picture.style.setProperty('animation-play-state', 'running');
         }
         this.data.isPlayed = !this.data.isPlayed;
@@ -139,7 +140,7 @@
         var _this = this;
         addEve(this.audio, 'ended', function () {
             this.index = 0;
-            classEs.play.style.setProperty('background-image', `url(${imgPath}pause.svg)`);
+            classEs.play.style.setProperty('background-position', '-140px 0px');
             classEs.detail.picture.style.setProperty('animation-play-state', 'paused');
         });
     }
@@ -190,7 +191,7 @@
         data.index = 0;
 
         //控制组件初始化
-        classEs.play.style.setProperty('background-image', `url(${imgPath}pause.svg)`);
+        classEs.play.style.setProperty('background-position', '-140px 0px');
         classEs.volumebtn.style.setProperty('width', data.options.volume * 100 + '%');
         classEs.current.innerHTML = '00:00';
         classEs.duration.innerHTML = secondsToFormat(data.duration, false, 0);
