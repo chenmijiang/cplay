@@ -30,7 +30,7 @@ export const initState = {
   uploadFiles: {
     uploadedState: 2, // 0 移除 1 隐藏 2 显示
     id: 0, //歌曲id
-    src: './music1.mp3', //播放源
+    src: './music.mp3', //播放源
     name: '海（Original Mix）', //歌曲名称
     artist: '洛天依', //歌手
     picUrl: '', //歌曲图片 && 背景图片
