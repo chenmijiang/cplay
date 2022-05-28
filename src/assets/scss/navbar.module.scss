@@ -1,0 +1,163 @@
+@import "base";
+@import 'device';
+
+nav {
+  .menu {
+    width: 100%;
+    height: 64px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    box-sizing: border-box;
+    z-index: 11;
+
+    .website_name {
+      color: $bg-01;
+      font-weight: 600;
+      font-size: 20px;
+      letter-spacing: 1px;
+      background: $l-color;
+      padding: 4px 8px;
+      border-radius: 4px;
+      opacity: 0.5;
+      transition: all 0.4s ease;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .menu_links {
+      transition: all 0.4s ease;
+      opacity: 0.5;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      @include s {
+        display: none;
+      }
+
+      .link {
+        color: $l-color;
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 500;
+        margin-right: 50px;
+        letter-spacing: 2px;
+        position: relative;
+        transition: all 0.3s 0.2s ease;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &:before {
+          content: '';
+          position: absolute;
+          width: 0px;
+          height: 4px;
+          background: $g-03;
+          bottom: -10px;
+          border-radius: 4px;
+          transition: all 0.4s cubic-bezier(0.82, 0.02, 0.13, 1.26);
+          left: 100%;
+        }
+
+        &:hover {
+          opacity: 1;
+          color: $l-color;
+
+          &:before {
+            width: 100%;
+            left: 0;
+          }
+        }
+      }
+
+      .button {
+        background-color: transparent;
+        cursor: pointer;
+      }
+
+      .user_info {
+        width: 50px;
+        height: 50px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+      }
+
+
+    }
+
+    .menu_icon {
+      width: 40px;
+      height: 40px;
+      position: relative;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+
+      @include s {
+        display: flex;
+      }
+
+      .icon {
+        width: 24px;
+        height: 2px;
+        background: $l-color;
+        position: absolute;
+
+        &:before,
+        &:after {
+          content: '';
+          width: 100%;
+          height: 100%;
+          background: inherit;
+          position: absolute;
+          transition: all 0.3s cubic-bezier(0.49, 0.04, 0, 1.55);
+        }
+
+        &:before {
+          transform: translateY(-8px);
+        }
+
+        &:after {
+          transform: translateY(8px);
+        }
+
+
+      }
+
+      &:hover {
+        .icon {
+          background: $m-02;
+
+          &:before {
+            transform: translateY(-10px);
+          }
+
+          &:after {
+            transform: translateY(10px);
+          }
+        }
+      }
+    }
+  }
+}
