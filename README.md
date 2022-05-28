@@ -6,4 +6,4 @@
 
 地址：[chenmi.online/cplay](https://www.baidu.com)
 
-[网站样式](demo.png)
+![网站样式](demo.png)
