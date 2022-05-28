@@ -4,6 +4,6 @@
 
 ## 演示
 
-地址：[chenmi.online/cplay](https://www.baidu.com)
+地址：[chenmi.online/cplay](https://www.cplay.work)
 
 [网站样式](demo.png)
