@@ -25,7 +25,7 @@ let store = createStore(
   reducer,
   initState,
   // redux 插件：https://github.com/zalmoxisus/redux-devtools-extension#usage
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 let persistor = persistStore(store)
 
