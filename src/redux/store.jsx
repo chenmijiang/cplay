@@ -1,5 +1,6 @@
-import { combineReducers, createStore, compose, applyMiddleware } from 'redux'
-import reduxPromise from 'redux-promise'
+import { combineReducers, createStore } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
 import {
   playerReducer,
@@ -8,18 +9,24 @@ import {
 } from './reducers'
 import { initState } from './initState'
 
+const playerPersistConfig = {
+  key: 'player',
+  storage: storage,
+  whitelist: ['volume'],
+}
+
 const reducer = combineReducers({
-  player: playerReducer,
+  player: persistReducer(playerPersistConfig, playerReducer),
   lyricsEdit: lyricsEditReducer,
   uploadFiles: uploadFilesReducer,
 })
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-const store = createStore(
+let store = createStore(
   reducer,
   initState,
-  composeEnhancers(applyMiddleware(reduxPromise))
+  // redux 插件：https://github.com/zalmoxisus/redux-devtools-extension#usage
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
+let persistor = persistStore(store)
 
-export default store
+export { store, persistor }

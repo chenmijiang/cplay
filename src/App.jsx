@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
 
 import IndexRoutes from './router/index'
 import MusicPlayer from './components/MusicPlayer/MusicPlayer'
