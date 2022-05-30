@@ -150,6 +150,21 @@
   }
 }
 
+.file_des {
+  overflow: hidden;
+
+  label,
+  p {
+    white-space: nowrap;
+  }
+
+  p {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 .upload_button {
   width: 100%;
   height: 42px;
