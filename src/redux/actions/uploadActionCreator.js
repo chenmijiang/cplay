@@ -1,5 +1,6 @@
 import {
   UPLOAD_LYRICS,
+  UPLOAD_WAY,
   UPLOAD_MUSIC_WAY2,
   UPLOAD_STATE,
   IS_SAME_URL,
@@ -9,6 +10,13 @@ export function uploadLyrics(lyrics) {
   return {
     type: UPLOAD_LYRICS,
     lyrics,
+  }
+}
+
+export function changeWay(index) {
+  return {
+    type: UPLOAD_WAY,
+    way: index,
   }
 }
 

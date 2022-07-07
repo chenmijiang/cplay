@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 import Style from '../../assets/scss/glasscover.module.scss'
 
 /**
- * 由于不同浏览器存在功能差异，目前 firefox 体验较好
- * 
  * 1. 没有图片url，使用默认背景颜色
  * 2. 有图片url，加载图片
  * @param {*} props {gc_url、sameUrled}

@@ -1,4 +1,27 @@
 export const initState = {
+  login: {
+    boxShowed: false, //登录框
+    key: '', //二维码key值
+    qrimg: '', //二维码图片
+    check: false, //未登录
+    // 登录后出现用户信息
+    user: {
+      // userId: 0, //用户id
+      // nickname: 'chenmi', //用户昵称
+      // avatarUrl: '', //用户头像
+    }, 
+  },
+  // 制作记录
+  // record: {
+  //   isRecord: false, //启用制作记录
+  //   playlistId: 0, //歌单名
+  //   playlist: [
+  //     {
+  //       id: 0, //歌曲id
+  //       name: "", //歌曲名称
+  //     },
+  //   ], //制作记录歌曲
+  // },
   // 播放器
   player: {
     paused: true, //暂停播放
@@ -30,7 +53,8 @@ export const initState = {
   uploadFiles: {
     uploadedState: 2, // 0 移除 1 隐藏 2 显示
     id: 0, //歌曲id
-    src: './music.mp3', //播放源
+    way: 2, //1 搜索获取、2 本地上传音频
+    src: './music1.mp3', //播放源
     name: '海（Original Mix）', //歌曲名称
     artist: '洛天依', //歌手
     picUrl: '', //歌曲图片 && 背景图片
@@ -106,4 +130,18 @@ export const initState = {
       '在一瞬间照亮你的眼睛……”',
     ],
   },
+  //云盘上传
+  // cloudUpload: {
+  //   progress: 0, //上传进度
+  //   // 分页查询
+  //   playlist: [
+  //     {
+  //       id: 0, //歌曲id
+  //       name: "", //歌曲名称
+  //       picUrl: "", //歌曲图片
+  //       artist: "", //歌手
+  //       createTime: "", //上传时间
+  //     },
+  //   ], //制作记录歌曲
+  // },
 }

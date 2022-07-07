@@ -3,7 +3,7 @@
  */
 
 const loadedData = (e, callback) => {
-  // console.log('音频的第一帧加载完成 - onLoadedData', e)
+  console.log('音频的第一帧加载完成 - onLoadedData', e)
   callback &&
     callback({
       e,
@@ -42,7 +42,7 @@ const timeUpdate = (e, callback) => {
 }
 
 const ended = (e, callback) => {
-  // console.log('播放结束')
+  console.log('播放结束')
   callback &&
     callback({
       e,
@@ -50,10 +50,10 @@ const ended = (e, callback) => {
 }
 
 const error = (e, callback) => {
-  // console.log(
-  //   '浏览器尝试获取音频，但是音频不可用时触发 - error',
-  //   e.target.error
-  // )
+  console.log(
+    '浏览器尝试获取音频，但是音频不可用时触发 - error',
+    e.target.error
+  )
   callback &&
     callback({
       e,
@@ -61,7 +61,7 @@ const error = (e, callback) => {
 }
 
 const suspend = (e, callback) => {
-  // console.log('音频加载暂停时触发 - suspend')
+  console.log('音频加载暂停时触发 - suspend')
   callback &&
     callback({
       e,
@@ -69,7 +69,7 @@ const suspend = (e, callback) => {
 }
 
 const waiting = (e, callback) => {
-  // console.log('开始播放前缓冲下一帧时触发 waiting')
+  console.log('开始播放前缓冲下一帧时触发 waiting')
   callback &&
     callback({
       e,
@@ -77,7 +77,7 @@ const waiting = (e, callback) => {
 }
 
 const canplay = (e, callback) => {
-  // console.log('浏览器能够开始播放音频时触发 canplay')
+  console.log('浏览器能够开始播放音频时触发 canplay')
   callback &&
     callback({
       e,
@@ -85,9 +85,9 @@ const canplay = (e, callback) => {
 }
 
 const canPlayThrough = (e, callback) => {
-  // console.log(
-  //   '浏览器预计在不停下来进行缓冲的情况下，能够持续播放指定的音频时会触发 canPlayThrough'
-  // )
+  console.log(
+    '浏览器预计在不停下来进行缓冲的情况下，能够持续播放指定的音频时会触发 canPlayThrough'
+  )
   callback &&
     callback({
       e,

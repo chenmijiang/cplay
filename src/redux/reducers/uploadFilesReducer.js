@@ -1,5 +1,6 @@
 import {
   UPLOAD_LYRICS,
+  UPLOAD_WAY,
   UPLOAD_MUSIC_WAY2,
   UPLOAD_STATE,
   IS_SAME_URL,
@@ -10,6 +11,9 @@ export default function name(preState = {}, action) {
   switch (action.type) {
     case UPLOAD_LYRICS:
       newState.lyrics = action.lyrics
+      return newState
+    case UPLOAD_WAY:
+      newState.way = action.way
       return newState
     case UPLOAD_MUSIC_WAY2:
       let { src, name, artist, picUrl, sameUrled } = action.music

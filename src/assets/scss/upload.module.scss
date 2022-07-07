@@ -1,0 +1,106 @@
+@import "base";
+@import 'device';
+
+.upload_page_body {
+  height: 100vh;
+  min-height: 690px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  background-color: $bg-01;
+}
+
+.upload_page_contain {
+  min-height: 84%;
+  margin: 64px 5%;
+  padding: 20px;
+  box-sizing: border-box;
+
+  background-color: $m-color;
+  border-radius: 6px;
+
+  .upload_handle {
+    width: 100%;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-bottom: 1px solid $m-color;
+  }
+}
+
+.upload_file {
+  position: relative;
+  background: $l-color;
+  border-radius: 10px;
+  opacity: 0.6;
+  transition: all 0.4s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  input {
+    width: 80px;
+    height: 80px;
+    border: none;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .upload_icon {
+    width: 60px;
+    height: 60px;
+    fill: $bg-01;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(../img/pic.png);
+    background-size: 300px;
+    background-position: -60px -60px;
+  }
+}
+
+.upload_progress {
+  width: 64%;
+  height: 10px;
+  margin: 0 64px;
+  border-radius: 10px;
+  position: relative;
+  --fill-width: 39%;
+
+  background-color: $s-color;
+
+  &::before {
+    content: "";
+    width: var(--fill-width);
+    height: 100%;
+    border-radius: 10px;
+    position: absolute;
+
+    background-color: $l-color;
+  }
+}
+
+.upload_button {
+  width: 80px;
+  height: 50px;
+  border-radius: 6px;
+  color: $bg-01;
+  background-color: $mm-color;
+  transition: background-color 0.2s;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $l-color;
+  }
+
+  &:active {
+    background-color: $mm-color;
+  }
+}

@@ -7,6 +7,7 @@ import {
 } from '../../redux/actions/lyricsEditActionCreator'
 import {
   uploadLyrics,
+  changeWay,
   uploadMusicWay2,
   uploadState,
 } from '../../redux/actions/uploadActionCreator'
@@ -17,10 +18,13 @@ import Style from '../../assets/scss/uploadbox.module.scss'
 function UploadBox(props) {
   let {
     closeUploadBox,
+    /* state */
+    way,
     /* dispatch */
     initTimes,
     updateCurrentIndex,
     uploadLyrics,
+    changeWay,
     uploadMusicWay2,
     uploadState,
   } = props
@@ -41,6 +45,7 @@ function UploadBox(props) {
           data: '文件格式错误或空文件',
         }
   }, [])
+  // 接口获取
 
   // 本地获取音频
   const handleMusicFileChange = useCallback(
@@ -78,8 +83,10 @@ function UploadBox(props) {
   const handleUploadClick = useCallback(() => {
     if (uploadMusiced && uploadLyricsed) {
       //更新音频数据
-      uploadMusicWay2(musicfile)
-
+      if (way === 1) {
+      } else if (way === 2) {
+        uploadMusicWay2(musicfile)
+      }
       //更新歌词和时间轴数据
       uploadLyrics(lyrics)
       uploadState(1)
@@ -97,6 +104,7 @@ function UploadBox(props) {
     times,
     uploadMusiced,
     uploadLyricsed,
+    way,
     musicfile,
     updateCurrentIndex,
     uploadState,
@@ -126,8 +134,23 @@ function UploadBox(props) {
             className={[
               Style.file,
               Style.music,
+              way === 1 ? Style.way_change_1 : Style.way_change_2,
             ].join(' ')}
           >
+            <div className={Style.music_way}>
+              <input type="text" placeholder="歌曲名" />
+              <button>搜索</button>
+              <p>
+                搜不到歌曲？试试
+                <span
+                  onClick={() => {
+                    changeWay(2)
+                  }}
+                >
+                  本地上传
+                </span>
+              </p>
+            </div>
             <div className={Style.music_way}>
               <div className={Style.upload_file}>
                 <i
@@ -149,6 +172,16 @@ function UploadBox(props) {
               <div className={Style.file_des}>
                 <label htmlFor="music-file">音频上传: 支持mp3、wav、flac</label>
               </div>
+              <p>
+                更快获取歌曲？试试
+                <span
+                  onClick={() => {
+                    changeWay(1)
+                  }}
+                >
+                  在线搜索
+                </span>
+              </p>
             </div>
           </div>
         </div>
@@ -171,7 +204,7 @@ function UploadBox(props) {
             />
           </div>
           <div className={Style.file_des}>
-            <label htmlFor="lyrics-file">歌词上传(utf8): 支持txt、text</label>
+            <label htmlFor="lyrics-file">歌词上传: 支持txt、text</label>
             <p>歌词每句一行，分段空一行</p>
           </div>
         </div>
@@ -188,12 +221,19 @@ function UploadBox(props) {
   )
 }
 
+const mapStateToProps = (state) => {
+  return {
+    way: state.uploadFiles.way,
+  }
+}
+
 const mapDispatchToProps = {
   initTimes,
   updateCurrentIndex,
   uploadLyrics,
+  changeWay,
   uploadMusicWay2,
   uploadState,
 }
 
-export default connect(null, mapDispatchToProps)(UploadBox)
+export default connect(mapStateToProps, mapDispatchToProps)(UploadBox)

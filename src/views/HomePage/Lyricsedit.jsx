@@ -103,7 +103,7 @@ function Lyricsedit(props) {
     //需滚动的高度
     let height = top - clientheight / 2 + 100
     animate({
-      duration: config.animation_duration,  // 默认 300ms
+      duration: config.animation_duration,
       timing: function (timeFraction) {
         return -timeFraction * timeFraction + 2 * timeFraction
       },

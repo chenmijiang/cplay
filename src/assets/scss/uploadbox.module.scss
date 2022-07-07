@@ -81,9 +81,19 @@
   overflow: hidden;
 
   .file {
-    width: 100%;
+    width: 200%;
     height: 100%;
   }
+}
+
+.way_change_1 {
+  transform: translate(0, 0);
+  transition: transform 0.2s;
+}
+
+.way_change_2 {
+  transform: translate(-50%, 0);
+  transition: transform 0.2s;
 }
 
 .music_way {
@@ -106,6 +116,41 @@
 
       &:hover {
         text-decoration: underline;
+      }
+    }
+  }
+
+  &:first-child {
+    justify-content: center;
+
+    input {
+      width: 80%;
+      height: 42px;
+      padding: 5px 15px;
+      box-sizing: border-box;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+
+      opacity: 0.6;
+    }
+
+    button {
+      width: 18%;
+      height: 42px;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+
+      background-color: $l-color;
+      transition: all 0.2s;
+
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:active {
+        opacity: 0.8;
       }
     }
   }
@@ -147,21 +192,6 @@
 
   .upload_success {
     background-position: -60px -120px;
-  }
-}
-
-.file_des {
-  overflow: hidden;
-
-  label,
-  p {
-    white-space: nowrap;
-  }
-
-  p {
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 }
 

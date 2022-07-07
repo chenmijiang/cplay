@@ -1,0 +1,137 @@
+@import "base";
+@import 'device';
+
+.login_cover {
+  width: 42%;
+  min-width: 500px;
+  height: 400px;
+  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -20;
+
+  @include s {
+    min-width: 0;
+    height: 42vw;
+  }
+
+  @include sm {
+    width: 50%;
+    height: 50vw;
+  }
+}
+
+.login_box {
+  width: 100%;
+  height: 100%;
+  background-color: $mm-color;
+  border-radius: 10px;
+  transform: translate(0, -100%);
+  position: relative;
+  user-select: none;
+
+  .login_close {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+
+    background-image: url(../img/close.png);
+    background-size: cover;
+
+    @include s {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.login_box_show {
+  animation: dropdown 0.4s ease 0.2s 1 forwards;
+}
+
+@keyframes dropdown {
+  0% {
+    transform: translate(0, -100%);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.login_contain {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .login_operation {
+    width: 180px;
+
+    img {
+      width: 100%;
+    }
+
+    @include s {
+      display: none;
+    }
+  }
+
+  .login_scan {
+    width: 210px;
+    text-align: center;
+    color: $lg-color;
+
+    @include s {
+      width: 90%;
+    }
+
+    h3 {
+      font-size: 18px;
+
+      @include sm {
+        font-size: 16px;
+      }
+    }
+
+    .qr {
+      margin: 30px auto;
+
+      @include s {
+        width: 90%;
+        margin: 10px auto;
+      }
+
+      canvas {
+        height: 200px;
+        width: 200px;
+        cursor: pointer;
+
+        @include s {
+          height: 80%;
+          width: 80%;
+        }
+      }
+    }
+
+    .how_to_use {
+      font-size: 14px;
+
+      @include sm {
+        font-size: 10px;
+      }
+
+      a {
+        filter: brightness(1.1);
+        font-weight: bold;
+      }
+    }
+  }
+}
