@@ -2,7 +2,8 @@
 
 歌词时间轴在线制作，仿照网易云风格，使用 react 框架制作
 
-地址：[www.cplay.work](https://www.cplay.work)
+网页地址：[www.cplay.work](https://www.cplay.work)  
+演示地址：[歌词时间轴在线制作教程：BV1vf4y1c7co](https://www.bilibili.com/video/BV1vf4y1c7co)
 
 ![网站样式](demo.png)
 
