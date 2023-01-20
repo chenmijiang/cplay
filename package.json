@@ -6,10 +6,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
-    "buffer": "^6.0.3",
     "jschardet": "^3.0.0",
-    "jsmediatags": "^3.9.7",
-    "node-sass": "^7.0.1",
     "parallax-js": "^3.1.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -18,8 +15,9 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
+    "sass": "^1.57.1",
     "simplebar-react": "^2.3.7",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^3.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
