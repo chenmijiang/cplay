@@ -1,14 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 
-import {
-  uploadBoxShow,
-  setEdited,
-  updateTime,
-  updateCurrentIndex,
-} from '@/store/actions/lyricsEditActionCreator'
-import { playPause } from '@/store/actions/playerActionCreator'
-import { uploadState } from '@/store/actions/uploadActionCreator'
+import lyrics from '@/store/lyrics'
+import player from '@/store/player'
+import upload from '@/store/upload'
 
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
@@ -289,12 +284,12 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispathToProps = {
-  uploadBoxShow,
-  setEdited,
-  updateTime,
-  updateCurrentIndex,
-  uploadState,
-  playPause,
+  uploadBoxShow: lyrics.actions.uploadBoxShow,
+  setEdited: lyrics.actions.setEdited,
+  updateTime: lyrics.actions.updateTime,
+  updateCurrentIndex: lyrics.actions.updateCurrentIndex,
+  uploadState: upload.actions.uploadState,
+  playPause: player.actions.playPause,
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(Lyricsedit)

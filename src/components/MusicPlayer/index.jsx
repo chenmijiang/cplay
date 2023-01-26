@@ -1,14 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 
-import {
-  setCurrentTime,
-  setDuration,
-  setBuffered,
-  end,
-  setCoverScroll,
-} from '@/store/actions/playerActionCreator'
-import { updateCurrentIndex } from '@/store/actions/lyricsEditActionCreator'
+import player from '@/store/player'
+import lyrics from '@/store/lyrics'
 import { setCurrentIndex } from '@/utils/common'
 import playerEvent from './player_event'
 
@@ -165,12 +159,12 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispathToProps = {
-  setCurrentTime,
-  setDuration,
-  setBuffered,
-  setCoverScroll,
-  end,
-  updateCurrentIndex,
+  setCurrentTime: player.actions.setCurrentTime,
+  setDuration: player.actions.setDuration,
+  setBuffered: player.actions.setBuffered,
+  setCoverScroll: player.actions.setCoverScroll,
+  end: player.actions.end,
+  updateCurrentIndex: lyrics.actions.updateCurrentIndex,
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(MusicPlayer)

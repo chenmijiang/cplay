@@ -3,7 +3,7 @@ import {
   UPLOAD_MUSIC_WAY2,
   UPLOAD_STATE,
   IS_SAME_URL,
-} from '../enum/upload'
+} from './type'
 
 export default function name(preState = {}, action) {
   let newState = JSON.parse(JSON.stringify(preState))

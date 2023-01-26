@@ -4,7 +4,7 @@ import {
   UPDATE_TIMES,
   CHANGE_CURRENT_INDEX,
   INIT_TIMES,
-} from '../enum/lyrics'
+} from './type'
 
 export function setEdited(bool) {
   return {

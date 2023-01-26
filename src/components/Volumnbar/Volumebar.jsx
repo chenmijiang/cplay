@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Progressbar from '@/components/Progressbar'
 
-import { setVolume } from '@/store/actions/playerActionCreator'
+import player from '@/store/player'
 import Style from './volumebar.module.scss'
 
 function Volumebar(props) {
@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispathToProps = {
-  setVolume,
+  setVolume: player.actions.setVolume,
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(Volumebar)

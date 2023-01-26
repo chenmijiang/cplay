@@ -7,9 +7,10 @@ import PlayProgressbar from '@/components/PlayProgressbar'
 import Lyricsedit from './Lyricsedit'
 import UploadBox from './UploadBox'
 
-import { setTargetTime } from '@/store/actions/playerActionCreator'
-import { uploadBoxShow } from '@/store/actions/lyricsEditActionCreator'
-import { uploadSameUrl } from '@/store/actions/uploadActionCreator'
+import player from '@/store/player'
+import lyrics from '@/store/lyrics'
+import upload from '@/store/upload'
+
 import { secondsToFormat } from '@/utils/time_parser'
 import style from './home.module.scss'
 
@@ -93,9 +94,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispathToProps = {
-  setTargetTime,
-  uploadBoxShow,
-  uploadSameUrl,
+  setTargetTime: player.actions.setTargetTime,
+  uploadBoxShow: lyrics.actions.uploadBoxShow,
+  uploadSameUrl: upload.actions.uploadSameUrl,
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(HomePage)

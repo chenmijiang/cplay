@@ -1,13 +1,10 @@
-import { combineReducers, createStore } from 'redux'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
-import {
-  playerReducer,
-  lyricsEditReducer,
-  uploadFilesReducer,
-} from './reducers'
-import { initState } from './initState'
+import lyrics from './lyrics'
+import player from './player'
+import upload from './upload'
 
 const playerPersistConfig = {
   key: 'player',
@@ -16,17 +13,24 @@ const playerPersistConfig = {
 }
 
 const reducer = combineReducers({
-  player: persistReducer(playerPersistConfig, playerReducer),
-  lyricsEdit: lyricsEditReducer,
-  uploadFiles: uploadFilesReducer,
+  player: persistReducer(playerPersistConfig, player.reducer),
+  lyricsEdit: lyrics.reducer,
+  uploadFiles: upload.reducer,
 })
 
-let store = createStore(
+const initState = {
+  lyricsEdit: { ...lyrics.state },
+  player: { ...player.state },
+  uploadFiles: { ...upload.state },
+}
+
+let store = configureStore({
   reducer,
-  initState,
+  preloadedState: initState,
   // redux 插件：https://github.com/zalmoxisus/redux-devtools-extension#usage
-  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+  // devTools: true,
+})
+
 let persistor = persistStore(store)
 
 export { store, persistor }

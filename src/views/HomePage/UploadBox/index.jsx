@@ -1,15 +1,17 @@
 import React, { useCallback, useState } from 'react'
 import { connect } from 'react-redux'
 
-import {
-  initTimes,
-  updateCurrentIndex,
-} from '@/store/actions/lyricsEditActionCreator'
-import {
-  uploadLyrics,
-  uploadMusicWay2,
-  uploadState,
-} from '@/store/actions/uploadActionCreator'
+// import {
+//   initTimes,
+//   updateCurrentIndex,
+// } from '@/store/actions/lyricsEditActionCreator'
+// import {
+//   uploadLyrics,
+//   uploadMusicWay2,
+//   uploadState,
+// } from '@/store/actions/uploadActionCreator'
+import lyrics from '@/store/lyrics'
+import upload from '@/store/upload'
 
 import { formatLyrics, getMusicInfo } from '@/utils/file_parser'
 import Style from './uploadbox.module.scss'
@@ -122,12 +124,7 @@ function UploadBox(props) {
       ></div>
       <div className={Style.upload_box_contain}>
         <div className={Style.way_change_contain}>
-          <div
-            className={[
-              Style.file,
-              Style.music,
-            ].join(' ')}
-          >
+          <div className={[Style.file, Style.music].join(' ')}>
             <div className={Style.music_way}>
               <div className={Style.upload_file}>
                 <i
@@ -189,11 +186,11 @@ function UploadBox(props) {
 }
 
 const mapDispatchToProps = {
-  initTimes,
-  updateCurrentIndex,
-  uploadLyrics,
-  uploadMusicWay2,
-  uploadState,
+  initTimes: lyrics.actions.initTimes,
+  updateCurrentIndex: lyrics.actions.updateCurrentIndex,
+  uploadLyrics: upload.actions.uploadLyrics,
+  uploadMusicWay2: upload.actions.uploadMusicWay2,
+  uploadState: upload.actions.uploadState,
 }
 
 export default connect(null, mapDispatchToProps)(UploadBox)

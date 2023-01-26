@@ -10,7 +10,7 @@ import {
   END,
   JUMP_TO_TARGET_TIME,
   COVER_SCROLL,
-} from '../enum/player'
+} from './type'
 
 export function setCoverScroll(bool) {
   return {

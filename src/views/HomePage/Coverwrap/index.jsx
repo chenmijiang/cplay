@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 
 import Volumebar from '@/components/Volumnbar/Volumebar'
 
-import { playPause } from '@/store/actions/playerActionCreator'
-import Style from './coverwrap.module.scss'
+import player from '@/store/player'
 import imgUrl from '@/assets/img/contentInner.png'
+import Style from './coverwrap.module.scss'
 
 /**
  *
@@ -77,7 +77,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispathToProps = {
-  playPause,
+  playPause: player.actions.playPause,
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(Coverwrap)
