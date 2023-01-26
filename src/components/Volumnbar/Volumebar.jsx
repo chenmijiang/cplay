@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Progressbar from '../../components/Progressbar'
+import Progressbar from '@/components/Progressbar'
 
-import { setVolume } from '../../redux/actions/playerActionCreator'
-import Style from '../../assets/scss/volumebar.module.scss'
+import { setVolume } from '@/store/actions/playerActionCreator'
+import Style from './volumebar.module.scss'
 
 function Volumebar(props) {
   let { isShow, /* state */ volume, /* dispatch */ setVolume } = props

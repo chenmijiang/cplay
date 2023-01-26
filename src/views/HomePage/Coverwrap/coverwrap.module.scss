@@ -1,5 +1,4 @@
-@import "device";
-@import "base";
+@import '@/assets/scss/device';
 
 .cvrwrap {
   flex: 1;
@@ -25,7 +24,7 @@
   position: relative;
   text-align: center;
 
-  @include sm {
+  @include ss {
     width: 80vw;
     height: 80vw;
   }
@@ -38,11 +37,11 @@
     width: 400px;
     height: 400px;
     margin: 0px auto;
-    background-color: $m-color;
+    background-color: var(--m-color);
     border-radius: 50%;
     z-index: -2;
 
-    @include sm {
+    @include ss {
       width: 85vw;
       height: 85vw;
       top: -2.5vw;
@@ -68,7 +67,7 @@
     display: block;
     width: inherit;
     height: inherit;
-    background-image: url(../img/singlecover.png);
+    background-image: url(/assets/img/singlecover.png);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -106,13 +105,13 @@
       height: 70px;
       margin: 0 80px;
 
-      @include smm {
+      @include ss {
         margin: 0 16vw;
       }
     }
 
     &:hover {
-      background-color: $ss-color;
+      background-color: var(--ss-color);
     }
   }
 
@@ -130,13 +129,13 @@
   }
 
   .edit_history {
-    background-image: url(../img/pic.png);
+    background-image: url(/assets/img/pic.png);
     background-size: 200px;
     background-position: 0px -160px;
   }
 
   .play_pause {
-    background-image: url(../img/pic.png);
+    background-image: url(/assets/img/pic.png);
     background-size: 350px;
     background-position: -140px 0px;
   }
@@ -146,7 +145,7 @@
   }
 
   .volume_ctr {
-    background-image: url(../img/pic.png);
+    background-image: url(/assets/img/pic.png);
     background-size: 200px;
     background-position: -40px 0px;
   }

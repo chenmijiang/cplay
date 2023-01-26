@@ -6,16 +6,16 @@ import {
   setEdited,
   updateTime,
   updateCurrentIndex,
-} from '../../redux/actions/lyricsEditActionCreator'
-import { playPause } from '../../redux/actions/playerActionCreator'
-import { uploadState } from '../../redux/actions/uploadActionCreator'
+} from '@/store/actions/lyricsEditActionCreator'
+import { playPause } from '@/store/actions/playerActionCreator'
+import { uploadState } from '@/store/actions/uploadActionCreator'
 
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
-import { checkTime, animate, copyLyrics } from '../../utils/common'
-import { secondsToFormat, formatToSeconds } from '../../utils/time_parser'
-import Style from '../../assets/scss/lyricsedit.module.scss'
-import config from '../../configs/config.default'
+import { checkTime, animate, copyLyrics } from '@/utils/common'
+import { secondsToFormat, formatToSeconds } from '@/utils/time_parser'
+import Style from './lyricsedit.module.scss'
+import { animation_duration } from '@/configs/default'
 
 /**
  * @param {*} props
@@ -103,7 +103,7 @@ function Lyricsedit(props) {
     //需滚动的高度
     let height = top - clientheight / 2 + 100
     animate({
-      duration: config.animation_duration,  // 默认 300ms
+      duration: animation_duration, // 默认 300ms
       timing: function (timeFraction) {
         return -timeFraction * timeFraction + 2 * timeFraction
       },
@@ -151,7 +151,10 @@ function Lyricsedit(props) {
       </div>
       <div className={Style.show_content}>
         <div className={[Style.lyrics_content].join(' ')}>
-          <SimpleBar className={Style.lyrics_list} ref={scrollableNodeRef}>
+          <SimpleBar
+            className={Style.lyrics_list}
+            ref={scrollableNodeRef}
+          >
             {info.lyrics.map((ly, index) => (
               <li
                 key={index}

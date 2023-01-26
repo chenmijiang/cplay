@@ -1,6 +1,6 @@
 import React from "react";
 
-import Progressbar from "../../components/Progressbar";
+import Progressbar from "@/components/Progressbar";
 
 function PlayProgressbar(props) {
   let { setCurrentPercent, setCurrentTime } = props;

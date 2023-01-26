@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import Style from '../../assets/scss/glasscover.module.scss'
+import Style from './glasscover.module.scss'
 
 /**
  * 由于不同浏览器存在功能差异，目前 firefox 体验较好

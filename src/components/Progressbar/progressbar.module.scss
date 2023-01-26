@@ -1,5 +1,3 @@
-@import "base";
-
 .slider_container {
   --fill-width: 39%;
   --pre-width: 60%;
@@ -8,7 +6,7 @@
   width: 95%;
   height: 10px;
   align-items: center;
-  color: $l-color;
+  color: var(--l-color);
   margin: 0 1.5%;
 }
 
@@ -26,7 +24,7 @@
     // transition: width 0.2s;
     height: inherit;
     border-radius: 2px;
-    background-color: $l-color;
+    background-color: var(--l-color);
     position: absolute;
   }
 
@@ -34,7 +32,7 @@
     content: "";
     width: var(--pre-width);
     transition: width 0.2s;
-    background-color: $m-color;
+    background-color: var(--m-color);
     height: inherit;
     position: absolute;
     border-radius: 2px;
@@ -45,7 +43,7 @@
   appearance: none;
   width: 100%;
   height: 4px;
-  background: $s-color;
+  background: var(--s-color);
   outline: none;
   // transition: 0.1s;
   border-radius: 5px;
@@ -61,7 +59,7 @@
   appearance: none;
   width: 10px;
   height: 10px;
-  background: $l-color;
+  background: var(--l-color);
   border-radius: 50%;
   cursor: pointer;
   border: none;
@@ -76,7 +74,7 @@
 .slider_range::-moz-range-thumb {
   width: 10px;
   height: 10px;
-  background: $l-color;
+  background: var(--l-color);
   border-radius: 50%;
   cursor: pointer;
   border: none;

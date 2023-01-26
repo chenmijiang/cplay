@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
-import Style from '../assets/scss/progressbar.module.scss'
+import Style from './progressbar.module.scss'
 /**
  * 控制播放条：
  * 1. 两种宽度：进度小数，预加载小数（非必需），父传子

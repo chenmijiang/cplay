@@ -4,15 +4,15 @@ import { connect } from 'react-redux'
 import {
   initTimes,
   updateCurrentIndex,
-} from '../../redux/actions/lyricsEditActionCreator'
+} from '@/store/actions/lyricsEditActionCreator'
 import {
   uploadLyrics,
   uploadMusicWay2,
   uploadState,
-} from '../../redux/actions/uploadActionCreator'
+} from '@/store/actions/uploadActionCreator'
 
-import { formatLyrics, getMusicInfo } from '../../utils/file_parser'
-import Style from '../../assets/scss/uploadbox.module.scss'
+import { formatLyrics, getMusicInfo } from '@/utils/file_parser'
+import Style from './uploadbox.module.scss'
 
 function UploadBox(props) {
   let {

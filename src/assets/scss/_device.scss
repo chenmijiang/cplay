@@ -1,22 +1,28 @@
-@mixin smm {
+@mixin ss {
   @media screen and (max-width: 400px) {
     @content;
   }
 }
 
-@mixin sm {
+@mixin s {
   @media screen and (max-width: 500px) {
     @content;
   }
 }
 
-@mixin m {
+@mixin mm {
   @media screen and (max-width: 599px) {
     @content;
   }
 }
 
-@mixin s {
+@mixin m {
+  @media screen and (max-height:660px) {
+    @content;
+  }
+}
+
+@mixin ll {
   @media screen and (max-width: 799px) {
     @content;
   }
@@ -24,12 +30,6 @@
 
 @mixin l {
   @media screen and (max-width: 1000px) {
-    @content;
-  }
-}
-
-@mixin height {
-  @media screen and (max-height:660px) {
     @content;
   }
 }

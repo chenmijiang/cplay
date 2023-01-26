@@ -1,12 +1,15 @@
-@import "base";
-@import "device";
+@import url("https://fonts.googleapis.com/css?family=Barlow+Condensed:300,400,500,600,700,800,900|Barlow:300,400,500,600,700,800,900&display=swap");
+@import "@/assets/scss/device";
+
+// $font-01: "Barlow", sans-serif;
+// $font-02: "Barlow Condensed", sans-serif;
 
 .not_found_body {
   margin: 0;
   padding: 0;
   height: auto;
-  font-family: $font-01;
-  background: $bg-01;
+  font-family: "Barlow", sans-serif;
+  background: var(--bg-cyan-100);
 }
 
 .wrapper {
@@ -112,7 +115,7 @@
         min-height: 280px;
       }
 
-      @include height {
+      @include s {
         min-width: 280px;
         min-height: 280px;
         width: 60%;
@@ -168,7 +171,7 @@
           font-size: 18px;
           letter-spacing: 0.6px;
           margin-bottom: 40px;
-          text-shadow: 6px 6px 10px $bg-03;
+          text-shadow: 6px 6px 10px var(--bg-cyan-200);
         }
 
         button {
@@ -176,9 +179,9 @@
           padding: 0 30px;
           border-radius: 50px;
           cursor: pointer;
-          box-shadow: 0px 15px 20px rgba($bg-02, 0.5);
+          box-shadow: 0px 15px 20px rgba(var(--bg-cyan-300), 0.5);
           z-index: 3;
-          color: $bg-01;
+          color: var(--bg-cyan-100);
           background-color: white;
           text-transform: uppercase;
           font-weight: 600;
@@ -187,9 +190,9 @@
 
 
           &:hover {
-            box-shadow: 0px 10px 10px -10px rgba($bg-02, 0.5);
+            box-shadow: 0px 10px 10px -10px rgba(var(--bg-cyan-300), 0.5);
             transform: translateY(5px);
-            background: $m-01;
+            background: var(--m-01);
             color: white;
           }
         }
@@ -222,7 +225,7 @@
       }
 
       &:nth-of-type(2) {
-        color: $bg-02;
+        color: var(--bg-cyan-300);
         z-index: 1;
         animation-delay: 1s;
         filter: blur(10px);
@@ -241,12 +244,12 @@
         position: absolute;
         width: 800px;
         height: 800px;
-        background-color: rgba($bg-02, 0.2);
+        background-color: rgba(var(--bg-cyan-300), 0.2);
         border-radius: 100%;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        box-shadow: $circleShadow;
+        box-shadow: var(--circleShadow);
         animation: circle 0.8s cubic-bezier(1, 0.06, 0.25, 1) backwards;
 
 
@@ -274,9 +277,9 @@
           position: absolute;
           width: 600px;
           height: 600px;
-          background-color: rgba($bg-02, 0.3);
+          background-color: rgba(var(--bg-cyan-300), 0.3);
           border-radius: 100%;
-          box-shadow: $circleShadow;
+          box-shadow: var(--circleShadow);
           animation: circle 0.8s 0.4s cubic-bezier(1, 0.06, 0.25, 1) backwards;
 
           @include s {
@@ -286,7 +289,7 @@
         }
 
         .piece {
-          background: $g-02;
+          background: var(--bg-cyan-300);
 
           &:nth-child(1) {
             right: 15%;
@@ -325,7 +328,7 @@
     .two {
       .content {
         .piece {
-          background: $g-01;
+          background: var(--bg-cyan-100);
 
           &:nth-child(1) {
             left: 0%;
@@ -362,7 +365,7 @@
     .three {
       .content {
         .piece {
-          background: $m-01;
+          background: var(--m-01);
 
           &:nth-child(1) {
             left: 25%;

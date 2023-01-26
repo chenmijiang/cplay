@@ -1,18 +1,17 @@
-@import 'base';
-@import 'device';
+@import '@/assets/scss/device';
 
 .upload_box {
   width: 350px;
   height: 250px;
   opacity: 0;
-  background-color: $mm-color;
+  background-color: var(--mm-color);
   border-radius: 10px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
-  color: $bg-01;
+  color: var(--bg-cyan-100);
   overflow: hidden;
 
   // animation: name duration timing-function delay iteration-count direction fill-mode;
@@ -29,7 +28,7 @@
     cursor: pointer;
     z-index: 1;
 
-    background-image: url(../img/close.png);
+    background-image: url(/assets/img/close.png);
     background-size: cover;
   }
 }
@@ -114,7 +113,7 @@
 // 上传图标
 .upload_file {
   position: relative;
-  background: $l-color;
+  background: var(--l-color);
   border-radius: 10px;
   opacity: 0.8;
   transition: all 0.4s ease;
@@ -135,12 +134,12 @@
   .upload_icon {
     width: 60px;
     height: 60px;
-    fill: $bg-01;
+    fill: var(--bg-cyan-100);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-image: url(../img/pic.png);
+    background-image: url(/assets/img/pic.png);
     background-size: 300px;
     background-position: -60px -60px;
   }
@@ -175,7 +174,7 @@
   letter-spacing: 20px;
   font-weight: 700;
 
-  background-color: $l-color;
+  background-color: var(--l-color);
   opacity: 0.8;
   transition: all 0.2s;
 

@@ -1,12 +1,11 @@
-@import "device";
-@import 'base';
+@import '@/assets/scss/device';
 
 .lyrics_contain {
   width: 0%;
   opacity: 0;
   height: 100%;
   transition: all 0.3s;
-  color: $l-color;
+  color: var(--l-color);
 }
 
 .contain_active {
@@ -69,7 +68,7 @@
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: $ss-color;
+      background-color: var(--ss-color);
     }
   }
 
@@ -85,31 +84,31 @@
   }
 
   .uploading {
-    background-image: url(../img/pic.png);
+    background-image: url(/assets/img/pic.png);
     background-size: 125px;
     background-position: 0px 0px;
   }
 
   .edit {
-    background-image: url(../img/pic.png);
+    background-image: url(/assets/img/pic.png);
     background-size: 125px;
     background-position: 0px -25px;
   }
 
   .save {
-    background-image: url(../img/pic.png);
+    background-image: url(/assets/img/pic.png);
     background-size: 125px;
     background-position: 0px -50px;
   }
 
   .overview {
-    background-image: url(../img/pic.png);
+    background-image: url(/assets/img/pic.png);
     background-size: 125px;
     background-position: 0px -50px;
   }
 
   .copy {
-    background-image: url(../img/pic.png);
+    background-image: url(/assets/img/pic.png);
     background-size: 125px;
     background-position: 0px -75px;
     position: relative;
@@ -133,7 +132,7 @@
       letter-spacing: 2px;
       padding: 5px 10px;
       box-sizing: border-box;
-      background-color: $m-color;
+      background-color: var(--m-color);
       border-radius: 30px;
     }
 
@@ -158,7 +157,7 @@
 .lyrics_list {
   .lr_li {
     list-style: none;
-    color: $m-color;
+    color: var(--m-color);
     font-size: 20px;
     font-family: sans-serif;
     height: 39px;
@@ -195,7 +194,7 @@
   }
 
   .active {
-    color: $l-color;
+    color: var(--l-color);
     font-size: 21px;
     transition: font 0.1s;
   }

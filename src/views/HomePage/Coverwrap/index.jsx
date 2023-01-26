@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
-import Volumebar from './Volumebar'
+import Volumebar from '@/components/Volumnbar/Volumebar'
 
-import { playPause } from '../../redux/actions/playerActionCreator'
-import Style from '../../assets/scss/coverwrap.module.scss'
-import imgUrl from '../../assets/img/contentInner.png'
+import { playPause } from '@/store/actions/playerActionCreator'
+import Style from './coverwrap.module.scss'
+import imgUrl from '@/assets/img/contentInner.png'
 
 /**
  *

@@ -1,4 +1,4 @@
-@import 'base';
+@import '@/assets/scss/device';
 
 
 .bg_active {
@@ -16,7 +16,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: $bg-01;
+    background-color: var(--bg-cyan-100);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;

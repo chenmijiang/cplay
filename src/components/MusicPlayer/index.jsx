@@ -7,9 +7,9 @@ import {
   setBuffered,
   end,
   setCoverScroll,
-} from '../../redux/actions/playerActionCreator'
-import { updateCurrentIndex } from '../../redux/actions/lyricsEditActionCreator'
-import { setCurrentIndex } from '../../utils/common'
+} from '@/store/actions/playerActionCreator'
+import { updateCurrentIndex } from '@/store/actions/lyricsEditActionCreator'
+import { setCurrentIndex } from '@/utils/common'
 import playerEvent from './player_event'
 
 function MusicPlayer(props) {

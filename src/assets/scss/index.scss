@@ -1,5 +1,38 @@
-@import url("https://fonts.googleapis.com/css?family=Barlow+Condensed:300,400,500,600,700,800,900|Barlow:300,400,500,600,700,800,900&display=swap");
+:root {
+  --font-01: "Barlow", sans-serif;
+  --font-02: "Barlow Condensed", sans-serif;
+  // color
+  --m-01: #FB8A8A;
+  --m-02: #FFEDC0;
 
+  --l-color: white;
+  --mm-color: #ffffffb3;
+  --m-color: #ffffff4f;
+  --s-color: #ffffff54;
+  --ss-color: #ffffff0d;
+
+  --lg-color: #c82e2e;
+
+  //bg-c
+  --bg-cyan-100: #6592a8;
+  --bg-cyan-200: #41606f;
+  --bg-cyan-300: #2a5a71;
+  --bg-purple-100: #695681;
+  --bg-purple-200: #32243E;
+  --bg-purple-300: #36184F;
+
+  --g-01: linear-gradient(90deg, #FFEDC0 0%, #FF9D87 100%);
+  --g-02: linear-gradient(90deg, #8077EA 13.7%, #EB73FF 94.65%);
+  --g-03: linear-gradient(90deg, #68CBFB 13.7%, #C3F2EC 94.65%);
+
+  --cubic: cubic-bezier(0.4, 0.35, 0, 1.53);
+  --cubic2: cubic-bezier(0.18, 0.89, 0.32, 1.15);
+
+  --circleShadow: inset 5px 20px 40px rgba(--bg-02, 0.25),
+    inset 5px 0px 5px rgba(--bg-03, 0.3),
+    inset 5px 5px 20px rgba(--bg-03, 0.25),
+    2px 2px 5px rgba(--l-color, 0.2);
+}
 
 h1,
 h2,
@@ -15,10 +48,7 @@ a,
 i,
 input,
 body {
-  margin: 0;
-  padding: 0;
   list-style: none;
-  border: 0;
   -webkit-tap-highlight-color: transparent;
   text-decoration: none;
   color: inherit;

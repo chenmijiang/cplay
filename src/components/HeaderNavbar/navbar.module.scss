@@ -1,5 +1,4 @@
-@import "base";
-@import 'device';
+@import "@/assets/scss/device";
 
 nav {
   .menu {
@@ -16,11 +15,11 @@ nav {
     z-index: 11;
 
     .website_name {
-      color: $bg-01;
+      color: var(--bg-cyan-100);
       font-weight: 600;
       font-size: 20px;
       letter-spacing: 1px;
-      background: $l-color;
+      background: var(--l-color);
       padding: 4px 8px;
       border-radius: 4px;
       opacity: 0.5;
@@ -48,7 +47,7 @@ nav {
       }
 
       .link {
-        color: $l-color;
+        color: var(--l-color);
         text-transform: uppercase;
         font-size: 16px;
         font-weight: 500;
@@ -66,7 +65,7 @@ nav {
           position: absolute;
           width: 0px;
           height: 4px;
-          background: $g-03;
+          background: var(--g-03);
           bottom: -10px;
           border-radius: 4px;
           transition: all 0.4s cubic-bezier(0.82, 0.02, 0.13, 1.26);
@@ -75,7 +74,7 @@ nav {
 
         &:hover {
           opacity: 1;
-          color: $l-color;
+          color: var(--l-color);
 
           &:before {
             width: 100%;
@@ -121,7 +120,7 @@ nav {
       .icon {
         width: 24px;
         height: 2px;
-        background: $l-color;
+        background: var(--l-color);
         position: absolute;
 
         &:before,
@@ -147,7 +146,7 @@ nav {
 
       &:hover {
         .icon {
-          background: $m-02;
+          background: var(--m-02);
 
           &:before {
             transform: translateY(-10px);
