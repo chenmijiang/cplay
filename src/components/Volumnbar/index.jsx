@@ -1,30 +1,44 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { motion } from 'framer-motion'
 
 import Progressbar from '@/components/Progressbar'
 
 import player from '@/store/player'
-import Style from './volumebar.module.scss'
+import style from './volumebar.module.scss'
 
-function Volumebar(props) {
-  let { isShow, /* state */ volume, /* dispatch */ setVolume } = props
+function Volumebar({
+  setVolumeShowed,
+  /* state */
+  volume,
+  /* dispatch */
+  setVolume,
+}) {
   return (
-    <div
-      className={[Style.volume_box, isShow ? Style.show : ''].join(' ')}
-      onMouseLeave={() => {
-        props.volumebarHide()
+    <motion.div
+      className={style.volume_box}
+      animate={{
+        width: '125px',
+        opacity: 1,
+      }}
+      transition={{
+        duration: 0.2,
+        ease: 'easeOut',
+      }}
+      onHoverEnd={(e) => {
+        setVolumeShowed(false)
       }}
     >
-      <div className={Style.volume_contain}>
+      <div className={style.volume_contain}>
         <Progressbar
           maxValue={100}
           curPercent={volume}
           setCurrentTime={(p) => {
             setVolume(p)
           }}
-        ></Progressbar>
+        />
       </div>
-    </div>
+    </motion.div>
   )
 }
 

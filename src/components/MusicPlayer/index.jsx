@@ -4,27 +4,35 @@ import { connect } from 'react-redux'
 import player from '@/store/player'
 import lyrics from '@/store/lyrics'
 import { setCurrentIndex } from '@/utils/common'
-import playerEvent from './player_event'
+import {
+  canplayHandler,
+  canPlayThroughHandler,
+  endedHandler,
+  errorHandler,
+  loadedDataHandler,
+  progressHandler,
+  suspendHandler,
+  timeUpdateHandler,
+  waitingHandler,
+} from './eventHandler'
 
-function MusicPlayer(props) {
-  let {
-    /* state */
-    src,
-    paused,
-    targetTime,
-    volume,
-    edited,
-    times,
-    currentIndex,
-    /* dispatch */
-    setCurrentTime,
-    setDuration,
-    setBuffered,
-    end,
-    setCoverScroll,
-    updateCurrentIndex,
-  } = props
-
+function MusicPlayer({
+  /* state */
+  src,
+  paused,
+  targetTime,
+  volume,
+  edited,
+  times,
+  currentIndex,
+  /* dispatch */
+  setCurrentTime,
+  setDuration,
+  setBuffered,
+  end,
+  setCoverScroll,
+  updateCurrentIndex,
+}) {
   const player = useRef()
   //有关网络质量的提醒
   const [networkId, setNetworkId] = useState(0)
@@ -44,18 +52,18 @@ function MusicPlayer(props) {
 
   const handleLoadedData = useCallback(
     (e) => {
-      playerEvent.loadedData(e, ({ e }) => {
+      loadedDataHandler(e, ({ e }) => {
         setDuration(e.target.duration)
       })
     },
     [setDuration]
   )
   const handleProgress = useCallback((e) => {
-    playerEvent.progress(e)
+    progressHandler(e)
   }, [])
   const handleTimeUpdate = useCallback(
     (e) => {
-      playerEvent.timeUpdate(e, ({ e, value }) => {
+      timeUpdateHandler(e, ({ e, value }) => {
         let time = e.target.currentTime
         setCurrentTime(time)
         setBuffered(value)
@@ -76,17 +84,17 @@ function MusicPlayer(props) {
   )
   const handleEnded = useCallback(
     (e) => {
-      playerEvent.ended(e, ({ e }) => {
+      endedHandler(e, ({ e }) => {
         end()
       })
     },
     [end]
   )
   const handleError = useCallback((e) => {
-    playerEvent.error(e)
+    errorHandler(e)
   }, [])
   const handleSuspend = useCallback((e) => {
-    playerEvent.suspend(e)
+    suspendHandler(e)
   }, [])
 
   const handleWaiting = useCallback(
@@ -96,7 +104,7 @@ function MusicPlayer(props) {
           console.log('网络不佳')
         }, 20000)
       )
-      playerEvent.waiting(e, ({ e }) => {
+      waitingHandler(e, ({ e }) => {
         setCoverScroll(false)
       })
     },
@@ -106,7 +114,7 @@ function MusicPlayer(props) {
   const handleCanPlay = useCallback(
     (e) => {
       clearTimeout(networkId)
-      playerEvent.canplay(e, ({ e }) => {
+      canplayHandler(e, ({ e }) => {
         setCoverScroll(true)
       })
     },
@@ -114,12 +122,13 @@ function MusicPlayer(props) {
   )
 
   const handleCanPlayThrough = useCallback((e) => {
-    playerEvent.canPlayThrough(e, ({ e }) => {})
+    canPlayThroughHandler(e, ({ e }) => {})
   }, [])
 
   return (
-    <div style={Style}>
+    <div style={{ position: 'absolute', opacity: 0, zIndex: -30 }}>
       <audio
+        // 来源
         src={src}
         controls
         ref={player}
@@ -137,12 +146,6 @@ function MusicPlayer(props) {
       </audio>
     </div>
   )
-}
-
-const Style = {
-  position: 'absolute',
-  opacity: 0,
-  zIndex: -30,
 }
 
 const mapStateToProps = (state) => {

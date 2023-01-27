@@ -13,19 +13,3 @@
   background-color: #ffffff4f;
   border-radius: 100px;
 }
-
-.show {
-  animation: show 0.2s ease-out 0.1s 1 forwards;
-}
-
-.hide {
-  animation: show 0.2s ease-out 0.1s 1 alternate both;
-}
-
-@keyframes show {
-
-  100% {
-    width: 125px;
-    opacity: 1;
-  }
-}

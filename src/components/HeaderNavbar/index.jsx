@@ -3,9 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 import style from './navbar.module.scss'
 
-function Navbar(props) {
-  let { links } = props
-
+function HeaderNavbar({ links }) {
   return (
     <nav>
       <div className={style.menu}>
@@ -23,7 +21,7 @@ function Navbar(props) {
           ))}
           <a
             className={style.link}
-            href="https://github.com/Your-songs-are-so-good/cplay"
+            href="https://github.com/chenmijiang/cplay"
             target="_blank"
             rel="noreferrer"
           >
@@ -38,4 +36,4 @@ function Navbar(props) {
   )
 }
 
-export default Navbar
+export default HeaderNavbar

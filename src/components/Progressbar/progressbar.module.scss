@@ -6,7 +6,7 @@
   width: 95%;
   height: 10px;
   align-items: center;
-  color: var(--l-color);
+  color: var(--font-white-300);
   margin: 0 1.5%;
 }
 
@@ -24,7 +24,7 @@
     // transition: width 0.2s;
     height: inherit;
     border-radius: 2px;
-    background-color: var(--l-color);
+    background-color: var(--bg-white-200);
     position: absolute;
   }
 
@@ -32,7 +32,7 @@
     content: "";
     width: var(--pre-width);
     transition: width 0.2s;
-    background-color: var(--m-color);
+    background-color: var(--bg-white-300);
     height: inherit;
     position: absolute;
     border-radius: 2px;
@@ -43,7 +43,7 @@
   appearance: none;
   width: 100%;
   height: 4px;
-  background: var(--s-color);
+  background: var(--bg-white-400);
   outline: none;
   // transition: 0.1s;
   border-radius: 5px;
@@ -59,7 +59,7 @@
   appearance: none;
   width: 10px;
   height: 10px;
-  background: var(--l-color);
+  background: var(--bg-white-100);
   border-radius: 50%;
   cursor: pointer;
   border: none;
@@ -74,7 +74,7 @@
 .slider_range::-moz-range-thumb {
   width: 10px;
   height: 10px;
-  background: var(--l-color);
+  background: var(--bg-white-100);
   border-radius: 50%;
   cursor: pointer;
   border: none;

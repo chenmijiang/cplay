@@ -2,7 +2,7 @@
  * 音频处理事件
  */
 
-const loadedData = (e, callback) => {
+export const loadedDataHandler = (e, callback) => {
   // console.log('音频的第一帧加载完成 - onLoadedData', e)
   callback &&
     callback({
@@ -10,7 +10,7 @@ const loadedData = (e, callback) => {
     })
 }
 
-const progress = (e, callback) => {
+export const progressHandler = (e, callback) => {
   // console.log("音频正在加载 - progress");
   callback &&
     callback({
@@ -18,7 +18,7 @@ const progress = (e, callback) => {
     })
 }
 
-const timeUpdate = (e, callback) => {
+export const timeUpdateHandler = (e, callback) => {
   // console.log("当前的时间：", evt.target.currentTime);
   let myAudio = e.target
   let value = 0
@@ -41,7 +41,7 @@ const timeUpdate = (e, callback) => {
     })
 }
 
-const ended = (e, callback) => {
+export const endedHandler = (e, callback) => {
   // console.log('播放结束')
   callback &&
     callback({
@@ -49,7 +49,7 @@ const ended = (e, callback) => {
     })
 }
 
-const error = (e, callback) => {
+export const errorHandler = (e, callback) => {
   // console.log(
   //   '浏览器尝试获取音频，但是音频不可用时触发 - error',
   //   e.target.error
@@ -60,7 +60,7 @@ const error = (e, callback) => {
     })
 }
 
-const suspend = (e, callback) => {
+export const suspendHandler = (e, callback) => {
   // console.log('音频加载暂停时触发 - suspend')
   callback &&
     callback({
@@ -68,7 +68,7 @@ const suspend = (e, callback) => {
     })
 }
 
-const waiting = (e, callback) => {
+export const waitingHandler = (e, callback) => {
   // console.log('开始播放前缓冲下一帧时触发 waiting')
   callback &&
     callback({
@@ -76,7 +76,7 @@ const waiting = (e, callback) => {
     })
 }
 
-const canplay = (e, callback) => {
+export const canplayHandler = (e, callback) => {
   // console.log('浏览器能够开始播放音频时触发 canplay')
   callback &&
     callback({
@@ -84,7 +84,7 @@ const canplay = (e, callback) => {
     })
 }
 
-const canPlayThrough = (e, callback) => {
+export const canPlayThroughHandler = (e, callback) => {
   // console.log(
   //   '浏览器预计在不停下来进行缓冲的情况下，能够持续播放指定的音频时会触发 canPlayThrough'
   // )
@@ -92,17 +92,4 @@ const canPlayThrough = (e, callback) => {
     callback({
       e,
     })
-}
-
-/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
-export default {
-  loadedData,
-  progress,
-  timeUpdate,
-  ended,
-  error,
-  suspend,
-  waiting,
-  canplay,
-  canPlayThrough,
 }

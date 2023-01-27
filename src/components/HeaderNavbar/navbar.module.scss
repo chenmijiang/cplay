@@ -1,26 +1,28 @@
 @import "@/assets/scss/device";
 
 nav {
+  width: 100%;
+  height: 64px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 11;
+
   .menu {
-    width: 100%;
-    height: 64px;
-    position: fixed;
-    top: 0;
-    left: 0;
+    height: inherit;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 5%;
     box-sizing: border-box;
-    z-index: 11;
 
     .website_name {
       color: var(--bg-cyan-100);
       font-weight: 600;
       font-size: 20px;
       letter-spacing: 1px;
-      background: var(--l-color);
-      padding: 4px 8px;
+      background: var(--bg-white-100);
+      padding: 6px 8px;
       border-radius: 4px;
       opacity: 0.5;
       transition: all 0.4s ease;
@@ -42,12 +44,12 @@ nav {
         opacity: 1;
       }
 
-      @include s {
+      @include m {
         display: none;
       }
 
       .link {
-        color: var(--l-color);
+        color: var(--font-white-100);
         text-transform: uppercase;
         font-size: 16px;
         font-weight: 500;
@@ -65,7 +67,7 @@ nav {
           position: absolute;
           width: 0px;
           height: 4px;
-          background: var(--g-03);
+          background: var(--g-100);
           bottom: -10px;
           border-radius: 4px;
           transition: all 0.4s cubic-bezier(0.82, 0.02, 0.13, 1.26);
@@ -74,7 +76,7 @@ nav {
 
         &:hover {
           opacity: 1;
-          color: var(--l-color);
+          color: var(--font-white-100);
 
           &:before {
             width: 100%;
@@ -113,14 +115,14 @@ nav {
       cursor: pointer;
 
 
-      @include s {
+      @include m {
         display: flex;
       }
 
       .icon {
         width: 24px;
         height: 2px;
-        background: var(--l-color);
+        background: var(--c-white-100);
         position: absolute;
 
         &:before,
@@ -146,7 +148,7 @@ nav {
 
       &:hover {
         .icon {
-          background: var(--m-02);
+          background: var(--c-white-100);
 
           &:before {
             transform: translateY(-10px);

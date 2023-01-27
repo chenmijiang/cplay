@@ -1,16 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
-import Style from './progressbar.module.scss'
+import style from './progressbar.module.scss'
 /**
  * 控制播放条：
  * 1. 两种宽度：进度小数，预加载小数（非必需），父传子
  * 2. 事件触发：子传父
  * @returns
  */
-function Progressbar(props) {
-  let { curPercent, prePercent, maxValue, setCurrentPercent, setCurrentTime } =
-    props
-
+function Progressbar({
+  curPercent,
+  prePercent,
+  maxValue,
+  setCurrentPercent,
+  setCurrentTime,
+}) {
   const [value, setValue] = useState(0) //进度条的值
   const [pre, setPre] = useState(0) //预加载的值：小数
   const [isDrag, setIsDrag] = useState(false) //是否处于拖拽
@@ -42,19 +45,19 @@ function Progressbar(props) {
 
   return (
     <div
-      className={Style.slider_container}
+      className={style.slider_container}
       style={{
         '--fill-width': `${(value / max) * 100}%`,
         '--pre-width': `${pre * 100}%`,
       }}
     >
-      <div className={Style.progress}>
+      <div className={style.progress}>
         <input
           type="range"
           min="0"
           max={max}
           value={value}
-          className={Style.slider_range}
+          className={style.slider_range}
           onChange={(evt) => {
             let value = evt.target.value
             setValue(value)

@@ -1,39 +1,44 @@
-import React from "react";
+import React from 'react'
 
-import Progressbar from "@/components/Progressbar";
+import Progressbar from '@/components/Progressbar'
 
-function PlayProgressbar(props) {
-  let { setCurrentPercent, setCurrentTime } = props;
-
+function PlayProgressbar({
+  setCurrentPercent,
+  setCurrentTime,
+  current,
+  curPercent,
+  prePercent,
+  duration,
+}) {
   return (
-    <div style={Style.p_container}>
-      <span>{props.current}</span>
+    <div style={style.p_container}>
+      <span>{current}</span>
       <Progressbar
-        curPercent={props.curPercent}
-        prePercent={props.prePercent}
+        curPercent={curPercent}
+        prePercent={prePercent}
         setCurrentPercent={(percent, isDrag) => {
-          setCurrentPercent && setCurrentPercent(percent, isDrag);
+          setCurrentPercent && setCurrentPercent(percent, isDrag)
         }}
         setCurrentTime={(percent, isDrag) => {
-          setCurrentTime && setCurrentTime(percent, isDrag);
+          setCurrentTime && setCurrentTime(percent, isDrag)
         }}
       ></Progressbar>
-      <span>{props.duration}</span>
+      <span>{duration}</span>
     </div>
-  );
+  )
 }
 
-const Style = {
+const style = {
   p_container: {
-    display: "flex",
-    alignItems: "center",
-    boxSizing: "border-box",
-    width: "100%",
-    height: "64px",
-    padding: "0 5%",
-    color: "white",
-    userSelect: "none",
+    display: 'flex',
+    alignItems: 'center',
+    boxSizing: 'border-box',
+    width: '100%',
+    height: '64px',
+    padding: '0 5%',
+    color: 'var(--font-white-100)',
+    userSelect: 'none',
   },
-};
+}
 
-export default PlayProgressbar;
+export default PlayProgressbar
