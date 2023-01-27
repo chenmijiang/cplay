@@ -1,24 +1,14 @@
 import React, { useEffect } from 'react'
 import { useNavigate, useRoutes } from 'react-router-dom'
 
-function MRouter({ routes }) {
-  return useRoutes(parseRoutes(routes))
-}
+import HomePage from '@/views/HomePage'
 
-// 路由解析
-function parseRoutes(routes) {
-  return routes.map((route) => {
-    route.element = LazyLoad({ name: route.component })
-    if (route.children) {
-      return {
-        ...route,
-        children: parseRoutes(route.children),
-      }
-    }
-    return {
-      ...route,
-    }
-  })
+function MRouter() {
+  return useRoutes([
+    { path: '/', element: <HomePage /> },
+    { path: '/person', element: LazyLoad({ name: 'PersonSpace' }) },
+    { path: '*', element: LazyLoad({ name: 'NotFound' }) },
+  ])
 }
 
 // 懒加载
