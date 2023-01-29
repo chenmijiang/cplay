@@ -1,10 +1,10 @@
 @import '@/assets/scss/device';
 
 
-.bg_active {
-  transform: scale(2);
-  filter: blur(16px) brightness(64%);
-}
+// .bg_active {
+//   transform: scale(2);
+//   filter: blur(16px) brightness(64%);
+// }
 
 .glass_cover_bg {
   position: absolute;
@@ -22,15 +22,15 @@
     background-position: center;
     background-size: cover;
 
-    &:first-child {
-      z-index: 1;
-      opacity: 1;
-    }
+    // &:first-child {
+    //   z-index: 1;
+    //   opacity: 1;
+    // }
 
-    &:last-child {
-      opacity: 0;
-      z-index: 0;
-    }
+    // &:last-child {
+    //   opacity: 0;
+    //   z-index: 0;
+    // }
 
     &.glass_hide {
       transition: opacity 0s;

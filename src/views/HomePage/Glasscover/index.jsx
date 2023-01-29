@@ -1,17 +1,17 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 
-import Style from './glasscover.module.scss'
+import style from './glasscover.module.scss'
 
 /**
  * 由于不同浏览器存在功能差异，目前 firefox 体验较好
- * 
+ *
  * 1. 没有图片url，使用默认背景颜色
  * 2. 有图片url，加载图片
  * @param {*} props {gc_url、sameUrled}
  * @returns
  */
-function Glasscover(props) {
-  let { gc_url, sameUrled, uploadSameUrl } = props //背景图片
+function Glasscover({ gc_url, sameUrled, uploadSameUrl }) {
   const [isActived, setIsActived] = useState(false) //遮罩
   const [swaped, setSwaped] = useState(false) // 背景替换
   const [currentUrl, setCurrentUrl] = useState('') //当前图片源
@@ -55,26 +55,45 @@ function Glasscover(props) {
   }, [gc_url, sameUrled, uploadSameUrl])
 
   return (
-    <div
-      className={[Style.glass_cover_bg, isActived ? Style.bg_active : ''].join(
-        ' '
-      )}
+    <motion.div
+      className={style.glass_cover_bg}
+      animate={{
+        scale: isActived ? 2 : 1,
+        filter: isActived ? 'blur(16px) brightness(64%)' : '',
+      }}
     >
-      {/* currentUrl */}
-      <div
-        className={[Style.glass_bg, swaped ? Style.glass_hide : ''].join(' ')}
-        style={{
-          backgroundImage: `url(${currentUrl})`,
-        }}
-      ></div>
-      {/* targetUrl */}
-      <div
-        className={[Style.glass_bg, swaped ? Style.glass_show : ''].join(' ')}
-        style={{
-          backgroundImage: `url(${targetUrl})`,
-        }}
-      ></div>
-    </div>
+      <AnimatePresence>
+        <motion.div
+          className={style.glass_bg}
+          // style={{
+          //   backgroundImage: `url(${currentUrl})`,
+          // }}
+          // animate={{
+          //   opacity: swaped ? 1 : 0,
+          // }}
+        ></motion.div>
+      </AnimatePresence>
+    </motion.div>
+    // <div
+    //   className={[style.glass_cover_bg, isActived ? style.bg_active : ''].join(
+    //     ' '
+    //   )}
+    // >
+    //   {/* currentUrl */}
+    //   <div
+    //     className={[style.glass_bg, swaped ? style.glass_hide : ''].join(' ')}
+    //     style={{
+    //       backgroundImage: `url(${currentUrl})`,
+    //     }}
+    //   ></div>
+    //   {/* targetUrl */}
+    //   <div
+    //     className={[style.glass_bg, swaped ? style.glass_show : ''].join(' ')}
+    //     style={{
+    //       backgroundImage: `url(${targetUrl})`,
+    //     }}
+    //   ></div>
+    // </div>
   )
 }
 

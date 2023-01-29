@@ -17,12 +17,10 @@ function Volumebar({
   return (
     <motion.div
       className={style.volume_box}
-      animate={{
-        width: '125px',
-        opacity: 1,
-      }}
+      initial={{ width: 35, opacity: 0 }}
+      animate={{ width: 125, opacity: 1 }}
       transition={{
-        duration: 0.2,
+        duration: 0.3,
         ease: 'easeOut',
       }}
       onHoverEnd={(e) => {

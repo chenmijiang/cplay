@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { motion, AnimatePresence } from 'framer-motion'
 
 import Coverwrap from './Coverwrap'
 import Glasscover from './Glasscover'
 import PlayProgressbar from '@/components/PlayProgressbar'
+import UploadFilesBox from '@/components/UploadFilesBox'
+import Portal from '@/components/Portals'
 import Lyricsedit from './Lyricsedit'
-import UploadBox from './UploadBox'
 
 import player from '@/store/player'
 import lyrics from '@/store/lyrics'
@@ -14,70 +16,79 @@ import upload from '@/store/upload'
 import { secondsToFormat } from '@/utils/time_parser'
 import style from './home.module.scss'
 
-function HomePage(props) {
-  let {
-    /* state */
-    picUrl,
-    sameUrled,
-    currentTime,
-    duration,
-    buffered,
-    uploaded,
-    uploadedState,
-    /* dispatch */
-    setTargetTime,
-    uploadBoxShow,
-    uploadSameUrl,
-  } = props
+function HomePage({
+  /* state */
+  picUrl,
+  sameUrled,
+  currentTime,
+  duration,
+  buffered,
+  uploaded,
+  uploadedState,
+  /* dispatch */
+  setTargetTime,
+  uploadBoxShow,
+  uploadSameUrl,
+}) {
   const [isDrag, setIsDrag] = useState(false)
   const [current, setCurrent] = useState(0)
 
   return (
-    <>
-      <div>home</div>
-      <div className={style.home_page_body}>
-        <div className={style.home_page_contain}>
-          {/* <!-- 唱片滚动及事件绑定 --> */}
-          <Coverwrap cv_url={picUrl}></Coverwrap>
-          {/* <!--歌词编辑区--> */}
-          {uploadedState !== 0 && (
-            <Lyricsedit uploadedState={uploadedState}></Lyricsedit>
-          )}
-        </div>
-        <PlayProgressbar
-          current={secondsToFormat(isDrag ? current : currentTime, 0)}
-          duration={secondsToFormat(duration, 0)}
-          curPercent={currentTime / duration}
-          prePercent={buffered}
-          setCurrentPercent={(percent, isD) => {
-            if (isDrag !== isD) {
-              setIsDrag(isD)
-            }
-            setTargetTime(percent * duration)
-          }}
-          setCurrentTime={(percent, isD) => {
-            if (isDrag !== isD) {
-              setIsDrag(isD)
-            }
-            setCurrent(percent * duration)
-          }}
-        ></PlayProgressbar>
-        <Glasscover
-          gc_url={picUrl}
-          sameUrled={sameUrled}
-          uploadSameUrl={(bool) => {
-            uploadSameUrl(bool)
-          }}
-        ></Glasscover>
-        {uploaded && (
-          <UploadBox
-            closeUploadBox={(bool) => {
-              uploadBoxShow(bool)
-            }}
-          ></UploadBox>
-        )}
+    <motion.div
+      className={style.home_page_body}
+      initial={{ y: '100vh', opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: '100vh', opacity: 0 }}
+      transition={{
+        ease: 'easeInOut',
+      }}
+    >
+      <div className={style.home_page_contain}>
+        {/* <!-- 唱片滚动及事件绑定 --> */}
+        <Coverwrap cv_url={picUrl}></Coverwrap>
+        {/* <!--歌词编辑区--> */}
+        {
+          //uploadedState !== 0
+          true && <Lyricsedit uploadedState={uploadedState}></Lyricsedit>
+        }
       </div>
-    </>
+      <PlayProgressbar
+        current={secondsToFormat(isDrag ? current : currentTime, 0)}
+        duration={secondsToFormat(duration, 0)}
+        curPercent={currentTime / duration}
+        prePercent={buffered}
+        setCurrentPercent={(percent, isD) => {
+          if (isDrag !== isD) {
+            setIsDrag(isD)
+          }
+          setTargetTime(percent * duration)
+        }}
+        setCurrentTime={(percent, isD) => {
+          if (isDrag !== isD) {
+            setIsDrag(isD)
+          }
+          setCurrent(percent * duration)
+        }}
+      ></PlayProgressbar>
+      <Glasscover
+        gc_url={picUrl}
+        sameUrled={sameUrled}
+        uploadSameUrl={(bool) => {
+          uploadSameUrl(bool)
+        }}
+      />
+      <Portal>
+        <AnimatePresence>
+          {uploaded && (
+            <UploadFilesBox
+              closeUploadBox={(bool) => {
+                uploadBoxShow(bool)
+              }}
+            ></UploadFilesBox>
+          )}
+        </AnimatePresence>
+      </Portal>
+    </motion.div>
   )
 }
 

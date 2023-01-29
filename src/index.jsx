@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-import "reset-css"
+import 'reset-css'
 import '@/assets/scss/index.scss'
 
 import { Provider } from 'react-redux'
@@ -15,7 +15,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate
+        loading={null}
+        persistor={persistor}
+      >
         <App />
       </PersistGate>
     </Provider>

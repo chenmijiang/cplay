@@ -1,21 +1,24 @@
 @import '@/assets/scss/device';
 
+.upload_glass {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-black-110);
+}
+
 .upload_box {
-  width: 350px;
-  height: 250px;
-  opacity: 0;
-  background-color: var(--mm-color);
+  width: 480px;
+  height: 300px;
+  background-color: var(--bg-white-100);
   border-radius: 10px;
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
   z-index: 20;
   color: var(--bg-cyan-100);
-  overflow: hidden;
-
-  // animation: name duration timing-function delay iteration-count direction fill-mode;
-  animation: scale 0.2s ease-out 1 forwards;
 
   // 关闭图标
   .upload_close {
@@ -23,41 +26,21 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    top: 10px;
-    right: 10px;
+    top: 3px;
+    right: 3px;
     cursor: pointer;
-    z-index: 1;
-
-    background-image: url(/assets/img/close.png);
-    background-size: cover;
-  }
-}
-
-// 显示动画
-@keyframes scale {
-  0% {
-    width: 350px;
-    height: 250px;
-    opacity: 0;
-  }
-
-  100% {
-    width: Max(500px, 36vw);
-    height: 400px;
-    opacity: 1;
+    z-index: 20;
   }
 }
 
 .upload_box_contain {
-  width: Max(350px, 100%);
-  height: Max(250px, 100%);
-
+  width: max(400px, 100%);
+  height: max(300px, 100%);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
-  padding: 0 14%;
+  padding: 0 6%;
   box-sizing: border-box;
 
   display: flex;
@@ -129,23 +112,6 @@
     border: none;
     opacity: 0;
     cursor: pointer;
-  }
-
-  .upload_icon {
-    width: 60px;
-    height: 60px;
-    fill: var(--bg-cyan-100);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-image: url(/assets/img/pic.png);
-    background-size: 300px;
-    background-position: -60px -60px;
-  }
-
-  .upload_success {
-    background-position: -60px -120px;
   }
 }
 

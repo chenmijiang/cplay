@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
-import Volumebar from '@/components/Volumnbar/Volumebar'
+import Volumebar from '@/components/Volumnbar'
 
 import player from '@/store/player'
 import imgUrl from '@/assets/img/contentInner.png'
-import Style from './coverwrap.module.scss'
+import style from './coverwrap.module.scss'
 
 /**
  *
  * @param {*} props { cv_url }
  * @returns
  */
-function Coverwrap(props) {
-  let { cv_url, /* state */ paused, scrolled, /* dispatch */ playPause } = props
+function Coverwrap({
+  cv_url,
+  /* state */ 
+  paused,
+  scrolled,
+  /* dispatch */ 
+  playPause,
+}) {
   const [volumeShowed, setVolumeShowed] = useState(false)
   const [url, setUrl] = useState(imgUrl)
   useEffect(() => {
@@ -21,29 +27,29 @@ function Coverwrap(props) {
   }, [cv_url])
 
   return (
-    <div className={Style.cvrwrap}>
-      <div className={Style.u_cover}>
+    <div className={style.cvrwrap}>
+      <div className={style.u_cover}>
         <img
           src={url}
-          alt=""
+          alt="cover"
           srcSet=""
           className={[
-            Style.cover_img,
-            paused || !scrolled ? '' : Style.cover_img_scroll,
+            style.cover_img,
+            paused || !scrolled ? '' : style.cover_img_scroll,
           ].join(' ')}
         />
-        <span className={Style.msk}></span>
+        <span className={style.msk}></span>
       </div>
-      <div className={Style.btns_handle}>
+      <div className={style.btns_handle}>
         <div>
-          <i className={[Style.icon, Style.edit_history].join(' ')}></i>
+          <i className={[style.icon, style.edit_history].join(' ')}></i>
         </div>
         <div>
           <i
             className={[
-              Style.icon,
-              Style.play_pause,
-              paused ? '' : Style.play_active,
+              style.icon,
+              style.play_pause,
+              paused ? '' : style.play_active,
             ].join(' ')}
             onClick={() => {
               playPause(!paused)
@@ -52,17 +58,12 @@ function Coverwrap(props) {
         </div>
         <div>
           <i
-            className={[Style.icon, Style.volume_ctr].join(' ')}
+            className={[style.icon, style.volume_ctr].join(' ')}
             onClick={() => {
               setVolumeShowed(!volumeShowed)
             }}
           ></i>
-          <Volumebar
-            isShow={volumeShowed}
-            volumebarHide={() => {
-              setVolumeShowed(false)
-            }}
-          ></Volumebar>
+          {volumeShowed && <Volumebar setVolumeShowed={setVolumeShowed} />}
         </div>
       </div>
     </div>

@@ -1,8 +1,14 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 
 const PersonSpace = () => {
   return (
-    <div>PersonSpace</div>
+    <motion.div
+      style={{ height: '100vh' }}
+      initial={false}
+    >
+      PersonSpace
+    </motion.div>
   )
 }
 

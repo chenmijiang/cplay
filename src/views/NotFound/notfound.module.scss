@@ -1,8 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Barlow+Condensed:300,400,500,600,700,800,900|Barlow:300,400,500,600,700,800,900&display=swap");
 @import "@/assets/scss/device";
-
-// $font-01: "Barlow", sans-serif;
-// $font-02: "Barlow Condensed", sans-serif;
 
 .not_found_body {
   margin: 0;
@@ -48,6 +44,7 @@
       left: 20% !important;
       min-width: 400px;
       min-height: 400px;
+      font-family: var(--font-barlow);
 
       .content {
         width: 600px;
@@ -106,7 +103,7 @@
         }
       }
 
-      @include s {
+      @include l {
         width: 90%;
         height: 90%;
         top: 5% !important;
@@ -115,7 +112,7 @@
         min-height: 280px;
       }
 
-      @include s {
+      @include mm {
         min-width: 280px;
         min-height: 280px;
         width: 60%;
@@ -142,7 +139,7 @@
         }
       }
 
-      @include s {
+      @include l {
         min-height: 400px;
         height: 80%;
       }
@@ -162,12 +159,13 @@
         transform: translateX(-50%);
 
 
-        @include s {
+        @include l {
           width: 100%;
         }
 
         p {
-          color: white;
+          color: var(--font-white-100);
+          font-family: "Barlow", sans-serif;
           font-size: 18px;
           letter-spacing: 0.6px;
           margin-bottom: 40px;
@@ -179,10 +177,10 @@
           padding: 0 30px;
           border-radius: 50px;
           cursor: pointer;
-          box-shadow: 0px 15px 20px rgba(var(--bg-cyan-300), 0.5);
+          box-shadow: 0px 15px 20px var(--bg-cyan-350);
           z-index: 3;
           color: var(--bg-cyan-100);
-          background-color: white;
+          background-color: var(--font-white-100);
           text-transform: uppercase;
           font-weight: 600;
           font-size: 12px;
@@ -190,10 +188,10 @@
 
 
           &:hover {
-            box-shadow: 0px 10px 10px -10px rgba(var(--bg-cyan-300), 0.5);
+            box-shadow: 0px 10px 10px -10px var(--bg-cyan-350);
             transform: translateY(5px);
-            background: var(--m-01);
-            color: white;
+            background: var(--bg-pink-100);
+            color: var(--font-white-100);
           }
         }
       }
@@ -204,7 +202,7 @@
       font-size: 200px;
       font-weight: 700;
       letter-spacing: 4px;
-      color: white;
+      color: var(--font-white-100);
       display: flex !important;
       justify-content: center;
       align-items: center;
@@ -213,7 +211,7 @@
       animation: anime404 0.6s cubic-bezier(0.3, 0.8, 1, 1.05) both;
       animation-delay: 1.2s;
 
-      @include s {
+      @include l {
         font-size: 100px;
       }
 
@@ -231,8 +229,6 @@
         filter: blur(10px);
         opacity: 0.8;
       }
-
-
     }
 
     // Bigger Circle
@@ -244,12 +240,12 @@
         position: absolute;
         width: 800px;
         height: 800px;
-        background-color: rgba(var(--bg-cyan-300), 0.2);
+        background-color: var(--bg-cyan-320);
         border-radius: 100%;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        box-shadow: var(--circleShadow);
+        box-shadow: var(--circle-shadow);
         animation: circle 0.8s cubic-bezier(1, 0.06, 0.25, 1) backwards;
 
 
@@ -260,7 +256,7 @@
           }
         }
 
-        @include s {
+        @include l {
           width: 400px;
           height: 400px;
         }
@@ -277,19 +273,19 @@
           position: absolute;
           width: 600px;
           height: 600px;
-          background-color: rgba(var(--bg-cyan-300), 0.3);
+          background-color: var(--bg-cyan-330);
           border-radius: 100%;
-          box-shadow: var(--circleShadow);
+          box-shadow: var(--circle-shadow);
           animation: circle 0.8s 0.4s cubic-bezier(1, 0.06, 0.25, 1) backwards;
 
-          @include s {
+          @include l {
             width: 300px;
             height: 300px;
           }
         }
 
         .piece {
-          background: var(--bg-cyan-300);
+          background: var(--g-300);
 
           &:nth-child(1) {
             right: 15%;
@@ -317,10 +313,7 @@
             animation-delay: 1.5s;
             animation-name: pieceLeft;
           }
-
         }
-
-
       }
     }
 
@@ -328,7 +321,7 @@
     .two {
       .content {
         .piece {
-          background: var(--bg-cyan-100);
+          background: var(--g-200);
 
           &:nth-child(1) {
             left: 0%;
@@ -365,7 +358,7 @@
     .three {
       .content {
         .piece {
-          background: var(--m-01);
+          background: var(--g-100);
 
           &:nth-child(1) {
             left: 25%;
@@ -399,7 +392,5 @@
 
       }
     }
-
-
   }
 }
