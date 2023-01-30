@@ -30,6 +30,10 @@
     right: 3px;
     cursor: pointer;
     z-index: 20;
+
+    svg {
+      fill: var(--bg-gray-100);
+    }
   }
 }
 
@@ -48,107 +52,142 @@
   justify-content: center;
   align-items: center;
 
-  .file {
-    width: 100%;
-    height: 32%;
-    display: flex;
-    align-items: center;
-    // margin: 20px auto 0;
-  }
-}
-
-.way_change_contain {
-  width: 100%;
-  height: 32%;
-  overflow: hidden;
-
-  .file {
+  .occupy_contain {
+    flex: 4;
     width: 100%;
     height: 100%;
   }
+
+  .upload_operation {
+    flex: 1;
+  }
 }
 
-.music_way {
+.occupy_contain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // 切换容器
+  .way_change_contain {
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    margin-top: 40px;
+  }
+}
+
+.upload_music_contain {
   width: 100%;
   height: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  position: relative;
 
-  p {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    font-size: 12px;
-    cursor: default;
+  // 上传图标
+  .upload_file {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    position: relative;
+    background-color: var(--bg-white-100);
 
-    span {
-      font-weight: 700;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+
+    svg {
+      margin: 15px;
+      position: absolute;
+    }
+
+    input {
+      width: 80px;
+      height: 80px;
+      border: none;
+      opacity: 0;
       cursor: pointer;
+    }
+  }
 
-      &:hover {
-        text-decoration: underline;
-      }
+  .file_des {
+    overflow: hidden;
+    margin-left: 100px;
+
+    label,
+    p {
+      white-space: nowrap;
+    }
+
+    p {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
 
-// 上传图标
-.upload_file {
-  position: relative;
-  background: var(--l-color);
-  border-radius: 10px;
-  opacity: 0.8;
-  transition: all 0.4s ease;
-  margin-right: 20px;
+.upload_lyrics_contain {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  &:hover {
-    opacity: 1;
+  .enlarge_contain {
+    width: 100%;
+    height: 100%;
+    position: relative;
   }
 
-  input {
-    width: 80px;
-    height: 80px;
-    border: none;
-    opacity: 0;
+  textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    outline: none;
+    box-sizing: border-box;
+    padding: 4px 5px;
+    font-size: 12px;
+    font-family: inherit;
+
+  }
+
+  .lyrics_enlarge {
+    position: absolute;
+    right: 20px;
+    top: 10px;
     cursor: pointer;
   }
-}
 
-.file_des {
-  overflow: hidden;
-
-  label,
-  p {
-    white-space: nowrap;
-  }
-
-  p {
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  // enlarge
+  svg {
+    fill: var(--bg-gray-100);
   }
 }
 
-.upload_button {
+.upload_operation {
   width: 100%;
-  height: 42px;
-  border-radius: 8px;
-  cursor: pointer;
 
-  font-size: 18px;
-  letter-spacing: 20px;
-  font-weight: 700;
+  button {
+    width: 128px;
+    height: 36px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--font-cyan-100);
 
-  background-color: var(--l-color);
-  opacity: 0.8;
-  transition: all 0.2s;
+    font-size: 18px;
+    letter-spacing: 10px;
+    font-weight: 700;
 
-  &:hover {
-    opacity: 1;
+    background-color: var(--font-white-100);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
   }
 
-  &:active {
-    opacity: 0.8;
+  .next {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .back {
+    display: flex;
+    justify-content: space-between;
   }
 }
