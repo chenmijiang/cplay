@@ -1,99 +1,66 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import React, { useEffect, useState } from 'react'
+import { AnimatePresence, motion, useTime, useTransform } from 'framer-motion'
+import React, { useLayoutEffect, useState } from 'react'
 
+import { glassCoverVariant } from '@/variants'
+import useSyncCallback from '@/hooks/useSyncCallback'
 import style from './glasscover.module.scss'
-
 /**
- * 由于不同浏览器存在功能差异，目前 firefox 体验较好
  *
  * 1. 没有图片url，使用默认背景颜色
  * 2. 有图片url，加载图片
- * @param {*} props {gc_url、sameUrled}
+ *
+ * @param {*} props {targetUrl}
  * @returns
  */
-function Glasscover({ gc_url, sameUrled, uploadSameUrl }) {
-  const [isActived, setIsActived] = useState(false) //遮罩
-  const [swaped, setSwaped] = useState(false) // 背景替换
-  const [currentUrl, setCurrentUrl] = useState('') //当前图片源
-  const [targetUrl, setTargetUrl] = useState('') //目标图片源
-  useEffect(() => {
-    if (sameUrled === false) {
-      let picImg = new Image()
-      if (gc_url === '') {
-        setTargetUrl(gc_url)
-        setSwaped(true)
-        setTimeout(() => {
-          setCurrentUrl(gc_url)
-          uploadSameUrl(true)
-          setSwaped(false)
-        }, 1000)
-        setTimeout(() => {
-          setIsActived(false)
-        }, 3100)
-      } else {
-        picImg.onload = () => {
-          setIsActived(true)
+function Glasscover({ targetUrl }) {
+  // const isActived = targetUrl !== '' ? true : false //遮罩 && 背景色
+  const [isActived, setIsActived] = useState(false)
+  const time = useTime()
+  const filterArr = [
+    'blur(0px) brightness(100%)',
+    'blur(5px) brightness(89%)',
+    'blur(10px) brightness(75%)',
+    'blur(16px) brightness(64%)',
+  ]
+  const filter = useTransform(time, [100, 200, 300, 400], filterArr)
+  const filterReverse = useTransform(
+    time,
+    [100, 200, 300, 400],
+    filterArr.reverse()
+  )
 
-          setTargetUrl(gc_url)
-          setSwaped(true) // 目标源替换现在源的动画
-          setTimeout(() => {
-            setCurrentUrl(gc_url) //替换当前源，动画还原，并发送action 修改 状态
-            uploadSameUrl(true)
-            setSwaped(false)
-          }, 1000)
-        }
-      }
-      picImg.src = gc_url
-    } else {
-      if (gc_url === '') {
-        setIsActived(false)
-      } else {
-        setIsActived(true)
-      }
-      setCurrentUrl(gc_url)
-    }
-  }, [gc_url, sameUrled, uploadSameUrl])
+  useLayoutEffect(() => {
+    targetUrl !== '' && setIsActived(true)
+  }, [targetUrl])
+  const animationEnd = useSyncCallback(() => {
+    targetUrl === '' && setIsActived(false)
+  })
 
   return (
     <motion.div
-      className={style.glass_cover_bg}
-      animate={{
-        scale: isActived ? 2 : 1,
-        filter: isActived ? 'blur(16px) brightness(64%)' : '',
+      className={style.glass_mask}
+      style={{
+        filter: isActived ? filter : filterReverse,
+        transform: `scale(${isActived ? 2 : 1})`,
       }}
     >
-      <AnimatePresence>
-        <motion.div
-          className={style.glass_bg}
-          // style={{
-          //   backgroundImage: `url(${currentUrl})`,
-          // }}
-          // animate={{
-          //   opacity: swaped ? 1 : 0,
-          // }}
-        ></motion.div>
+      <AnimatePresence
+        initial={false}
+        custom={isActived}
+      >
+        <motion.img
+          className={style.glass_img}
+          key={targetUrl}
+          src={targetUrl}
+          variants={glassCoverVariant}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ opacity: { duration: isActived ? 0.8 : 0.4 } }}
+          onAnimationComplete={animationEnd}
+        />
       </AnimatePresence>
     </motion.div>
-    // <div
-    //   className={[style.glass_cover_bg, isActived ? style.bg_active : ''].join(
-    //     ' '
-    //   )}
-    // >
-    //   {/* currentUrl */}
-    //   <div
-    //     className={[style.glass_bg, swaped ? style.glass_hide : ''].join(' ')}
-    //     style={{
-    //       backgroundImage: `url(${currentUrl})`,
-    //     }}
-    //   ></div>
-    //   {/* targetUrl */}
-    //   <div
-    //     className={[style.glass_bg, swaped ? style.glass_show : ''].join(' ')}
-    //     style={{
-    //       backgroundImage: `url(${targetUrl})`,
-    //     }}
-    //   ></div>
-    // </div>
   )
 }
 
