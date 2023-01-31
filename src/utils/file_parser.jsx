@@ -1,31 +1,15 @@
-import jschardet from 'jschardet'
-
 /**
- * 歌词文件
- *
- * @param {*} file 格式采用 txt
- * @returns promise({data})
+ * 格式化歌词内容
+ * @param {string} content textarea content
+ * @returns string[]
  */
-export async function formatLyrics(file) {
-  return new Promise((resolve, reject) => {
-    let reader = new FileReader()
-    reader.readAsBinaryString(file)
-    reader.onload = (e) => {
-      const txtbina = e.target.result
-      // 用 jschardet 拿文件流编码 ，可能会存在偏差
-      const coding = jschardet.detect(txtbina)
-      let reader1 = new FileReader()
-      reader1.readAsText(file, coding)
-      reader1.onload = (e) => {
-        // 兼容不同 操作系统的换行符, 统一采用 \n, 将多余的 \n 缩减到 两个(按照分段来处理)
-        let dataArr = e.target.result
-          .replace(/(\r\n|\r)/g, '\n')
-          .replace(/(\n)\1+/g, '\n\n')
-          .split('\n')
-        resolve(dataArr)
-      }
-    }
-  })
+export function formatLyrics(content) {
+  // 兼容不同 操作系统的换行符, 统一采用 \n, 将多余的 \n 缩减到 两个(按照分段来处理)
+  return content
+    .trim()
+    .replace(/(\r\n|\r)/g, '\n')
+    .replace(/(\n)\1+/g, '\n\n')
+    .split('\n')
 }
 
 /**

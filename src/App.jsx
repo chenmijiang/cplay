@@ -1,17 +1,17 @@
 import { HashRouter as Router } from 'react-router-dom'
 
-import IndexRoutes from './router/index'
-import MusicPlayer from './components/MusicPlayer/MusicPlayer'
-import Navbar from './components/Navbar'
+import DefaultRoutes from '@/router'
+import MusicPlayer from '@/components/MusicPlayer'
+import HeaderNavbar from '@/components/HeaderNavbar'
 
-import config from './configs/config.default'
+import { navbar_links } from '@/configs/default'
 
 function App() {
   return (
     <Router>
-      <MusicPlayer></MusicPlayer>
-      <Navbar links={config.navbar_links}></Navbar>
-      <IndexRoutes></IndexRoutes>
+      <MusicPlayer />
+      <HeaderNavbar links={navbar_links} />
+      <DefaultRoutes />
     </Router>
   )
 }

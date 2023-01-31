@@ -1,10 +1,10 @@
-@mixin smm {
+@mixin s {
   @media screen and (max-width: 400px) {
     @content;
   }
 }
 
-@mixin sm {
+@mixin ss {
   @media screen and (max-width: 500px) {
     @content;
   }
@@ -16,20 +16,20 @@
   }
 }
 
-@mixin s {
-  @media screen and (max-width: 799px) {
+@mixin mm {
+  @media screen and (max-height:660px) {
     @content;
   }
 }
 
 @mixin l {
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 799px) {
     @content;
   }
 }
 
-@mixin height {
-  @media screen and (max-height:660px) {
+@mixin ll {
+  @media screen and (max-width: 1000px) {
     @content;
   }
 }

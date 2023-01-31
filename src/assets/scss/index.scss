@@ -1,5 +1,56 @@
 @import url("https://fonts.googleapis.com/css?family=Barlow+Condensed:300,400,500,600,700,800,900|Barlow:300,400,500,600,700,800,900&display=swap");
 
+:root {
+  // font-family
+  --font-barlow: "Barlow", sans-serif;
+  --font-barlow-condensed: "Barlow Condensed", sans-serif;
+  // font-color
+  --font-white-100: #ffffff;
+  --font-white-200: #ffffffb3;
+  --font-white-300: #ffffff4f;
+  --font-white-400: #ffffff54;
+  --font-white-500: #ffffff0d;
+  --font-black-100: #000000;
+  --font-black-110: #0000004d;
+  --font-cyan-100: #6592a8;
+  //bg-color
+  --bg-cyan-100: var(--font-cyan-100);
+  --bg-cyan-200: #41606f;
+  --bg-cyan-225: #41606f40;
+  --bg-cyan-230: #41606f4d;
+  --bg-cyan-300: #2a5a71;
+  --bg-cyan-320: #2a5a7133;
+  --bg-cyan-325: #2a5a7140;
+  --bg-cyan-330: #2a5a714d;
+  --bg-cyan-350: #2a5a7180;
+  --bg-purple-100: #695681;
+  --bg-purple-200: #32243E;
+  --bg-purple-300: #36184F;
+  --bg-gray-100: #BCBCBC;
+  --bg-white-100: var(--font-white-100);
+  --bg-white-200: var(--font-white-200);
+  --bg-white-300: var(--font-white-300);
+  --bg-white-400: var(--font-white-400);
+  --bg-white-500: var(--font-white-500);
+  --bg-black-110: var(--font-black-110);
+  --bg-pink-100: #FB8A8A;
+  --bg-yellow-100: #FFEDC0;
+  // gradient
+  --g-100: linear-gradient(90deg, #68CBFB 13.7%, #C3F2EC 94.65%);
+  --g-200: linear-gradient(90deg, #FFEDC0 0%, #FF9D87 100%);
+  --g-300: linear-gradient(90deg, #8077EA 13.7%, #EB73FF 94.65%);
+  // component
+  --c-white-100: var(--font-white-100);
+  --c-100: #FFEDC0;
+  --cubic: cubic-bezier(0.4, 0.35, 0, 1.53);
+  --cubic2: cubic-bezier(0.18, 0.89, 0.32, 1.15);
+  // shadow
+  --circle-shadow: inset 5px 20px 40px var(--bg-cyan-325),
+    inset 5px 0px 5px var(--bg-cyan-230),
+    inset 5px 5px 20px var(--bg-cyan-225),
+    2px 2px 5px #ffffff33;
+  // --lg-color: #c82e2e;
+}
 
 h1,
 h2,
@@ -15,13 +66,13 @@ a,
 i,
 input,
 body {
-  margin: 0;
-  padding: 0;
   list-style: none;
-  border: 0;
   -webkit-tap-highlight-color: transparent;
   text-decoration: none;
   color: inherit;
+  border: 0;
+  outline: none;
+
   font-family: 'Arial', 'BlinkMacSystemFont', 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
 
   &:focus {
@@ -31,8 +82,10 @@ body {
 
 #root {
   position: relative;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .simplebar-scrollbar::before {
-  background-color: #ffffff4f !important;
+  background-color: var(--font-white-300) !important;
 }

@@ -1,0 +1,219 @@
+@import '@/assets/scss/device';
+
+.lyrics_contain {
+  width: 0%;
+  opacity: 0;
+  height: 100%;
+  transition: all 0.3s;
+  color: var(--l-color);
+}
+
+.contain_active {
+  width: 50%;
+  opacity: 1;
+
+  @include s {
+    display: none;
+  }
+}
+
+.hd {
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    letter-spacing: 2px;
+  }
+
+  .artist {
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.show_content {
+  width: 90%;
+  height: 72%;
+  display: flex;
+
+  .lyrics_content {
+    width: 95%
+  }
+
+  .btns_handle {
+    width: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.btns_handle {
+  div {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin: 10px 0;
+    background-color: transparent;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: var(--ss-color);
+    }
+  }
+
+  .icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    // overflow: hidden;
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
+  .uploading {
+    background-image: url(/assets/img/pic.png);
+    background-size: 125px;
+    background-position: 0px 0px;
+  }
+
+  .edit {
+    background-image: url(/assets/img/pic.png);
+    background-size: 125px;
+    background-position: 0px -25px;
+  }
+
+  .save {
+    background-image: url(/assets/img/pic.png);
+    background-size: 125px;
+    background-position: 0px -50px;
+  }
+
+  .overview {
+    background-image: url(/assets/img/pic.png);
+    background-size: 125px;
+    background-position: 0px -50px;
+  }
+
+  .copy {
+    background-image: url(/assets/img/pic.png);
+    background-size: 125px;
+    background-position: 0px -75px;
+    position: relative;
+
+    .hint {
+      position: absolute;
+      top: 200%;
+      left: -100%;
+      z-index: 10;
+
+      font: {
+        style: normal;
+        size: 13px;
+      }
+
+      opacity: 0;
+      transition: opacity 0.4s,
+      transform 0.8s;
+
+      white-space: nowrap;
+      letter-spacing: 2px;
+      padding: 5px 10px;
+      box-sizing: border-box;
+      background-color: var(--m-color);
+      border-radius: 30px;
+    }
+
+    .hint_active {
+      opacity: 1;
+      transform: translate3d(0, -20%, 0);
+    }
+  }
+}
+
+.lyrics_content {
+  height: 100%;
+  overflow: hidden;
+
+  .lyrics_list {
+    height: 100%;
+    width: 98%;
+    position: relative;
+  }
+}
+
+.lyrics_list {
+  .lr_li {
+    list-style: none;
+    color: var(--m-color);
+    font-size: 20px;
+    font-family: sans-serif;
+    height: 39px;
+    line-height: 39px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    // transition: all 0.1s;
+    cursor: default;
+
+    .ly_time {
+      width: 0%;
+      transition: width 0.2s;
+      float: left;
+      overflow: hidden;
+
+      input {
+        width: 90px;
+        padding: 0 0 0 10px !important;
+        background-color: #0000;
+        font-size: 18px;
+        padding: 0;
+
+        &:focus {
+          border: none;
+          outline: 0
+        }
+      }
+
+      .active {
+        width: 24%;
+      }
+    }
+  }
+
+  .active {
+    color: var(--l-color);
+    font-size: 21px;
+    transition: font 0.1s;
+  }
+}
+
+.lyrics-list .lr-li span {
+  display: none;
+  font-style: normal;
+  cursor: text;
+  -moz-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  -khtml-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.lyrics-list .lr-li span:focus {
+  border: none;
+  outline: 0
+}

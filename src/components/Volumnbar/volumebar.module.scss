@@ -1,0 +1,13 @@
+.volume_box {
+  transform: rotateZ(-90deg) translate(16%, 64%);
+  transform-origin: 0 center;
+  position: absolute;
+}
+
+.volume_contain {
+  width: 100%;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  background-color: var(--bg-white-300);
+  border-radius: 100px;
+}
