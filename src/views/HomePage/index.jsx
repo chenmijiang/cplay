@@ -19,7 +19,6 @@ import style from './home.module.scss'
 function HomePage({
   /* state */
   picUrl,
-  sameUrled,
   currentTime,
   duration,
   buffered,
@@ -28,7 +27,6 @@ function HomePage({
   /* dispatch */
   setTargetTime,
   uploadBoxShow,
-  uploadSameUrl,
 }) {
   const [isDrag, setIsDrag] = useState(false)
   const [current, setCurrent] = useState(0)
@@ -70,13 +68,7 @@ function HomePage({
           setCurrent(percent * duration)
         }}
       ></PlayProgressbar>
-      <Glasscover
-        gc_url={picUrl}
-        sameUrled={sameUrled}
-        uploadSameUrl={(bool) => {
-          uploadSameUrl(bool)
-        }}
-      />
+      <Glasscover targetUrl={picUrl} />
       <Portal>
         <AnimatePresence>
           {uploaded && (
@@ -100,14 +92,12 @@ const mapStateToProps = (state) => {
     uploaded: state.lyricsEdit.uploaded,
     uploadedState: state.uploadFiles.uploadedState,
     picUrl: state.uploadFiles.picUrl,
-    sameUrled: state.uploadFiles.sameUrled,
   }
 }
 
 const mapDispathToProps = {
   setTargetTime: player.actions.setTargetTime,
   uploadBoxShow: lyrics.actions.uploadBoxShow,
-  uploadSameUrl: upload.actions.uploadSameUrl,
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(HomePage)

@@ -48,6 +48,9 @@ function UploadBox({
       // setTimeout(() => {
       //   uploadState(2)
       // }, 1000)
+      console.log('upload successfully')
+    } else {
+      console.log('upload failed')
     }
   })
 
