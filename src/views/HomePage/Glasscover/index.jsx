@@ -13,8 +13,7 @@ import style from './glasscover.module.scss'
  * @returns
  */
 function Glasscover({ targetUrl }) {
-  // const isActived = targetUrl !== '' ? true : false //遮罩 && 背景色
-  const [isActived, setIsActived] = useState(false)
+  const [isActived, setIsActived] = useState(false) //遮罩
   const time = useTime()
   const filterArr = [
     'blur(0px) brightness(100%)',

@@ -1,23 +1,12 @@
 @import '@/assets/scss/device';
 
-.lyrics_contain {
-  width: 0%;
-  opacity: 0;
-  height: 100%;
-  transition: all 0.3s;
-  color: var(--l-color);
-}
-
-.contain_active {
+.ly_contain {
   width: 50%;
-  opacity: 1;
-
-  @include s {
-    display: none;
-  }
+  height: 100%;
+  color: var(--font-white-100);
 }
 
-.hd {
+.ly_header {
   .title {
     font-size: 28px;
     font-weight: 700;
@@ -40,12 +29,12 @@
   }
 }
 
-.show_content {
+.show_edit_content {
   width: 90%;
   height: 72%;
   display: flex;
 
-  .lyrics_content {
+  .ly_content {
     width: 95%
   }
 
@@ -59,7 +48,7 @@
 }
 
 .btns_handle {
-  div {
+  &>div {
     width: 25px;
     height: 25px;
     border-radius: 50%;
@@ -68,7 +57,7 @@
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: var(--ss-color);
+      background-color: var(--bg-white-500);
     }
   }
 
@@ -77,7 +66,6 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    // overflow: hidden;
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -93,12 +81,6 @@
     background-image: url(/assets/img/pic.png);
     background-size: 125px;
     background-position: 0px -25px;
-  }
-
-  .save {
-    background-image: url(/assets/img/pic.png);
-    background-size: 125px;
-    background-position: 0px -50px;
   }
 
   .overview {
@@ -132,7 +114,7 @@
       letter-spacing: 2px;
       padding: 5px 10px;
       box-sizing: border-box;
-      background-color: var(--m-color);
+      background-color: var(--font-white-300);
       border-radius: 30px;
     }
 
@@ -143,7 +125,7 @@
   }
 }
 
-.lyrics_content {
+.ly_content {
   height: 100%;
   overflow: hidden;
 
@@ -194,7 +176,7 @@
   }
 
   .active {
-    color: var(--l-color);
+    color: var(--font-white-100);
     font-size: 21px;
     transition: font 0.1s;
   }

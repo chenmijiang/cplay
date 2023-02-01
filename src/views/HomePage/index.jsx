@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -11,27 +11,72 @@ import Portal from '@/components/Portals'
 
 import player from '@/store/player'
 import lyrics from '@/store/lyrics'
+import upload from '@/store/upload'
 
 import { secondsToFormat } from '@/utils/time_parser'
+import { setKeyEvents, clearKeyEvents } from '@/utils/keyEvent'
 import style from './home.module.scss'
 
 function HomePage({
   /* state */
   paused,
   scrolled,
+  editedState,
+  timesState,
+  currentIndexState,
+  nameState,
+  artistState,
+  lyricsState,
   picUrl,
   currentTime,
   duration,
   buffered,
   uploaded,
-  uploadedState,
   /* dispatch */
-  playPause,
+  playPauseDispath,
   setTargetTime,
   uploadBoxShow,
+  setEditedDispath,
+  updateTimeDispath,
+  updateCurrentIndexDispath,
+  uploadStateDispath,
 }) {
   const [isDrag, setIsDrag] = useState(false)
   const [current, setCurrent] = useState(0)
+
+
+  // const keyEvents = useCallback((evt) => {
+  //   let event = evt || window.event
+  //   switch (event.key.toLowerCase()) {
+  //     case ' ': // 暂停播放和开始播放
+  //       playPauseDispath(!paused)
+  //       break
+  //     default:
+  //       break
+  //   }
+  //   if (editedState) {
+  //     switch (event.key.toLowerCase()) {
+  //       // 添加时间轴
+  //       case 'enter':
+  //         if (currentIndexState < lyricsState.length - 1) {
+  //           let index = currentIndexState + 1
+  //           updateCurrentIndexDispath(index)
+  //           // const newTimes = [...times]
+  //           // newTimes[index] = secondsToFormat(currentTime)
+  //           // setTimes(newTimes)
+  //           // updateTime(currentTime, index)
+  //         }
+  //         break
+  //       default:
+  //         break
+  //     }
+  //   }
+  // },[])
+
+  // useEffect(() => {
+  //   setKeyEvents(keyEvents)
+  //   return () => clearKeyEvents()
+  // }, [keyEvents])
 
   return (
     <motion.div
@@ -49,13 +94,25 @@ function HomePage({
           coverUrl={picUrl}
           paused={paused}
           scrolled={scrolled}
-          playPause={playPause}
+          playPause={playPauseDispath}
         />
         {/* <!--歌词编辑区--> */}
-        {
-          //uploadedState !== 0
-          true && <Lyricsedit uploadedState={uploadedState}></Lyricsedit>
-        }
+        <Lyricsedit
+          pausedState={paused}
+          currentTimeState={currentTime}
+          editedState={editedState}
+          lytimesState={timesState}
+          currentIndexState={currentIndexState}
+          nameState={nameState}
+          artistState={artistState}
+          lyricsState={lyricsState}
+          uploadBoxShowDispath={uploadBoxShow}
+          setEditedDispath={setEditedDispath}
+          updateTimeDispath={updateTimeDispath}
+          updateCurrentIndexDispath={updateCurrentIndexDispath}
+          uploadStateDispath={uploadStateDispath}
+          playPauseDispath={playPauseDispath}
+        />
       </div>
       <PlayProgressbar
         current={secondsToFormat(isDrag ? current : currentTime, 0)}
@@ -74,7 +131,7 @@ function HomePage({
           }
           setCurrent(percent * duration)
         }}
-      ></PlayProgressbar>
+      />
       <Glasscover targetUrl={picUrl} />
       <Portal>
         <AnimatePresence>
@@ -83,7 +140,7 @@ function HomePage({
               closeUploadBox={(bool) => {
                 uploadBoxShow(bool)
               }}
-            ></UploadFilesBox>
+            />
           )}
         </AnimatePresence>
       </Portal>
@@ -99,15 +156,24 @@ const mapStateToProps = (state) => {
     duration: state.player.duration,
     currentTime: state.player.currentTime,
     uploaded: state.lyricsEdit.uploaded,
-    uploadedState: state.uploadFiles.uploadedState,
+    editedState: state.lyricsEdit.edited,
+    timesState: state.lyricsEdit.times,
+    currentIndexState: state.lyricsEdit.currentIndex,
+    nameState: state.uploadFiles.name,
+    artistState: state.uploadFiles.artist,
+    lyricsState: state.uploadFiles.lyrics,
     picUrl: state.uploadFiles.picUrl,
   }
 }
 
 const mapDispathToProps = {
-  playPause: player.actions.playPause,
+  playPauseDispath: player.actions.playPause,
   setTargetTime: player.actions.setTargetTime,
   uploadBoxShow: lyrics.actions.uploadBoxShow,
+  setEditedDispath: lyrics.actions.setEdited,
+  updateTimeDispath: lyrics.actions.updateTime,
+  updateCurrentIndexDispath: lyrics.actions.updateCurrentIndex,
+  uploadStateDispath: upload.actions.uploadState,
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(HomePage)
