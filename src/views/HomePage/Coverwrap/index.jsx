@@ -1,30 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
 
 import Volumebar from '@/components/Volumnbar'
 
-import player from '@/store/player'
-import imgUrl from '@/assets/img/contentInner.png'
+import contentInner from '@/assets/img/contentInner.png'
 import style from './coverwrap.module.scss'
 
 /**
  *
- * @param {*} props { cv_url }
+ * @param {*} props { coverUrl, paused, scrolled, playPause }
  * @returns
  */
-function Coverwrap({
-  cv_url,
-  /* state */ 
-  paused,
-  scrolled,
-  /* dispatch */ 
-  playPause,
-}) {
+function Coverwrap({ coverUrl, paused, scrolled, playPause }) {
   const [volumeShowed, setVolumeShowed] = useState(false)
-  const [url, setUrl] = useState(imgUrl)
+  const [url, setUrl] = useState(contentInner)
   useEffect(() => {
-    setUrl(cv_url ? cv_url : imgUrl)
-  }, [cv_url])
+    setUrl(coverUrl ? coverUrl : contentInner)
+  }, [coverUrl])
 
   return (
     <div className={style.cvrwrap}>
@@ -41,9 +32,11 @@ function Coverwrap({
         <span className={style.msk}></span>
       </div>
       <div className={style.btns_handle}>
+        {/* edit history */}
         <div>
           <i className={[style.icon, style.edit_history].join(' ')}></i>
         </div>
+        {/* play control */}
         <div>
           <i
             className={[
@@ -56,6 +49,7 @@ function Coverwrap({
             }}
           ></i>
         </div>
+        {/* volume control */}
         <div>
           <i
             className={[style.icon, style.volume_ctr].join(' ')}
@@ -70,15 +64,4 @@ function Coverwrap({
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    paused: state.player.paused,
-    scrolled: state.player.scrolled,
-  }
-}
-
-const mapDispathToProps = {
-  playPause: player.actions.playPause,
-}
-
-export default connect(mapStateToProps, mapDispathToProps)(Coverwrap)
+export default Coverwrap

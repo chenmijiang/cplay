@@ -4,20 +4,21 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import Coverwrap from './Coverwrap'
 import Glasscover from './Glasscover'
+import Lyricsedit from './Lyricsedit'
 import PlayProgressbar from '@/components/PlayProgressbar'
 import UploadFilesBox from '@/components/UploadFilesBox'
 import Portal from '@/components/Portals'
-import Lyricsedit from './Lyricsedit'
 
 import player from '@/store/player'
 import lyrics from '@/store/lyrics'
-import upload from '@/store/upload'
 
 import { secondsToFormat } from '@/utils/time_parser'
 import style from './home.module.scss'
 
 function HomePage({
   /* state */
+  paused,
+  scrolled,
   picUrl,
   currentTime,
   duration,
@@ -25,6 +26,7 @@ function HomePage({
   uploaded,
   uploadedState,
   /* dispatch */
+  playPause,
   setTargetTime,
   uploadBoxShow,
 }) {
@@ -43,7 +45,12 @@ function HomePage({
     >
       <div className={style.home_page_contain}>
         {/* <!-- 唱片滚动及事件绑定 --> */}
-        <Coverwrap cv_url={picUrl}></Coverwrap>
+        <Coverwrap
+          coverUrl={picUrl}
+          paused={paused}
+          scrolled={scrolled}
+          playPause={playPause}
+        />
         {/* <!--歌词编辑区--> */}
         {
           //uploadedState !== 0
@@ -86,6 +93,8 @@ function HomePage({
 
 const mapStateToProps = (state) => {
   return {
+    paused: state.player.paused,
+    scrolled: state.player.scrolled,
     buffered: state.player.buffered,
     duration: state.player.duration,
     currentTime: state.player.currentTime,
@@ -96,6 +105,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispathToProps = {
+  playPause: player.actions.playPause,
   setTargetTime: player.actions.setTargetTime,
   uploadBoxShow: lyrics.actions.uploadBoxShow,
 }
