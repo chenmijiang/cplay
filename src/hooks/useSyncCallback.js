@@ -15,7 +15,7 @@ const useSyncCallback = callback => {
 
   useEffect(() => {
     proxyState.current && callback(...params)
-  })
+  }, [proxyState, callback, params])
 
   return Func
 }

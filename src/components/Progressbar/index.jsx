@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import style from './progressbar.module.scss'
 /**
@@ -29,19 +29,13 @@ function Progressbar({
   useEffect(() => {
     setPre(prePercent ? prePercent : 0)
   }, [prePercent])
-  const handleClick = useCallback(
-    (value, bool) => {
-      setCurrentPercent && setCurrentPercent(value / max, bool)
-    },
-    [setCurrentPercent, max]
-  )
+  const handleClick = (value, bool) => {
+    setCurrentPercent && setCurrentPercent(value / max, bool)
+  }
 
-  const handleChange = useCallback(
-    (value, bool) => {
-      setCurrentTime && setCurrentTime(value / max, bool)
-    },
-    [setCurrentTime, max]
-  )
+  const handleChange = (value, bool) => {
+    setCurrentTime && setCurrentTime(value / max, bool)
+  }
 
   return (
     <div
