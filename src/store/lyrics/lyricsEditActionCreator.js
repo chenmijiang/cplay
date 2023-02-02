@@ -1,7 +1,7 @@
 import {
   EDITED,
   UPLOAD,
-  UPDATE_TIMES,
+  UPDATE_TIME,
   CHANGE_CURRENT_INDEX,
   INIT_TIMES,
 } from './type'
@@ -22,7 +22,7 @@ export function uploadBoxShow(bool) {
 
 export function updateTime(time, index) {
   return {
-    type: UPDATE_TIMES,
+    type: UPDATE_TIME,
     time,
     index,
   }

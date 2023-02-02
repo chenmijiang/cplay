@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -14,7 +14,7 @@ import lyrics from '@/store/lyrics'
 import upload from '@/store/upload'
 
 import { secondsToFormat } from '@/utils/time_parser'
-import { setKeyEvents, clearKeyEvents } from '@/utils/keyEvent'
+// import { setKeyEvents, clearKeyEvents } from '@/utils/keyEvent'
 import style from './home.module.scss'
 
 function HomePage({

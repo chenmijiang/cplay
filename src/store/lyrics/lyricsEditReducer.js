@@ -1,7 +1,7 @@
 import {
   EDITED,
   UPLOAD,
-  UPDATE_TIMES,
+  UPDATE_TIME,
   CHANGE_CURRENT_INDEX,
   INIT_TIMES,
 } from './type'
@@ -17,7 +17,7 @@ export default function lyricsEditReducer(preState = {}, action) {
     case UPLOAD:
       newState.uploaded = action.uploaded
       return newState
-    case UPDATE_TIMES:
+    case UPDATE_TIME:
       let index = action.index
       newState.times[index] = action.time
       return newState
