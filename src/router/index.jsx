@@ -17,11 +17,11 @@ export default function MRouter() {
   if (!element) return null
 
   return (
-    <AnimatePresence
-      // mode="wait"
-      initial={false}
-    >
-      {React.cloneElement(element, { key: location.pathname })}
+    <AnimatePresence initial={false} >
+      {React.cloneElement(element, {
+        location: { location },
+        key: location.pathname,
+      })}
     </AnimatePresence>
   )
 }

@@ -8,20 +8,17 @@ import style from './lyricsedit.module.scss'
 
 const Lyricsedit = React.memo(
   ({
-    // pausedState,
-    // currentTimeState,
     editedState,
     currentIndexState,
     lytimesState,
     nameState,
     artistState,
     lyricsState,
-    uploadBoxShowDispath,
-    setEditedDispath,
-    updateTimeDispath,
-    updateCurrentIndexDispath,
-    // uploadStateDispath,
-    playPauseDispath,
+    uploadBoxShowDispatch,
+    setEditedDispatch,
+    updateTimeDispatch,
+    updateCurrentIndexDispatch,
+    playPauseDispatch,
   }) => {
     const [lyTimes, setLyTimes] = useState(lytimesState)
     const oldLyTimes = useRef(lytimesState)
@@ -32,7 +29,6 @@ const Lyricsedit = React.memo(
       }
     }, [lytimesState])
 
-    const lylist = useRef()
     const [clickIndex, setClickIndex] = useState(-1) //可编辑预览模式，显示单行时间轴
     const [checked, setChecked] = useState(true) //检测时间轴格式是否正确
     const [changed, setChanged] = useState(false) //检测时间是否改变
@@ -71,16 +67,16 @@ const Lyricsedit = React.memo(
       content: '',
     })
     const handlerUploadBtn = () => {
-      uploadBoxShowDispath(true)
-      playPauseDispath(true)
+      uploadBoxShowDispatch(true)
+      playPauseDispatch(true)
     }
     const handlerEditBtn = () => {
-      setEditedDispath(true)
-      updateCurrentIndexDispath(-1)
+      setEditedDispatch(true)
+      updateCurrentIndexDispatch(-1)
     }
     const handlerOverviewBtn = () => {
-      setEditedDispath(false)
-      updateCurrentIndexDispath(-1)
+      setEditedDispatch(false)
+      updateCurrentIndexDispatch(-1)
     }
     const handlerCopyBtn = () => {
       const content = copyLyrics(lytimesState, lyricsState)
@@ -115,14 +111,6 @@ const Lyricsedit = React.memo(
               className={style.lyrics_list}
               ref={scrollableNodeRef}
             >
-              <ul
-                className={style.ly_ul}
-                ref={lylist}
-                onClick={(e) => {
-                  console.log('e', e)
-                  console.log(lylist)
-                }}
-              >
                 {lyricsState.map((ly, index) => (
                   <li
                     key={index}
@@ -138,7 +126,7 @@ const Lyricsedit = React.memo(
                         setChanged(false)
                         setChecked(false)
                         // 将数据同步到状态上
-                        updateTimeDispath(lyTimes[index], index)
+                        updateTimeDispatch(lyTimes[index], index)
                       }
                       if (clickIndex !== -1) {
                         setClickIndex(-1)
@@ -169,7 +157,6 @@ const Lyricsedit = React.memo(
                     {ly}
                   </li>
                 ))}
-              </ul>
             </SimpleBar>
           </div>
           {/* buttons bar */}

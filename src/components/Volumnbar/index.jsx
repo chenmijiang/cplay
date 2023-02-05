@@ -9,10 +9,8 @@ import style from './volumebar.module.scss'
 
 function Volumebar({
   setVolumeShowed,
-  /* state */
-  volume,
-  /* dispatch */
-  setVolume,
+  volumeState,
+  setVolumeDispatch,
 }) {
   return (
     <motion.div
@@ -30,9 +28,9 @@ function Volumebar({
       <div className={style.volume_contain}>
         <Progressbar
           maxValue={100}
-          curPercent={volume}
+          curPercent={volumeState}
           setCurrentTime={(p) => {
-            setVolume(p)
+            setVolumeDispatch(p)
           }}
         />
       </div>
@@ -42,12 +40,12 @@ function Volumebar({
 
 const mapStateToProps = (state) => {
   return {
-    volume: state.player.volume,
+    volumeState: state.player.volume,
   }
 }
 
 const mapDispathToProps = {
-  setVolume: player.actions.setVolume,
+  setVolumeDispatch: player.actions.setVolume,
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(Volumebar)

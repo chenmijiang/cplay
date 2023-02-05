@@ -14,12 +14,10 @@ import style from './uploadfilesbox.module.scss'
 const UploadBox = React.memo(
   ({
     closeUploadBox,
-    /* dispatch */
-    initTimes,
-    updateCurrentIndex,
-    uploadLyrics,
-    uploadMusicWay2,
-    uploadState,
+    initTimesDispatch,
+    updateCurrentIndexDispatch,
+    uploadLyricsDispatch,
+    uploadMusicWay2Dispatch,
   }) => {
     // 0 : music file, 1 : lyrics file
     const [nextStep, setNextStep] = useState(0)
@@ -37,16 +35,11 @@ const UploadBox = React.memo(
       lyricsContentListener()
       if (isLyricsEmpty.current) {
         //更新音频数据
-        isMusicUpload && uploadMusicWay2(musicfile)
+        isMusicUpload && uploadMusicWay2Dispatch(musicfile)
         //更新歌词和时间轴数据
-        uploadLyrics(lyrics.current)
-        initTimes(timeShaft.current)
-        updateCurrentIndex(-1)
-        // 动画更新
-        // uploadState(1)
-        // setTimeout(() => {
-        //   uploadState(2)
-        // }, 1000)
+        uploadLyricsDispatch(lyrics.current)
+        initTimesDispatch(timeShaft.current)
+        updateCurrentIndexDispatch(-1)
         console.log('upload successfully')
       } else {
         console.log('upload failed')
@@ -277,11 +270,10 @@ const UploadBox = React.memo(
 )
 
 const mapDispatchToProps = {
-  initTimes: lyrics.actions.initTimes,
-  updateCurrentIndex: lyrics.actions.updateCurrentIndex,
-  uploadLyrics: upload.actions.uploadLyrics,
-  uploadMusicWay2: upload.actions.uploadMusicWay2,
-  uploadState: upload.actions.uploadState,
+  initTimesDispatch: lyrics.actions.initTimes,
+  updateCurrentIndexDispatch: lyrics.actions.updateCurrentIndex,
+  uploadLyricsDispatch: upload.actions.uploadLyrics,
+  uploadMusicWay2Dispatch: upload.actions.uploadMusicWay2,
 }
 
 export default connect(null, mapDispatchToProps)(UploadBox)

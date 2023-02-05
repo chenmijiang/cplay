@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import player from '@/store/player'
 import lyrics from '@/store/lyrics'
 import { setCurrentIndex } from '@/utils/common'
+import { formatToSeconds } from '@/utils/time_parser'
 import {
   canplayHandler,
   canPlayThroughHandler,
@@ -18,42 +19,46 @@ import {
 
 const MusicPlayer = React.memo(
   ({
-    /* state */
-    src,
-    paused,
-    targetTime,
-    volume,
-    edited,
-    times,
-    currentIndex,
-    /* dispatch */
-    setCurrentTime,
-    setDuration,
-    setBuffered,
-    end,
-    setCoverScroll,
-    updateCurrentIndex,
+    srcState,
+    pausedState,
+    targetTimeState,
+    volumeState,
+    editedState,
+    timesState,
+    currentIndexState,
+    setCurrentTimeDispatch,
+    setDurationDispatch,
+    setBufferedDispatch,
+    endDispatch,
+    setCoverScrollDispatch,
+    updateCurrentIndexDispatch,
   }) => {
+    const timesRef = useRef(timesState.map((time) => formatToSeconds(time)))
+    useEffect(() => {
+      if (!editedState) {
+        timesRef.current = timesState.map((time) => formatToSeconds(time))
+      }
+    }, [editedState, timesState])
     const player = useRef()
     //有关网络质量的提醒
     const [networkId, setNetworkId] = useState(0)
     //播放暂停
     useEffect(() => {
-      paused ? player.current.pause() : player.current.play()
-    }, [paused])
+      pausedState ? player.current.pause() : player.current.play()
+    }, [pausedState])
     //进度跳转
     useEffect(() => {
-      player.current.currentTime = targetTime
-      setCurrentTime(targetTime)
-    }, [targetTime, setCurrentTime])
+      player.current.currentTime = targetTimeState
+      setCurrentTimeDispatch(targetTimeState)
+    }, [targetTimeState, setCurrentTimeDispatch])
     //设置音量
     useEffect(() => {
-      player.current.volume = volume
-    }, [volume])
+      player.current.volume = volumeState
+    }, [volumeState])
 
     const handleLoadedData = (e) => {
       loadedDataHandler(e, ({ e }) => {
-        setDuration(e.target.duration)
+        setDurationDispatch(e.target.duration)
       })
     }
     const handleProgress = (e) => {
@@ -62,17 +67,17 @@ const MusicPlayer = React.memo(
     const handleTimeUpdate = (e) => {
       timeUpdateHandler(e, ({ e, value }) => {
         let time = e.target.currentTime
-        setCurrentTime(time)
-        setBuffered(value)
-        if (!edited) {
-          let index = setCurrentIndex(time, times)
-          index !== currentIndex && updateCurrentIndex(index)
+        setCurrentTimeDispatch(time)
+        setBufferedDispatch(value)
+        if (!editedState) {
+          let index = setCurrentIndex(time, timesRef.current)
+          index !== currentIndexState && updateCurrentIndexDispatch(index)
         }
       })
     }
     const handleEnded = (e) => {
       endedHandler(e, ({ e }) => {
-        end()
+        endDispatch()
       })
     }
     const handleError = (e) => {
@@ -89,14 +94,14 @@ const MusicPlayer = React.memo(
         }, 20000)
       )
       waitingHandler(e, ({ e }) => {
-        setCoverScroll(false)
+        setCoverScrollDispatch(false)
       })
     }
 
     const handleCanPlay = (e) => {
       clearTimeout(networkId)
       canplayHandler(e, ({ e }) => {
-        setCoverScroll(true)
+        setCoverScrollDispatch(true)
       })
     }
 
@@ -108,7 +113,7 @@ const MusicPlayer = React.memo(
       <div style={{ position: 'absolute', opacity: 0, zIndex: -30 }}>
         <audio
           // 来源
-          src={src}
+          src={srcState}
           controls
           ref={player}
           onLoadedData={handleLoadedData}
@@ -130,24 +135,24 @@ const MusicPlayer = React.memo(
 
 const mapStateToProps = (state) => {
   return {
-    paused: state.player.paused,
-    currentTime: state.player.currentTime,
-    targetTime: state.player.targetTime,
-    volume: state.player.volume,
-    edited: state.lyricsEdit.edited,
-    times: state.lyricsEdit.times,
-    currentIndex: state.lyricsEdit.currentIndex,
-    src: state.uploadFiles.src,
+    pausedState: state.player.paused,
+    currentTimeState: state.player.currentTime,
+    targetTimeState: state.player.targetTime,
+    volumeState: state.player.volume,
+    editedState: state.lyricsEdit.edited,
+    timesState: state.lyricsEdit.times,
+    currentIndexState: state.lyricsEdit.currentIndex,
+    srcState: state.uploadFiles.src,
   }
 }
 
 const mapDispathToProps = {
-  setCurrentTime: player.actions.setCurrentTime,
-  setDuration: player.actions.setDuration,
-  setBuffered: player.actions.setBuffered,
-  setCoverScroll: player.actions.setCoverScroll,
-  end: player.actions.end,
-  updateCurrentIndex: lyrics.actions.updateCurrentIndex,
+  setCurrentTimeDispatch: player.actions.setCurrentTime,
+  setDurationDispatch: player.actions.setDuration,
+  setBufferedDispatch: player.actions.setBuffered,
+  setCoverScrollDispatch: player.actions.setCoverScroll,
+  endDispatch: player.actions.end,
+  updateCurrentIndexDispatch: lyrics.actions.updateCurrentIndex,
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(MusicPlayer)

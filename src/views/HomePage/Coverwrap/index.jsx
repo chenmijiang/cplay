@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 
 import Volumebar from '@/components/Volumnbar'
 
@@ -10,7 +11,7 @@ import style from './coverwrap.module.scss'
  * @param {*} props { coverUrl, paused, scrolled, playPause }
  * @returns
  */
-function Coverwrap({ coverUrl, paused, scrolled, playPause }) {
+const Coverwrap = React.memo(({ coverUrl, paused, scrolled, playPause }) => {
   const [volumeShowed, setVolumeShowed] = useState(false)
   const [url, setUrl] = useState(contentInner)
   useEffect(() => {
@@ -57,11 +58,13 @@ function Coverwrap({ coverUrl, paused, scrolled, playPause }) {
               setVolumeShowed(!volumeShowed)
             }}
           ></i>
-          {volumeShowed && <Volumebar setVolumeShowed={setVolumeShowed} />}
+          <AnimatePresence>
+            {volumeShowed && <Volumebar setVolumeShowed={setVolumeShowed} />}
+          </AnimatePresence>
         </div>
       </div>
     </div>
   )
-}
+})
 
 export default Coverwrap

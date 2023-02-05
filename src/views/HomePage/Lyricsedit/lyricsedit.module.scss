@@ -139,7 +139,7 @@
 .lyrics_list {
   .lr_li {
     list-style: none;
-    color: var(--m-color);
+    color: var(--font-white-200);
     font-size: 20px;
     font-family: sans-serif;
     height: 39px;
@@ -178,6 +178,7 @@
   .active {
     color: var(--font-white-100);
     font-size: 21px;
+    font-weight: bold;
     transition: font 0.1s;
   }
 }

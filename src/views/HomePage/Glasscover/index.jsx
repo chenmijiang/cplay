@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useTime, useTransform } from 'framer-motion'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState, useRef } from 'react'
 
 import { glassCoverVariant } from '@/variants'
 import useSyncCallback from '@/hooks/useSyncCallback'
@@ -12,8 +12,9 @@ import style from './glasscover.module.scss'
  * @param {*} props {targetUrl}
  * @returns
  */
-function Glasscover({ targetUrl }) {
-  const [isActived, setIsActived] = useState(false) //遮罩
+const Glasscover = React.memo(({ targetUrl }) => {
+  const [actived, setActived] = useState(false)
+  const intialized = useRef([true, 0])
   const time = useTime()
   const filterArr = [
     'blur(0px) brightness(100%)',
@@ -29,23 +30,36 @@ function Glasscover({ targetUrl }) {
   )
 
   useLayoutEffect(() => {
-    targetUrl !== '' && setIsActived(true)
-  }, [targetUrl])
+    if (intialized.current[0] === true) {
+      if (intialized.current[1] === 0) {
+        intialized.current[1]++
+      } else {
+        intialized.current[0] = false
+      }
+    }
+    targetUrl !== '' && setActived(true)
+  }, [targetUrl, setActived])
   const animationEnd = useSyncCallback(() => {
-    targetUrl === '' && setIsActived(false)
+    targetUrl === '' && setActived(false)
   })
 
   return (
     <motion.div
       className={style.glass_mask}
       style={{
-        filter: isActived ? filter : filterReverse,
-        transform: `scale(${isActived ? 2 : 1})`,
+        filter: !intialized.current[0]
+          ? actived
+            ? filter
+            : filterReverse
+          : actived
+          ? 'blur(16px) brightness(64%)'
+          : 'blur(0px) brightness(100%)',
+        transform: `scale(${actived ? 2 : 1})`,
       }}
     >
       <AnimatePresence
         initial={false}
-        custom={isActived}
+        custom={actived}
       >
         <motion.img
           className={style.glass_img}
@@ -55,12 +69,12 @@ function Glasscover({ targetUrl }) {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ opacity: { duration: isActived ? 0.8 : 0.4 } }}
+          transition={{ opacity: { duration: actived ? 0.8 : 0.4 } }}
           onAnimationComplete={animationEnd}
         />
       </AnimatePresence>
     </motion.div>
   )
-}
+})
 
 export default Glasscover
