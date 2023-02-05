@@ -1,0 +1,32 @@
+.personspace_page_body {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: 64px 1fr 80px;
+  grid-template-areas:
+    "headerbar headerbar"
+    "sidenav content"
+    "playbar playbar";
+}
+
+.headerbar_body {
+  grid-area: headerbar;
+  background: linear-gradient(to right, rgb(138, 189, 202), rgb(175 211 225), rgb(214 190 190));
+}
+
+.sidebar_body {
+  grid-area: sidenav;
+  border-right: 1px solid var(--bg-gray-100);
+}
+
+.playbar_body {
+  grid-area: playbar;
+  border-top: 1px solid var(--bg-gray-100);
+}
+
+.content {
+  grid-area: content;
+}

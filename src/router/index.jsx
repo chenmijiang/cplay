@@ -3,12 +3,38 @@ import { useNavigate, useRoutes, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
 import HomePage from '@/views/HomePage'
-import PersonSpace from '@/views/PersonSpace'
+
+import LoginQR from '@/views/PersonSpace/LoginQR'
 
 export default function MRouter() {
   const element = useRoutes([
     { path: '/', element: <HomePage /> },
-    { path: '/person', element: <PersonSpace /> },
+    {
+      path: '/person',
+      element: LazyLoad({ name: 'PersonSpace' }),
+      children: [
+        {
+          path: 'login_qr',
+          element: <LoginQR />,
+        },
+        {
+          path: 'search',
+          element: <LoginQR />,
+        },
+        {
+          path: 'history',
+          element: <LoginQR />,
+        },
+        {
+          path: 'cloud',
+          element: <LoginQR />,
+        },
+        {
+          path: 'settings',
+          element: <LoginQR />,
+        },
+      ],
+    },
     { path: '*', element: LazyLoad({ name: 'NotFound' }) },
   ])
 
@@ -17,7 +43,7 @@ export default function MRouter() {
   if (!element) return null
 
   return (
-    <AnimatePresence initial={false} >
+    <AnimatePresence initial={false}>
       {React.cloneElement(element, {
         location: { location },
         key: location.pathname,
