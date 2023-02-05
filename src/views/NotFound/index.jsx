@@ -79,7 +79,7 @@ function NotFound() {
                   navigate('/')
                 }}
               >
-                go back
+                返回首页
               </button>
             </article>
           </div>
