@@ -23,7 +23,7 @@ const PlayProgressbar = React.memo(
           setCurrentTime={(percent, isDrag) => {
             setCurrentTime && setCurrentTime(percent, isDrag)
           }}
-        ></Progressbar>
+        />
         <span>{duration}</span>
       </div>
     )
@@ -38,6 +38,7 @@ const style = {
     width: '100%',
     height: '64px',
     padding: '0 5%',
+    gap: '10px',
     color: 'var(--font-white-100)',
     userSelect: 'none',
   },

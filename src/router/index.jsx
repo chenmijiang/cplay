@@ -3,35 +3,41 @@ import { useNavigate, useRoutes, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
 import HomePage from '@/views/HomePage'
+import PersonSpace from '@/views/PersonSpace'
 
-import LoginQR from '@/views/PersonSpace/LoginQR'
+import MessageInfo from '@/views/PersonSpace/MessageInfo'
 
 export default function MRouter() {
   const element = useRoutes([
     { path: '/', element: <HomePage /> },
     {
-      path: '/person',
-      element: LazyLoad({ name: 'PersonSpace' }),
+      path: '/space',
+      element: <PersonSpace />,
+      caseSensitive: true,
       children: [
         {
-          path: 'login_qr',
-          element: <LoginQR />,
+          index: true,
+          element: <MessageInfo />,
+        },
+        {
+          path: 'login',
+          element: <MessageInfo />,
         },
         {
           path: 'search',
-          element: <LoginQR />,
+          element: <MessageInfo />,
         },
         {
           path: 'history',
-          element: <LoginQR />,
+          element: <MessageInfo />,
         },
         {
           path: 'cloud',
-          element: <LoginQR />,
+          element: <MessageInfo />,
         },
         {
           path: 'settings',
-          element: <LoginQR />,
+          element: <MessageInfo />,
         },
       ],
     },
@@ -46,7 +52,9 @@ export default function MRouter() {
     <AnimatePresence initial={false}>
       {React.cloneElement(element, {
         location: { location },
-        key: location.pathname,
+        key: location.pathname.includes('/space')
+          ? '/space'
+          : location.pathname,
       })}
     </AnimatePresence>
   )

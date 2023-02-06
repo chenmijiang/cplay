@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import style from './progressbar.module.scss'
+import './progressbar.scss'
 /**
  * 控制播放条：
  * 1. 两种宽度：进度小数，预加载小数（非必需），父传子
@@ -39,19 +39,19 @@ function Progressbar({
 
   return (
     <div
-      className={style.slider_container}
+      className="slider_container"
       style={{
         '--fill-width': `${(value / max) * 100}%`,
         '--pre-width': `${pre * 100}%`,
       }}
     >
-      <div className={style.progress}>
+      <div className="progress">
         <input
           type="range"
           min="0"
           max={max}
           value={value}
-          className={style.slider_range}
+          className="slider_range"
           onChange={(evt) => {
             let value = evt.target.value
             setValue(value)

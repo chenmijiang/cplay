@@ -8,9 +8,9 @@ try {
   console.log(error)
 }
 
-function Icon({ name }) {
+function Icon({ className, name }) {
   return (
-    <svg className="icon">
+    <svg className={className ? className : 'icon'}>
       <use xlinkHref={'#' + name} />
     </svg>
   )

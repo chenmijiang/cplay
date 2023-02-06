@@ -4,7 +4,7 @@
   position: absolute;
 
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 80px 1fr;
   grid-template-rows: 64px 1fr 80px;
   grid-template-areas:
     "headerbar headerbar"
@@ -14,7 +14,7 @@
 
 .headerbar_body {
   grid-area: headerbar;
-  background: linear-gradient(to right, rgb(138, 189, 202), rgb(175 211 225), rgb(214 190 190));
+  background: linear-gradient(to right, rgb(138, 189, 202) 10%, rgb(183 208 217) 50%, rgb(234 147 147));
 }
 
 .sidebar_body {

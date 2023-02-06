@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
-import Volumebar from '@/components/Volumnbar'
+import Volumebar from '@/components/Volumebar'
 
 import contentInner from '@/assets/img/contentInner.png'
 import style from './coverwrap.module.scss'
@@ -17,6 +18,7 @@ const Coverwrap = React.memo(({ coverUrl, paused, scrolled, playPause }) => {
   useEffect(() => {
     setUrl(coverUrl ? coverUrl : contentInner)
   }, [coverUrl])
+  const navigate = useNavigate()
 
   return (
     <div className={style.cvrwrap}>
@@ -35,7 +37,12 @@ const Coverwrap = React.memo(({ coverUrl, paused, scrolled, playPause }) => {
       <div className={style.btns_handle}>
         {/* edit history */}
         <div>
-          <i className={[style.icon, style.edit_history].join(' ')}></i>
+          <i
+            className={[style.icon, style.edit_history].join(' ')}
+            onClick={() => {
+              navigate('/space/history')
+            }}
+          ></i>
         </div>
         {/* play control */}
         <div>

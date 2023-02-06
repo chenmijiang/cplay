@@ -7,3 +7,45 @@
   gap: 30px;
   align-items: center;
 }
+
+.user {
+  width: 50px;
+  height: 50px;
+  margin-top: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--bg-gray-100);
+
+  svg {
+    height: 32px;
+    width: 32px;
+    fill: var(--bg-gray-100);
+  }
+}
+
+.navlink {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+
+  svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--bg-gray-100);
+  }
+}
+
+.navlink_active {
+  background-color: var(--bg-red-100);
+  box-shadow: 0px 2px 6px 1px var(--bg-red-130);
+
+  svg {
+    fill: rgb(255 255 255 / 85%);
+  }
+}

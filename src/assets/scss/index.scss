@@ -13,6 +13,13 @@
   --font-black-100: #000000;
   --font-black-110: #0000004d;
   --font-cyan-100: #6592a8;
+  --font-gray-100: #BCBCBC;
+  --font-gray-110: #9b9b9b42;
+  --font-gray-200: #606060;
+  --font-gray-210: #6060601a;
+  --font-gray-224: #6060603d;
+  --font-red-100: #d90000;
+  --font-red-130: #d900004d;
   //bg-color
   --bg-cyan-100: var(--font-cyan-100);
   --bg-cyan-200: #41606f;
@@ -26,7 +33,10 @@
   --bg-purple-100: #695681;
   --bg-purple-200: #32243E;
   --bg-purple-300: #36184F;
-  --bg-gray-100: #BCBCBC;
+  --bg-gray-100: var(--font-gray-100);
+  --bg-gray-200: var(--font-gray-200);
+  --bg-gray-210: var(--font-gray-210);
+  --bg-gray-224: var(--font-gray-224);
   --bg-white-100: var(--font-white-100);
   --bg-white-200: var(--font-white-200);
   --bg-white-300: var(--font-white-300);
@@ -36,6 +46,8 @@
   --bg-black-110: var(--font-black-110);
   --bg-pink-100: #FB8A8A;
   --bg-yellow-100: #FFEDC0;
+  --bg-red-100: var(--font-red-100);
+  --bg-red-130: var(-font-red-130);
   // gradient
   --g-100: linear-gradient(90deg, #68CBFB 13.7%, #C3F2EC 94.65%);
   --g-200: linear-gradient(90deg, #FFEDC0 0%, #FF9D87 100%);
