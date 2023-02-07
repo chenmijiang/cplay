@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SimpleBar from 'simplebar-react'
+import 'simplebar/dist/simplebar.min.css'
 
 import player from '@/store/player'
 
@@ -28,8 +29,8 @@ const PersonSpace = ({
   const [isDrag, setIsDrag] = useState(false)
   const [current, setCurrent] = useState(0)
 
-  const keyEvents = useCallback(
-    (evt) => {
+  useEffect(() => {
+    const keyEvents = (evt) => {
       let event = evt || window.event
       switch (event.key.toLowerCase()) {
         case ' ': // 暂停播放和开始播放
@@ -38,13 +39,11 @@ const PersonSpace = ({
         default:
           break
       }
-    },
-    [playPauseDispatch, pausedState]
-  )
-  useEffect(() => {
+    }
+
     setKeyEvents(keyEvents)
     return () => clearKeyEvents()
-  }, [keyEvents])
+  }, [playPauseDispatch, pausedState])
 
   return (
     <motion.div
@@ -92,19 +91,14 @@ const PersonSpace = ({
         />
       </motion.div>
       <div className={style.content}>
-        <SimpleBar className={style.dashboard}>
-          <Dashboard />
+        <SimpleBar
+          className="space_dashboard"
+          style={{ height: 'inherit' }}
+        >
+          <Outlet />
         </SimpleBar>
       </div>
     </motion.div>
-  )
-}
-
-function Dashboard() {
-  return (
-    <>
-      <Outlet />
-    </>
   )
 }
 

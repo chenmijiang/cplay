@@ -11,7 +11,7 @@ export default function LazyLoad(url, animation) {
   )
 }
 
-function LoadAnimations() {
+export function LoadAnimations() {
   return (
     <LoadAnimation>
       <div className="spinner">
@@ -56,14 +56,14 @@ const LoadAnimation = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
   .spinner {
-    width: 80px;
-    height: 40px;
+    height: 52px;
   }
   .spinner > div {
     background: ${colors.alpha};
     height: 100%;
-    width: 5px;
+    width: 12px;
     float: left;
     margin: 0 1px;
     animation: ${stretch} 2s infinite;
