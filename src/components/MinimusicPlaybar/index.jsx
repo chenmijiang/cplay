@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Icon from '@/components/IconSvg'
+import Icon from '@/components/common/IconSvg'
 import Progressbar from '@/components/Progressbar'
 
 import styled from 'styled-components'

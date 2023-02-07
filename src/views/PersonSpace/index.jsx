@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import SimpleBar from 'simplebar-react'
 
 import player from '@/store/player'
 
@@ -91,7 +92,9 @@ const PersonSpace = ({
         />
       </motion.div>
       <div className={style.content}>
-        <Dashboard />
+        <SimpleBar className={style.dashboard}>
+          <Dashboard />
+        </SimpleBar>
       </div>
     </motion.div>
   )

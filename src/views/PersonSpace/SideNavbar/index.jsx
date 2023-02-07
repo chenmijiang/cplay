@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import Icon from '@/components/IconSvg'
+import Icon from '@/components/common/IconSvg'
 import { side_navlinks } from '@/configs/default'
 
 import style from './sidenavbar.module.scss'

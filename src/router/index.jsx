@@ -2,10 +2,11 @@ import React, { useEffect } from 'react'
 import { useNavigate, useRoutes, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
+import LazyLoad from '@/components/common/LazyLoad'
+import MessageInfo from '@/components/common/MessageInfo'
+
 import HomePage from '@/views/HomePage'
 import PersonSpace from '@/views/PersonSpace'
-
-import MessageInfo from '@/views/PersonSpace/MessageInfo'
 
 export default function MRouter() {
   const element = useRoutes([
@@ -21,27 +22,27 @@ export default function MRouter() {
         },
         {
           path: 'login',
-          element: <MessageInfo />,
+          element: LazyLoad('PersonSpace/LoginQR'),
         },
         {
           path: 'search',
-          element: <MessageInfo />,
+          element: LazyLoad('PersonSpace/SearchPage'),
         },
         {
           path: 'history',
-          element: <MessageInfo />,
+          element: LazyLoad('PersonSpace/HistoryPage'),
         },
         {
           path: 'cloud',
-          element: <MessageInfo />,
+          element: LazyLoad('PersonSpace/CloudPage'),
         },
         {
           path: 'settings',
-          element: <MessageInfo />,
+          element: LazyLoad('PersonSpace/SettingsPage'),
         },
       ],
     },
-    { path: '*', element: LazyLoad({ name: 'NotFound' }) },
+    { path: '*', element: LazyLoad('NotFound') },
   ])
 
   const location = useLocation()
@@ -57,32 +58,6 @@ export default function MRouter() {
           : location.pathname,
       })}
     </AnimatePresence>
-  )
-}
-
-// 懒加载
-function LazyLoad({ name, animation }) {
-  const Comp = React.lazy(() => import(`@/views/${name}`))
-  return (
-    <React.Suspense
-      fallback={
-        animation ? (
-          animation
-        ) : (
-          <div
-            style={{
-              width: '100%',
-              height: '100vh',
-              backgroundColor: 'var(--bg-cyan-100)',
-            }}
-          >
-            Loding...
-          </div>
-        )
-      }
-    >
-      <Comp></Comp>
-    </React.Suspense>
   )
 }
 

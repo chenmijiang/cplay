@@ -7,7 +7,7 @@ import Glasscover from './Glasscover'
 import Lyricsedit from './Lyricsedit'
 import PlayProgressbar from '@/components/PlayProgressbar'
 import UploadFilesBox from '@/components/UploadFilesBox'
-import Portal from '@/components/Portals'
+import Portal from '@/components/common/Portals'
 
 import player from '@/store/player'
 import lyrics from '@/store/lyrics'
