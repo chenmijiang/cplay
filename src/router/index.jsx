@@ -10,7 +10,10 @@ import PersonSpace from '@/views/PersonSpace'
 
 export default function MRouter() {
   const element = useRoutes([
-    { path: '/', element: <HomePage /> },
+    {
+      path: '/',
+      element: <HomePage />,
+    },
     {
       path: '/space',
       element: <PersonSpace />,

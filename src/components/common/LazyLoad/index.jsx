@@ -6,7 +6,7 @@ export default function LazyLoad(url, animation) {
   const Comp = React.lazy(() => import(`@/views/${url}`))
   return (
     <React.Suspense fallback={animation ? animation : <LoadAnimations />}>
-      <Comp></Comp>
+        <Comp />
     </React.Suspense>
   )
 }
