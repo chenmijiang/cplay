@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://localhost:3001',
+  baseURL: 'http://localhost:3001',
   withCredentials: true,
   timeout: 1000,
 })
@@ -18,11 +18,12 @@ instance.interceptors.response.use(
   error => Promise.reject(error)
 )
 
-const request = (method, url, data) => {
+const request = (method, url, data, params) => {
   return instance({
     method,
     url,
-    data
+    data,
+    params
   })
 }
 

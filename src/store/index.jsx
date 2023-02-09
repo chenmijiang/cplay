@@ -2,9 +2,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
+import thunkMiddleware from './middleware'
+
 import lyrics from './lyrics'
 import player from './player'
 import upload from './upload'
+import search from './search'
 
 const playerPersistConfig = {
   key: 'player',
@@ -16,17 +19,20 @@ const reducer = combineReducers({
   player: persistReducer(playerPersistConfig, player.reducer),
   lyricsEdit: lyrics.reducer,
   uploadFiles: upload.reducer,
+  search: search.reducer,
 })
 
 const initState = {
   lyricsEdit: { ...lyrics.state },
   player: { ...player.state },
   uploadFiles: { ...upload.state },
+  search: { ...search.state },
 }
 
 let store = configureStore({
   reducer,
   preloadedState: initState,
+  middleware: [thunkMiddleware],
   // redux 插件：https://github.com/zalmoxisus/redux-devtools-extension#usage
   // devTools: true,
 })

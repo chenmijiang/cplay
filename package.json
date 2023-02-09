@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.0.0",
+    "immer": "^9.0.19",
     "marked": "^4.2.12",
     "sass": "^1.57.1",
     "svg-sprite-loader": "^6.0.11",

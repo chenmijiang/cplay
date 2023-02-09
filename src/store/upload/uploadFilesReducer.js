@@ -1,8 +1,10 @@
 import {
   UPLOAD_LYRICS,
-  UPLOAD_MUSIC_WAY2,
+  UPLOAD_MUSIC,
   UPLOAD_STATE,
   IS_SAME_URL,
+  SONG_URL,
+  PIC_URL
 } from './type'
 
 export default function name(preState = {}, action) {
@@ -11,7 +13,7 @@ export default function name(preState = {}, action) {
     case UPLOAD_LYRICS:
       newState.lyrics = action.lyrics
       return newState
-    case UPLOAD_MUSIC_WAY2:
+    case UPLOAD_MUSIC:
       let { src, name, artist, picUrl, sameUrled } = action.music
       newState.src = src
       newState.name = name
@@ -24,6 +26,12 @@ export default function name(preState = {}, action) {
       return newState
     case IS_SAME_URL:
       newState.sameUrled = action.sameUrled
+      return newState
+    case SONG_URL:
+      newState.src = action.src
+      return newState
+    case PIC_URL:
+      newState.picUrl = action.picUrl
       return newState
     default:
       return preState

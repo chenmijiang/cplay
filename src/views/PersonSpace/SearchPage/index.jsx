@@ -1,7 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 
-const SearchPage = () => {
-  return <div>Search</div>
+import search from '@/store/search'
+
+const SearchPage = ({ searchDispatch }) => {
+  const [keywords, setKeywords] = useState('')
+  return (
+    <div>
+      <input
+        type="text"
+        value={keywords}
+        onChange={(e) => {
+          setKeywords(e.target.value)
+        }}
+      />
+      <button
+        onClick={() => {
+          searchDispatch(keywords)
+        }}
+      >
+        提交
+      </button>
+    </div>
+  )
 }
 
-export default SearchPage
+// const mapStateToProps = (state) => {
+//   return {
+
+//   }
+// }
+
+const mapDispatchToProps = {
+  searchDispatch: search.asyncActions.search,
+}
+
+export default connect(null, mapDispatchToProps)(SearchPage)
