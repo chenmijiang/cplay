@@ -1,20 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import styled from 'styled-components'
 
 import Icon from '@/components/common/IconSvg'
 
-const SearchInput = React.memo(({ getKeywords }) => {
-  const [keywords, setKeywords] = useState('')
+const SearchInput = React.forwardRef(({ searchHandler }, keywordsRef) => {
   return (
-    <SearchInputWrapper keywords={keywords}>
+    <SearchInputWrapper>
       <div className="searchbox">
         {/* 搜索图标 */}
         <div
           className="search_btn"
-          onClick={() => {
-            getKeywords && getKeywords(keywords)
-          }}
+          onClick={() => searchHandler()}
         >
           <Icon name="search" />
         </div>
@@ -24,14 +21,10 @@ const SearchInput = React.memo(({ getKeywords }) => {
           type="text"
           maxLength="100"
           placeholder="搜索音乐..."
-          value={keywords}
-          onChange={(e) => setKeywords(e.target.value)}
+          ref={keywordsRef}
         />
         {/* 清除操作图标 */}
-        <div
-          className="search_clear"
-          onClick={() => setKeywords('')}
-        >
+        <div className="search_clear">
           <Icon name="clear" />
         </div>
       </div>
@@ -40,18 +33,20 @@ const SearchInput = React.memo(({ getKeywords }) => {
 })
 
 const SearchInputWrapper = styled.div`
+  box-sizing: border-box;
+  padding: 15px 0;
   border-bottom: 1px solid var(--bg-gray-100);
   background-color: var(--bg-white-100);
   position: sticky;
-  top: 20px;
+  top: 0;
   left: 0;
+  z-index: 10;
   .searchbox {
     width: 670px;
     height: 46px;
     display: flex;
     box-shadow: 0 0 0 1px rgb(0 0 0 / 5%), 0 2px 4px 1px rgb(0 0 0 / 9%);
     border-radius: 26px;
-    margin: 20px 0px;
     &:hover {
       box-shadow: 0 0 0 1px rgb(0 0 0 / 10%), 0 2px 4px 1px rgb(0 0 0 / 18%);
     }
@@ -75,7 +70,7 @@ const SearchInputWrapper = styled.div`
     margin: 8px 16px;
   }
   .search_clear {
-    visibility: ${({ keywords }) => (keywords !== '' ? 'visible' : 'hidden')};
+    visibility: hidden;
   }
 `
 

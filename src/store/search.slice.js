@@ -3,14 +3,20 @@ import { search as searchApi, songPic as songPicApi } from '@/apis'
 
 export const searchByKeywords = createAsyncThunk('search/search', async ({ keywords, offset }) => {
   const { result } = await searchApi({ keywords, offset, type: 1 })
-  let songs = result.songs.map(song => {
-    return {
-      id: song.id,
-      name: song.name,
-      artist: song.artists.map(artist => artist.name).join('/'),
-    }
-  })
-  return { songs, keywords, offset }
+  let songs = result.songs
+  if (songs) {
+    songs = songs.map(song => {
+      return {
+        id: song.id,
+        name: song.name,
+        artist: song.artists.map(artist => artist.name).join('/'),
+        duration: song.duration
+      }
+    })
+  } else {
+    songs = []
+  }
+  return { songs, keywords, offset, songCount: result.songCount }
 })
 
 export const songPicByIds = createAsyncThunk('search/songPic', async ({ ids, keywords, offset }) => {
@@ -23,15 +29,22 @@ const searchReducer = createSlice({
   name: 'search',
   initialState: {
     // {keyword: '搜索关键词'}
-    history: ['周杰伦', '林俊杰', '陈奕迅', '张学友', '张杰', '王力宏', '张国荣', '李荣浩', '李宗盛', '张碧晨'],
-    // {name: '歌曲名', id: '歌曲id', pic: '歌曲封面', artist: '歌手名'}
+    history: [],
+    // {name: '歌曲名', id: '歌曲id', pic: '歌曲封面', artist: '歌手名', duration: '时长'}
     songs: [],
+    // 用于分页，记录当前搜索结果的总数
+    songCount: 600,
     // 搜索缓存，key为搜索关键词，value为缓存Map，默认最多缓存5组
     songsCache: {}
   },
   reducers: {
     clearHistory: (state) => {
       state.history = []
+    },
+    // 通过歌曲缓存设置歌曲列表
+    setSongsByCache: (state, action) => {
+      const { songs } = action.payload
+      state.songs = songs
     }
   },
   extraReducers: builder => {
@@ -50,9 +63,8 @@ const searchReducer = createSlice({
       })
       .addCase(songPicByIds.fulfilled, (state, action) => {
         const { pics, keywords, offset } = action.payload
-
         for (let i = 0; i < pics.length; i++) {
-          state.songs[i].pic = action.pics[i]
+          state.songs[i].pic = pics[i]
         }
         songsCacheHandler(state.songsCache, { songs: state.songs, keywords, offset })
       })
@@ -85,6 +97,6 @@ function songsCacheHandler(songsCache, { keywords, offset, songs }) {
   return songsCache
 }
 
-export const { clearHistory } = searchReducer.actions
+export const { clearHistory, setSongsByCache } = searchReducer.actions
 export const state = searchReducer.getInitialState()
 export default searchReducer.reducer

@@ -7,6 +7,7 @@ import MessageInfo from '@/components/common/MessageInfo'
 
 import HomePage from '@/views/HomePage'
 import PersonSpace from '@/views/PersonSpace'
+import SearchPage from '@/views/PersonSpace/SearchPage'
 
 export default function MRouter() {
   const element = useRoutes([
@@ -29,7 +30,7 @@ export default function MRouter() {
         },
         {
           path: 'search',
-          element: LazyLoad('PersonSpace/SearchPage'),
+          element: <SearchPage />,
         },
         {
           path: 'history',
