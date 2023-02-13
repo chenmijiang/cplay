@@ -2,11 +2,11 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
 // 懒加载
-export default function LazyLoad(url, animation) {
-  const Comp = React.lazy(() => import(`@/views/${url}`))
+export default function LazyLoad(importComponent, animation) {
+  const Comp = React.lazy(() => importComponent)
   return (
     <React.Suspense fallback={animation ? animation : <LoadAnimations />}>
-        <Comp />
+      <Comp />
     </React.Suspense>
   )
 }
