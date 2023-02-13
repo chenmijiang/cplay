@@ -10,7 +10,7 @@ const SideNavbar = React.memo(() => {
   return (
     <div className={style.sidenav_content}>
       <NavLink
-        to="login"
+        to="userinfo"
         className={style.user}
       >
         <Icon name="user" />

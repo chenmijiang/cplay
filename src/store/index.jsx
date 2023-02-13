@@ -8,6 +8,7 @@ import lyrics from './lyrics'
 import player from './player'
 import upload from './upload'
 import searchReducer from './search.slice'
+import userReducer from './user.slice'
 
 const playerPersistConfig = {
   key: 'player',
@@ -27,6 +28,7 @@ let store = configureStore({
     lyricsEdit: lyrics.reducer,
     uploadFiles: upload.reducer,
     search: searchReducer,
+    user: userReducer,
   },
   preloadedState: initState,
   middleware: [thunkMiddleware],

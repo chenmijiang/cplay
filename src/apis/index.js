@@ -1,7 +1,27 @@
 import request from './request'
 
-// 扫码登录
+/**
+ * 1. 登录
+ */
+// 生成 key
+export const createQrKey = () =>
+  request('get', '/login/qr/key')
+// 生成二维码
+export const createQrCode = ({ key }) =>
+  request('get', '/login/qr/create', null, { key, qrimg: 1 })
+// 检查二维码状态
+export const checkQrCode = ({ key }) =>
+  request('get', '/login/qr/check', null, { key, _: Date.now() })
+// 获取用户信息
+export const getUserInfo = () => 
+  request('get', '/login/status')
+// 退出登录
+export const logout = () =>
+  request('get', '/logout')
 
+/**
+ * 2. 搜索
+ */
 // 搜索歌曲
 export const search = ({ keywords, type, limit, offset }) =>
   request('get', '/search', null, { keywords, type, limit, offset })
