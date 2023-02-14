@@ -22,7 +22,8 @@ export const checkQrCode = createAsyncThunk('user/checkQrCode', async (key) => {
 })
 // 获取用户信息
 export const getUserInfo = createAsyncThunk('user/getUserInfo', async () => {
-  const { profile } = await getUserInfoApi()
+  const { data } = await getUserInfoApi()
+  let profile = data.profile
   if (profile === null) return {}
   return {
     uid: profile.userId,

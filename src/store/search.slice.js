@@ -33,47 +33,61 @@ const searchReducer = createSlice({
     // {name: '歌曲名', id: '歌曲id', pic: '歌曲封面', artist: '歌手名', duration: '时长'}
     songs: [],
     // 用于分页，记录当前搜索结果的总数
-    songCount: 600,
+    songCount: 30,
     // 搜索缓存，key为搜索关键词，value为缓存Map，默认最多缓存5组
     songsCache: {}
   },
   reducers: {
     clearHistory: (state) => {
       state.history = []
+      state.songsCache = {}
+    },
+    saveHistory: (state, action) => {
+      const { keywords } = action.payload
+      if (keywords === '') return
+      // 保存历史记录
+      if (!state.history.includes(keywords)) {
+        if (state.history.length >= 20) {
+          state.history.shift()
+        }
+        state.history.push(keywords)
+      }
     },
     // 通过歌曲缓存设置歌曲列表
     setSongsByCache: (state, action) => {
-      const { songs } = action.payload
+      const { songs, songCount } = action.payload
       state.songs = songs
+      state.songCount = songCount
     }
   },
   extraReducers: builder => {
     builder
       .addCase(searchByKeywords.fulfilled, (state, action) => {
-        const { songs, keywords, offset } = action.payload
+        const { songs, keywords, offset, songCount } = action.payload
         state.songs = songs
-        // 保存历史记录
-        if (!state.history.includes(keywords)) {
-          if (state.history.length >= 20) {
-            state.history.shift()
-          }
-          state.history.push(keywords)
-        }
-        songsCacheHandler(state.songsCache, { songs, keywords, offset })
+        state.songCount = songCount
+        // 搜索缓存
+        songsCacheHandler(state.songsCache, { songs, keywords, offset, songCount })
       })
       .addCase(songPicByIds.fulfilled, (state, action) => {
         const { pics, keywords, offset } = action.payload
         for (let i = 0; i < pics.length; i++) {
           state.songs[i].pic = pics[i]
         }
-        songsCacheHandler(state.songsCache, { songs: state.songs, keywords, offset })
+        // 搜索缓存
+        songsCacheHandler(state.songsCache, {
+          songs: state.songs,
+          keywords,
+          offset,
+          songCount: state.songCount
+        })
       })
   }
 })
 
 
 
-function songsCacheHandler(songsCache, { keywords, offset, songs }) {
+function songsCacheHandler(songsCache, { keywords, offset, songs, songCount }) {
   // 搜索缓存
   if (!songsCache[keywords]) {
     // 关键词缓存最多5条
@@ -88,15 +102,16 @@ function songsCacheHandler(songsCache, { keywords, offset, songs }) {
     songsCache[keywords] = {}
   }
   // 每个关键词最多缓存10组数据
-  let keys = Object.keys(songsCache[keywords])
+  let keys = Object.keys(songsCache[keywords]).filter(key => key !== 'songCount')
   if (keys.length >= 10) {
     delete songsCache[keywords][keys[0]]
   }
   songsCache[keywords][offset] = songs
+  songsCache[keywords]['songCount'] = songCount
 
   return songsCache
 }
 
-export const { clearHistory, setSongsByCache } = searchReducer.actions
+export const { clearHistory, saveHistory, setSongsByCache } = searchReducer.actions
 export const state = searchReducer.getInitialState()
 export default searchReducer.reducer

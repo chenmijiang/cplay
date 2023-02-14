@@ -27,8 +27,18 @@ let store = configureStore({
     player: persistReducer(playerPersistConfig, player.reducer),
     lyricsEdit: lyrics.reducer,
     uploadFiles: upload.reducer,
-    search: searchReducer,
-    user: userReducer,
+    search: persistReducer(
+      {
+        key: 'search',
+        storage,
+        whitelist: ['history', 'songsCache', 'songCount'],
+      },
+      searchReducer
+    ),
+    user: persistReducer(
+      { key: 'profile', storage, whitelist: ['profile'] },
+      userReducer
+    ),
   },
   preloadedState: initState,
   middleware: [thunkMiddleware],

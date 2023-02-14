@@ -11,7 +11,7 @@ const SearchInput = React.forwardRef(({ searchHandler }, keywordsRef) => {
         {/* 搜索图标 */}
         <div
           className="search_btn"
-          onClick={() => searchHandler()}
+          onClick={() => searchHandler(keywordsRef.current.value)}
         >
           <Icon name="search" />
         </div>
