@@ -1,19 +1,21 @@
 import React, { useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import { secondsToFormat } from '@/utils/time_parser'
 
-import Icon from '@/components/common/IconSvg'
+// import Icon from '@/components/common/IconSvg'
+import Image from '@/components/common/Image'
 import Pagination from '@/components/Pagination'
 
-const SearchResult = React.memo(({ searchHandler }) => {
-  const { songs, songCount } = useSelector((state) => state.search)
+const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
+  const dispatch = useDispatch()
   const [searchParams, setSearchParams] = useSearchParams()
   let keywords = searchParams.get('keywords')
   let offset = searchParams.get('offset')
-  // 处理分页跳转操作
+  // 1. 获取 歌曲列表 和 歌曲总数(传参)
+  // 2. 处理分页跳转操作
   const changePageHandler = useCallback(
     (page) => {
       setSearchParams((pre) => ({
@@ -24,6 +26,14 @@ const SearchResult = React.memo(({ searchHandler }) => {
     },
     [keywords, setSearchParams, searchHandler]
   )
+  // 3. 处理歌曲跳转操作
+  const getAudioAndPic = (e) => {
+    console.log(e)
+    if (e.target.className !== 'song_item') return
+  }
+  // 处理分页跳转操作
+  // 获取播放音频和图片链接
+
   return (
     <SongsResultWrapper>
       {songs.length === 0 ? (
@@ -31,7 +41,10 @@ const SearchResult = React.memo(({ searchHandler }) => {
       ) : (
         <>
           {/* 展示 */}
-          <div className="songitems">
+          <div
+            className="songitems"
+            onClick={getAudioAndPic}
+          >
             {songs.map((song) => {
               return (
                 <SongItems
@@ -42,12 +55,14 @@ const SearchResult = React.memo(({ searchHandler }) => {
             })}
           </div>
           {/* 分页 */}
-          <Pagination
-            page={offset ? parseInt(offset) + 1 : 1}
-            itemsPerPage={30}
-            totalItems={songCount}
-            onChangePage={changePageHandler}
-          />
+          {parseInt(songCount / 30) > 1 && (
+            <Pagination
+              page={offset ? parseInt(offset) + 1 : 1}
+              itemsPerPage={30}
+              totalItems={songCount}
+              onChangePage={changePageHandler}
+            />
+          )}
         </>
       )}
     </SongsResultWrapper>
@@ -56,17 +71,14 @@ const SearchResult = React.memo(({ searchHandler }) => {
 
 function SongItems({ pic, name, artist, duration }) {
   return (
-    <SongItemsWrapper>
-      <div className="record">
-        {pic ? (
-          <img
-            src={pic}
-            alt="record"
-          />
-        ) : (
-          <Icon name="record" />
-        )}
-      </div>
+    <SongItemsWrapper className="song_item">
+      {/* 图片懒加载 */}
+      <Image
+        className="record"
+        src={pic}
+        iconame="record"
+        root="#root"
+      />
       <div
         className="name"
         title={name}
@@ -98,13 +110,13 @@ const SongsResultWrapper = styled.div`
     text-align: center;
   }
   .songitems {
-    width: 800px;
+    width: 100%;
   }
 `
 const SongItemsWrapper = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 90px 300px 100px 1fr 100px;
+  grid-template-columns: 90px 500px 200px 1fr 100px;
   grid-template-rows: 70px;
   grid-template-areas: 'record name artist . duration';
   align-items: center;
@@ -112,25 +124,6 @@ const SongItemsWrapper = styled.div`
   cursor: pointer;
   .record {
     grid-area: record;
-    transform: scale(0.8);
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    border: 1px solid var(--bg-gray-100);
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .icon {
-      width: 40px;
-      height: 40px;
-      transition: fill 0.2s;
-      fill: var(--bg-gray-100);
-    }
-    img {
-      width: inherit;
-      height: inherit;
-    }
   }
   .name,
   .artist,
@@ -156,4 +149,4 @@ const SongItemsWrapper = styled.div`
   }
 `
 
-export default SearchResult
+export default SongsDisplay
