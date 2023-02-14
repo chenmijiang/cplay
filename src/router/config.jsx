@@ -6,7 +6,7 @@ import PersonSpace from '@/views/PersonSpace'
 import LazyLoad from '@/components/common/LazyLoad'
 import MessageInfo from '@/components/common/MessageInfo'
 
-import { Authority, AuthorityLogin } from './authority'
+import { AuthorityLogin } from './authority'
 
 const config = [
   {
@@ -22,16 +22,16 @@ const config = [
         index: true,
         element: <MessageInfo />,
       },
-      {
-        path: 'userinfo',
-        element: (
-          <Authority
-            component={import(
-              /* webpackChunkName:"space" */ '@/views/PersonSpace/UserInfo'
-            )}
-          />
-        ),
-      },
+      // {
+      //   path: 'userinfo',
+      //   element: (
+      //     <Authority
+      //       component={import(
+      //         /* webpackChunkName:"space" */ '@/views/PersonSpace/UserInfo'
+      //       )}
+      //     />
+      //   ),
+      // },
       {
         path: 'login',
         element: (

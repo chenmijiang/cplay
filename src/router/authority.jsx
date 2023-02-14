@@ -29,7 +29,7 @@ export const AuthorityLogin = ({ component }) => {
   // 登录信息，跳转到用户页面
   useEffect(() => {
     if (useInfo) {
-      navigate('/space/userinfo', { replace: true })
+      navigate('/space', { replace: true })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

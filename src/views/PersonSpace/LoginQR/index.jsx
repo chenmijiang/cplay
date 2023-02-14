@@ -42,10 +42,10 @@ const LoginQR = React.memo(() => {
   }, [key, setCycleCheck])
   useEffect(() => {
     if (code === 1) {
-      // 2.1 成功，跳转到 /space/useinfo
+      // 2.1 成功，跳转到 /space
       clearInterval(checkRef.current)
       dispatch(getUserInfo())
-      navigate('/space/useinfo')
+      navigate('/space')
     } else if (code === 2) {
       // 2.2 失效，提示刷新
       setHintFresh(true)
