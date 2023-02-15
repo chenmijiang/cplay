@@ -9,7 +9,7 @@ export default function useLyricsContent() {
   const lyricsContentRef = useRef()
 
   function lyricsContentListener() {
-    let content = lyricsContentRef.current.value.trim()
+    let content = lyricsContentRef.current.innerText.trim()
     if (content !== '') {
       content = formatLyrics(content)
       lyrics.current = content
