@@ -5,7 +5,6 @@ import styled from 'styled-components'
 
 import { secondsToFormat } from '@/utils/time_parser'
 
-// import Icon from '@/components/common/IconSvg'
 import Image from '@/components/common/Image'
 import Pagination from '@/components/Pagination'
 

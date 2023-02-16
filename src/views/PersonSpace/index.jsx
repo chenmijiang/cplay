@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 
-import player from '@/store/player'
+import { playPause, setTargetTime } from '@/store/play.slice'
 
 import SideNavbar from './SideNavbar'
 import MinimusicPlaybar from '@/components/MinimusicPlaybar'
@@ -15,26 +15,21 @@ import { setKeyEvents, clearKeyEvents } from '@/utils/keyEvent'
 
 import style from './personspace.module.scss'
 
-const PersonSpace = ({
-  pausedState,
-  picUrlState,
-  nameState,
-  artistState,
-  currentTimeState,
-  durationState,
-  bufferedState,
-  playPauseDispatch,
-  setTargetTimeDispatch,
-}) => {
+const PersonSpace = () => {
+  const { paused, buffered, duration, currentTime, name, artist, picUrl } =
+    useSelector((state) => ({ ...state.player, ...state.uploadFiles }))
+  const dispatch = useDispatch()
+
+  // 设置进度条拖拽
   const [isDrag, setIsDrag] = useState(false)
   const [current, setCurrent] = useState(0)
-
+  // 设置 键盘快捷键
   useEffect(() => {
     const keyEvents = (evt) => {
       let event = evt || window.event
       switch (event.key.toLowerCase()) {
         case ' ': // 暂停播放和开始播放
-          playPauseDispatch(!pausedState)
+          dispatch(playPause(!paused))
           break
         default:
           break
@@ -43,7 +38,7 @@ const PersonSpace = ({
 
     setKeyEvents(keyEvents)
     return () => clearKeyEvents()
-  }, [playPauseDispatch, pausedState])
+  }, [paused, dispatch])
 
   return (
     <motion.div
@@ -67,26 +62,28 @@ const PersonSpace = ({
         transition={{ delay: 0.2, duration: 0.2 }}
       >
         <MinimusicPlaybar
-          song={nameState}
-          artist={artistState}
-          paused={pausedState}
-          playPause={playPauseDispatch}
-          picUrl={picUrlState}
-          currentTime={secondsToFormat(isDrag ? current : currentTimeState, 0)}
-          duration={secondsToFormat(durationState, 0)}
-          curPercent={currentTimeState / durationState}
-          prePercent={bufferedState}
+          song={name}
+          artist={artist}
+          paused={paused}
+          playPause={(payload) => {
+            dispatch(playPause(payload))
+          }}
+          picUrl={picUrl}
+          currentTime={secondsToFormat(isDrag ? current : currentTime, 0)}
+          duration={secondsToFormat(duration, 0)}
+          curPercent={currentTime / duration}
+          prePercent={buffered}
           setCurrentPercent={(percent, isD) => {
             if (isDrag !== isD) {
               setIsDrag(isD)
             }
-            setTargetTimeDispatch(percent * durationState)
+            dispatch(setTargetTime(percent * duration))
           }}
           setCurrentTime={(percent, isD) => {
             if (isDrag !== isD) {
               setIsDrag(isD)
             }
-            setCurrent(percent * durationState)
+            setCurrent(percent * duration)
           }}
         />
       </motion.div>
@@ -102,22 +99,4 @@ const PersonSpace = ({
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    pausedState: state.player.paused,
-    scrolledState: state.player.scrolled,
-    bufferedState: state.player.buffered,
-    durationState: state.player.duration,
-    currentTimeState: state.player.currentTime,
-    nameState: state.uploadFiles.name,
-    artistState: state.uploadFiles.artist,
-    picUrlState: state.uploadFiles.picUrl,
-  }
-}
-
-const mapDispatchToProps = {
-  playPauseDispatch: player.actions.playPause,
-  setTargetTimeDispatch: player.actions.setTargetTime,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PersonSpace)
+export default PersonSpace

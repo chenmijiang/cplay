@@ -9,6 +9,7 @@ import {
   getUserInfo as getUserInfoApi,
   logout as logoutApi,
 } from '@/apis'
+
 // 请求 key 和二维码
 export const createQrKey = createAsyncThunk('user/createQrKey', async () => {
   const { data } = await createQrKeyApi()
@@ -36,7 +37,7 @@ export const logout = createAsyncThunk('user/logout', async () => {
   await logoutApi()
 })
 
-const userReducer = createSlice({
+const userSlice = createSlice({
   name: "user",
   initialState: {
     key: '',
@@ -83,5 +84,5 @@ const userReducer = createSlice({
   }
 })
 
-// export {createQrKey } = userReducer.actions
-export default userReducer.reducer
+// export {createQrKey } = userSlice.actions
+export default userSlice.reducer

@@ -25,7 +25,7 @@ export const songPicByIds = createAsyncThunk('search/songPic', async ({ ids, key
   return { pics, keywords, offset }
 })
 
-const searchReducer = createSlice({
+const searchSlice = createSlice({
   name: 'search',
   initialState: {
     // {keyword: '搜索关键词'}
@@ -85,6 +85,9 @@ const searchReducer = createSlice({
   }
 })
 
+export const { clearHistory, saveHistory, setSongsByCache } = searchSlice.actions
+export const state = searchSlice.getInitialState()
+export default searchSlice.reducer
 
 
 function songsCacheHandler(songsCache, { keywords, offset, songs, songCount }) {
@@ -111,7 +114,3 @@ function songsCacheHandler(songsCache, { keywords, offset, songs, songCount }) {
 
   return songsCache
 }
-
-export const { clearHistory, saveHistory, setSongsByCache } = searchReducer.actions
-export const state = searchReducer.getInitialState()
-export default searchReducer.reducer
