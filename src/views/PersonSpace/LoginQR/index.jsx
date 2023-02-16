@@ -21,8 +21,15 @@ const LoginQR = React.memo(() => {
   const [hintFresh, setHintFresh] = useState(false)
   const setCycleCheck = useCallback(
     (key, interval = 4000, duration = 130000) => {
+      let lock = false
       const id = setInterval(() => {
-        dispatch(checkQrCode(key))
+        dispatch(checkQrCode(key)).then(({ payload }) => {
+          let { cookie } = payload
+          if (cookie !== '' && !lock) {
+            lock = true
+            dispatch(getUserInfo())
+          }
+        })
       }, interval)
       setTimeout(() => {
         setHintFresh(true)
@@ -44,7 +51,6 @@ const LoginQR = React.memo(() => {
     if (code === 1) {
       // 2.1 成功，跳转到 /space
       clearInterval(checkRef.current)
-      dispatch(getUserInfo())
       navigate('/space')
     } else if (code === 2) {
       // 2.2 失效，提示刷新

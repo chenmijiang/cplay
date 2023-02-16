@@ -166,7 +166,7 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
                     />
                   </div>
                   <div className={style.file_des}>
-                    <label htmlFor="music-file">音频上传: 支持mp3、flac</label>
+                    <label htmlFor="music-file">音频上传(非必须): 支持mp3、flac</label>
                   </div>
                 </div>
                 <div

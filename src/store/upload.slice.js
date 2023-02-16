@@ -122,6 +122,15 @@ const uploadSlice = createSlice({
     uploadPicUrl: (state, action) => {
       state.picUrl = action.payload
     }
+  },
+  extraReducers: build => {
+    build.addCase(songPicAndUrl.fulfilled, (state, action) => {
+      const { src, name, artist, picUrl } = action.payload
+      state.src = src
+      state.name = name
+      state.artist = artist
+      state.picUrl = picUrl
+    })
   }
 })
 

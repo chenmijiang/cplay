@@ -5,8 +5,10 @@ import styled from 'styled-components'
 
 import { secondsToFormat } from '@/utils/time_parser'
 
-import Image from '@/components/common/Image'
+import ImageLazy from '@/components/common/ImageLazy'
 import Pagination from '@/components/Pagination'
+import { songPicAndUrl } from '@/store/upload.slice'
+import { playPause } from '@/store/play.slice'
 
 const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
   const dispatch = useDispatch()
@@ -27,8 +29,27 @@ const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
   )
   // 3. 处理歌曲跳转操作
   const getAudioAndPic = (e) => {
-    console.log(e)
-    if (e.target.className !== 'song_item') return
+    // 1. e.target 为 song_item 元素
+    if (
+      e.target.classList.contains('song_item') ||
+      e.target.parentElement.classList.contains('song_item')
+    ) {
+      dispatch(playPause(true))
+      let name, artist, id
+      if (e.target.classList.contains('song_item')) {
+        id = e.target.getAttribute('data')
+        ;[name, artist] = e.target.innerText.split('\n')
+      } else {
+        id = e.target.parentElement.getAttribute('data')
+        ;[name, artist] = e.target.parentElement.innerText.split('\n')
+      }
+      dispatch(songPicAndUrl({ id, name, artist }))
+    }
+    // 2. e.target.parentElement 为 song_item 元素
+    // if (e.target.parentElement.className === 'song_item') {
+    //   let id = e.target.parentElement.getAttribute('data')
+    //   // dispatch(songPicAndUrl({ id }))
+    // }
   }
   // 处理分页跳转操作
   // 获取播放音频和图片链接
@@ -68,11 +89,14 @@ const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
   )
 })
 
-function SongItems({ pic, name, artist, duration }) {
+function SongItems({ id, pic, name, artist, duration }) {
   return (
-    <SongItemsWrapper className="song_item">
+    <SongItemsWrapper
+      className="song_item"
+      data={id}
+    >
       {/* 图片懒加载 */}
-      <Image
+      <ImageLazy
         className="record"
         src={pic}
         iconame="record"
