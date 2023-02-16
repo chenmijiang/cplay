@@ -15,6 +15,7 @@
   --font-cyan-100: #6592a8;
   --font-gray-100: #BCBCBC;
   --font-gray-110: #9b9b9b42;
+  --font-gray-170: #bdbdbdb3;
   --font-gray-200: #606060;
   --font-gray-210: #6060601a;
   --font-gray-224: #6060603d;
@@ -34,6 +35,7 @@
   --bg-purple-200: #32243E;
   --bg-purple-300: #36184F;
   --bg-gray-100: var(--font-gray-100);
+  --bg-gray-170: var(--font-gray-170);
   --bg-gray-200: var(--font-gray-200);
   --bg-gray-210: var(--font-gray-210);
   --bg-gray-224: var(--font-gray-224);
@@ -44,6 +46,7 @@
   --bg-white-500: var(--font-white-500);
   --bg-black-100: var(--font-black-100);
   --bg-black-110: var(--font-black-110);
+  --bg-black-150: #00000080;
   --bg-pink-100: #FB8A8A;
   --bg-yellow-100: #FFEDC0;
   --bg-red-100: var(--font-red-100);
@@ -101,4 +104,8 @@ body {
 
 .simplebar-scrollbar::before {
   background-color: var(--bg-white-300) !important;
+}
+
+.space_dashboard .simplebar-scrollbar::before {
+  background-color: var(--bg-gray-100) !important;
 }

@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import Coverwrap from './Coverwrap'
@@ -7,38 +7,40 @@ import Glasscover from './Glasscover'
 import Lyricsedit from './Lyricsedit'
 import PlayProgressbar from '@/components/PlayProgressbar'
 import UploadFilesBox from '@/components/UploadFilesBox'
-import Portal from '@/components/Portals'
-
-import player from '@/store/player'
-import lyrics from '@/store/lyrics'
-import upload from '@/store/upload'
+import Portal from '@/components/common/Portals'
 
 import { secondsToFormat } from '@/utils/time_parser'
 import { setKeyEvents, clearKeyEvents } from '@/utils/keyEvent'
 import style from './home.module.scss'
+import {
+  setEdited,
+  updateCurrentIndex,
+  updateTime,
+  uploadBoxShow,
+} from '@/store/lyrics.slice'
+import { playPause, setTargetTime } from '@/store/play.slice'
 
-function HomePage({
-  pausedState,
-  scrolledState,
-  editedState,
-  timesState,
-  currentIndexState,
-  nameState,
-  artistState,
-  lyricsState,
-  picUrlState,
-  currentTimeState,
-  durationState,
-  bufferedState,
-  uploadedState,
-  playPauseDispatch,
-  setTargetTimeDispatch,
-  uploadBoxShowDispatch,
-  setEditedDispatch,
-  updateTimeDispatch,
-  updateCurrentIndexDispatch,
-  uploadStateDispatch,
-}) {
+function HomePage() {
+  const {
+    paused,
+    scrolled,
+    buffered,
+    duration,
+    currentTime,
+    uploaded,
+    edited,
+    times,
+    currentIndex,
+    name,
+    artist,
+    lyrics,
+    picUrl,
+  } = useSelector((state) => ({
+    ...state.player,
+    ...state.lyricsEdit,
+    ...state.uploadFiles,
+  }))
+  const dispatch = useDispatch()
   const [isDrag, setIsDrag] = useState(false)
   const [current, setCurrent] = useState(0)
 
@@ -47,19 +49,19 @@ function HomePage({
       let event = evt || window.event
       switch (event.key.toLowerCase()) {
         case ' ': // 暂停播放和开始播放
-          playPauseDispatch(!pausedState)
+          dispatch(playPause(!paused))
           break
         default:
           break
       }
-      if (editedState) {
+      if (edited) {
         switch (event.key.toLowerCase()) {
           // 添加时间轴
           case 'enter':
-            if (currentIndexState < lyricsState.length - 1) {
-              let index = currentIndexState + 1
-              updateCurrentIndexDispatch(index)
-              updateTimeDispatch(secondsToFormat(currentTimeState), index)
+            if (currentIndex < lyrics.length - 1) {
+              let index = currentIndex + 1
+              dispatch(updateCurrentIndex(index))
+              dispatch(updateTime(secondsToFormat(currentTime), index))
             }
             break
           default:
@@ -67,29 +69,20 @@ function HomePage({
         }
       }
     },
-    [
-      pausedState,
-      playPauseDispatch,
-      editedState,
-      currentIndexState,
-      lyricsState,
-      updateCurrentIndexDispatch,
-      updateTimeDispatch,
-      currentTimeState,
-    ]
+    [paused, edited, currentIndex, lyrics, currentTime, dispatch]
   )
 
   useEffect(() => {
-    if (!uploadedState) {
+    if (!uploaded) {
       setKeyEvents(keyEvents)
     } else {
       clearKeyEvents()
     }
     return () => clearKeyEvents()
-  }, [uploadedState, keyEvents])
+  }, [uploaded, keyEvents])
   const closeUploadBox = useCallback(
-    (bool) => uploadBoxShowDispatch(bool),
-    [uploadBoxShowDispatch]
+    (bool) => dispatch(uploadBoxShow(bool)),
+    [dispatch]
   )
 
   return (
@@ -105,83 +98,67 @@ function HomePage({
       <div className={style.home_page_contain}>
         {/* <!-- 唱片滚动及事件绑定 --> */}
         <Coverwrap
-          coverUrl={picUrlState}
-          paused={pausedState}
-          scrolled={scrolledState}
-          playPause={playPauseDispatch}
+          coverUrl={picUrl}
+          paused={paused}
+          scrolled={scrolled}
+          playPause={(bool) => {
+            dispatch(playPause(bool))
+          }}
         />
         {/* <!--歌词编辑区--> */}
         <Lyricsedit
-          pausedState={pausedState}
-          currentTimeState={currentTimeState}
-          editedState={editedState}
-          lytimesState={timesState}
-          currentIndexState={currentIndexState}
-          nameState={nameState}
-          artistState={artistState}
-          lyricsState={lyricsState}
-          uploadBoxShowDispatch={uploadBoxShowDispatch}
-          setEditedDispatch={setEditedDispatch}
-          updateTimeDispatch={updateTimeDispatch}
-          updateCurrentIndexDispatch={updateCurrentIndexDispatch}
-          uploadStateDispatch={uploadStateDispatch}
-          playPauseDispatch={playPauseDispatch}
+          pausedState={paused}
+          currentTimeState={currentTime}
+          editedState={edited}
+          lytimesState={times}
+          currentIndexState={currentIndex}
+          nameState={name}
+          artistState={artist}
+          lyricsState={lyrics}
+          uploadBoxShowDispatch={(bool) => {
+            dispatch(uploadBoxShow(bool))
+          }}
+          setEditedDispatch={(bool) => {
+            dispatch(setEdited(bool))
+          }}
+          updateTimeDispatch={(time, index) => {
+            dispatch(updateTime({ time, index }))
+          }}
+          updateCurrentIndexDispatch={(index) => {
+            dispatch(updateCurrentIndex(index))
+          }}
+          // uploadStateDispatch={uploadStateDispatch}
+          playPauseDispatch={(bool) => {
+            dispatch(playPause(bool))
+          }}
         />
       </div>
       <PlayProgressbar
-        current={secondsToFormat(isDrag ? current : currentTimeState, 0)}
-        duration={secondsToFormat(durationState, 0)}
-        curPercent={currentTimeState / durationState}
-        prePercent={bufferedState}
+        current={secondsToFormat(isDrag ? current : currentTime, 0)}
+        duration={secondsToFormat(duration, 0)}
+        curPercent={currentTime / duration}
+        prePercent={buffered}
         setCurrentPercent={(percent, isD) => {
           if (isDrag !== isD) {
             setIsDrag(isD)
           }
-          setTargetTimeDispatch(percent * durationState)
+          dispatch(setTargetTime(percent * duration))
         }}
         setCurrentTime={(percent, isD) => {
           if (isDrag !== isD) {
             setIsDrag(isD)
           }
-          setCurrent(percent * durationState)
+          setCurrent(percent * duration)
         }}
       />
-      <Glasscover targetUrl={picUrlState} />
+      <Glasscover targetUrl={picUrl} />
       <Portal>
         <AnimatePresence>
-          {uploadedState && <UploadFilesBox closeUploadBox={closeUploadBox} />}
+          {uploaded && <UploadFilesBox closeUploadBox={closeUploadBox} />}
         </AnimatePresence>
       </Portal>
     </motion.div>
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    pausedState: state.player.paused,
-    scrolledState: state.player.scrolled,
-    bufferedState: state.player.buffered,
-    durationState: state.player.duration,
-    currentTimeState: state.player.currentTime,
-    uploadedState: state.lyricsEdit.uploaded,
-    editedState: state.lyricsEdit.edited,
-    timesState: state.lyricsEdit.times,
-    currentIndexState: state.lyricsEdit.currentIndex,
-    nameState: state.uploadFiles.name,
-    artistState: state.uploadFiles.artist,
-    lyricsState: state.uploadFiles.lyrics,
-    picUrlState: state.uploadFiles.picUrl,
-  }
-}
-
-const mapDispatchToProps = {
-  playPauseDispatch: player.actions.playPause,
-  setTargetTimeDispatch: player.actions.setTargetTime,
-  uploadBoxShowDispatch: lyrics.actions.uploadBoxShow,
-  setEditedDispatch: lyrics.actions.setEdited,
-  updateTimeDispatch: lyrics.actions.updateTime,
-  updateCurrentIndexDispatch: lyrics.actions.updateCurrentIndex,
-  uploadStateDispatch: upload.actions.uploadState,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default HomePage

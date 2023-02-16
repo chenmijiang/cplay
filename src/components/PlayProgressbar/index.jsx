@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import Progressbar from '@/components/Progressbar'
 
@@ -12,7 +13,7 @@ const PlayProgressbar = React.memo(
     duration,
   }) => {
     return (
-      <div style={style.p_container}>
+      <PlayContainer>
         <span>{current}</span>
         <Progressbar
           curPercent={curPercent}
@@ -25,23 +26,21 @@ const PlayProgressbar = React.memo(
           }}
         />
         <span>{duration}</span>
-      </div>
+      </PlayContainer>
     )
   }
 )
 
-const style = {
-  p_container: {
-    display: 'flex',
-    alignItems: 'center',
-    boxSizing: 'border-box',
-    width: '100%',
-    height: '64px',
-    padding: '0 5%',
-    gap: '10px',
-    color: 'var(--font-white-100)',
-    userSelect: 'none',
-  },
-}
+const PlayContainer = styled.div`
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 64px;
+  padding: 0 5%;
+  gap: 10px;
+  color: var(--font-white-100);
+  user-select: none;
+`
 
 export default PlayProgressbar

@@ -1,4 +1,4 @@
-import Icon from '@/components/IconSvg'
+import Icon from '@/components/common/IconSvg'
 
 export const navbar_links = [
   { path: '/', detail: '首页' },

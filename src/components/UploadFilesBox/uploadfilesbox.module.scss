@@ -32,6 +32,8 @@
     z-index: 20;
 
     svg {
+      width: 100%;
+      height: 100%;
       fill: var(--bg-gray-100);
     }
   }
@@ -120,7 +122,7 @@
 
   .file_des {
     overflow: hidden;
-    margin-left: 100px;
+    margin-left: 72px;
 
     label,
     p {
@@ -148,28 +150,29 @@
     position: relative;
   }
 
-  textarea {
-    width: 100%;
-    height: 100%;
-    resize: none;
-    outline: none;
-    box-sizing: border-box;
-    padding: 4px 5px;
-    font-size: 12px;
-    font-family: inherit;
-
-  }
-
   .lyrics_enlarge {
+    width: 20px;
+    height: 20px;
+    background: var(--bg-gray-170);
+    box-sizing: border-box;
+    padding: 3px;
+    border-radius: 2px;
     position: absolute;
-    right: 20px;
-    top: 10px;
+    right: 14px;
+    bottom: 6px;
     cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   // enlarge
   svg {
-    fill: var(--bg-gray-100);
+    width: 100%;
+    height: 100%;
+    fill: var(--bg-white-100);
   }
 }
 

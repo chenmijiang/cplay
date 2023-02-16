@@ -1,17 +1,17 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 
 import Progressbar from '@/components/Progressbar'
 
-import player from '@/store/player'
 import style from './volumebar.module.scss'
+import { setVolume } from '@/store/play.slice'
 
 function Volumebar({
-  setVolumeShowed,
-  volumeState,
-  setVolumeDispatch,
+  setVolumeShowed
 }) {
+  const volumeState = useSelector((state) => state.player.volume)
+  const dispatch = useDispatch()
   return (
     <motion.div
       className={style.volume_box}
@@ -30,7 +30,7 @@ function Volumebar({
           maxValue={100}
           curPercent={volumeState}
           setCurrentTime={(p) => {
-            setVolumeDispatch(p)
+            dispatch(setVolume(p))
           }}
         />
       </div>
@@ -38,14 +38,4 @@ function Volumebar({
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    volumeState: state.player.volume,
-  }
-}
-
-const mapDispathToProps = {
-  setVolumeDispatch: player.actions.setVolume,
-}
-
-export default connect(mapStateToProps, mapDispathToProps)(Volumebar)
+export default Volumebar

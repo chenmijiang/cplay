@@ -1,9 +1,10 @@
 import React from 'react'
 
-import Icon from '@/components/IconSvg'
+import Icon from '@/components/common/IconSvg'
 import Progressbar from '@/components/Progressbar'
 
 import styled from 'styled-components'
+import Image from '@/components/common/Image'
 
 const MinimusicPlaybar = React.memo(
   ({
@@ -21,16 +22,10 @@ const MinimusicPlaybar = React.memo(
   }) => {
     return (
       <MiniplayContent>
-        <Record paused={paused}>
-          {picUrl !== '' ? (
-            <img
-              src={picUrl}
-              alt="record"
-            />
-          ) : (
-            <Icon name="record" />
-          )}
-        </Record>
+        <Image
+          src={picUrl}
+          iconame="record"
+        />
         <Playpause
           onClick={() => {
             playPause(!paused)
@@ -72,27 +67,6 @@ const MiniplayContent = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-`
-const Record = styled.div`
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
-  border: 1px solid var(--bg-gray-100);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .icon {
-    width: 40px;
-    height: 40px;
-    transition: fill 0.2s;
-    fill: ${({ paused }) =>
-      paused ? 'var(--bg-gray-100)' : 'var(--bg-red-100)'};
-  }
-  img {
-    width: inherit;
-    height: inherit;
-  }
 `
 const Playpause = styled.div`
   width: 42px;

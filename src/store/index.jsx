@@ -1,10 +1,12 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
-import lyrics from './lyrics'
-import player from './player'
-import upload from './upload'
+import lyricsReducer from './lyrics.slice'
+import playReducer from './play.slice'
+import uploadReducer from './upload.slice'
+import searchReducer from './search.slice'
+import userReducer from './user.slice'
 
 const playerPersistConfig = {
   key: 'player',
@@ -12,23 +14,26 @@ const playerPersistConfig = {
   whitelist: ['volume'],
 }
 
-const reducer = combineReducers({
-  player: persistReducer(playerPersistConfig, player.reducer),
-  lyricsEdit: lyrics.reducer,
-  uploadFiles: upload.reducer,
-})
-
-const initState = {
-  lyricsEdit: { ...lyrics.state },
-  player: { ...player.state },
-  uploadFiles: { ...upload.state },
-}
-
 let store = configureStore({
-  reducer,
-  preloadedState: initState,
-  // redux 插件：https://github.com/zalmoxisus/redux-devtools-extension#usage
-  // devTools: true,
+  preloadedState: {},
+  reducer: {
+    player: persistReducer(playerPersistConfig, playReducer),
+    lyricsEdit: lyricsReducer,
+    uploadFiles: uploadReducer,
+    search: persistReducer(
+      {
+        key: 'search',
+        storage,
+        whitelist: ['history', 'songsCache', 'songCount'],
+      },
+      searchReducer
+    ),
+    user: persistReducer(
+      { key: 'profile', storage, whitelist: ['profile'] },
+      userReducer
+    ),
+  },
+  // devTools: false,
 })
 
 let persistor = persistStore(store)
