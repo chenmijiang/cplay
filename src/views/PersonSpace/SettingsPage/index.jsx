@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
@@ -7,16 +7,60 @@ import Icon from '@/components/common/IconSvg'
 
 import { logout } from '@/store/user.slice'
 import { playPause } from '@/store/play.slice'
+import { setBaseUrl, setMusicQuality } from '@/store/setting.slice'
+import { showToast } from '@/store/toast.slice'
+import { testUrl, cancelAllPendingRequests } from '@/apis'
+
+const qualityItems = [
+  { id: 1, name: '标准 - 128Kbps', value: 128000 },
+  { id: 2, name: '较高 - 192Kbps', value: 192000 },
+  { id: 3, name: '高品质 - 320Kbps', value: 320000 },
+]
 
 const SettingsPage = () => {
+  useEffect(() => {
+    return () => {
+      cancelAllPendingRequests()
+    }
+  }, [])
   // 获取用户信息
-  const { profile } = useSelector((state) => state.user)
+  const { profile, quality, baseUrl } = useSelector((state) => ({
+    ...state.user,
+    ...state.setting,
+  }))
   const { nickname, avatarUrl } = profile
   const dispatch = useDispatch()
   // 退出登录
   const logoutHandler = () => {
     dispatch(playPause(true))
     dispatch(logout())
+  }
+  // 音质选择
+  const selectQuality = (e) => {
+    dispatch(setMusicQuality(e.target.value))
+  }
+  // 接口测试
+  const apiRef = useRef()
+  const testApi = () => {
+    let url = apiRef.current.value
+    if (/^https?:\/\//.test(url)) {
+      // 测试接口
+      testUrl(url)
+        .then(() => {
+          dispatch(setBaseUrl(url))
+          apiRef.current.value = ''
+          // toast 提示
+          dispatch(showToast({ message: '接口测试成功' }))
+        })
+        .catch((e) => {
+          // toast 提示
+          dispatch(showToast({ message: '接口测试失败' }))
+        })
+    }
+  }
+  const resetApi = () => {
+    dispatch(setBaseUrl('https://cplay-api.vercel.app'))
+    apiRef.current.value = ''
   }
   return (
     <SettingsWrapper>
@@ -43,6 +87,39 @@ const SettingsPage = () => {
           登出
         </div>
       </Logout>
+      {/* 音质设置 */}
+      <SoundQuality>
+        <h2>音质设置</h2>
+        <div className="setting_item">
+          <select
+            name="quality"
+            onChange={selectQuality}
+            defaultValue={quality}
+          >
+            {qualityItems.map((item) => (
+              <option
+                key={item.id}
+                value={item.value}
+              >
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </SoundQuality>
+      {/* 自定义后台接口 */}
+      <CustomApi>
+        <h2>自定义后台接口</h2>
+        <div className="setting_item">
+          <input
+            type="text"
+            placeholder={baseUrl}
+            ref={apiRef}
+          />
+          <button onClick={testApi}>测试</button>
+          <button onClick={resetApi}>重置</button>
+        </div>
+      </CustomApi>
     </SettingsWrapper>
   )
 }
@@ -52,7 +129,6 @@ const SettingsWrapper = styled.div`
   margin: 0 auto;
   padding-top: 20px;
 `
-
 const Logout = styled.div`
   background: var(--bg-gray-210);
   border-radius: 20px;
@@ -116,5 +192,65 @@ const Logout = styled.div`
     }
   }
 `
-
+const SettingItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--font-gray-200);
+  h2 {
+    margin-left: 10px;
+  }
+  .setting_item {
+    height: 50px;
+    line-height: 50px;
+    margin-right: 10px;
+    color: var(--font-gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+`
+const SoundQuality = styled(SettingItem)`
+  margin-top: 20px;
+  .setting_item {
+    background: var(--bg-gray-210);
+  }
+  select {
+    width: 160px;
+    height: inherit;
+    border: none;
+    outline: none;
+    appearance: none;
+    color: inherit;
+  }
+  option {
+    text-align: center;
+  }
+`
+const CustomApi = styled(SettingItem)`
+  input {
+    height: inherit;
+    padding: 0 10px;
+    width: 300px;
+    float: left;
+    background: var(--bg-gray-210);
+  }
+  button {
+    height: inherit;
+    padding: 0 24px;
+    cursor: pointer;
+    border-left: 1px solid var(--bg-gray-100);
+    background: var(--bg-gray-210);
+    transition: all 0.1s;
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      opacity: 1;
+    }
+  }
+`
 export default SettingsPage

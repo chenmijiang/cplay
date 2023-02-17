@@ -7,6 +7,8 @@ import playReducer from './play.slice'
 import uploadReducer from './upload.slice'
 import searchReducer from './search.slice'
 import userReducer from './user.slice'
+import settingReducer from './setting.slice'
+import toastReducer from './toast.slice'
 
 const playerPersistConfig = {
   key: 'player',
@@ -32,6 +34,15 @@ let store = configureStore({
       { key: 'profile', storage, whitelist: ['profile'] },
       userReducer
     ),
+    setting: persistReducer(
+      {
+        key: 'setting',
+        storage,
+        whitelist: ['quality', 'baseUrl', 'animationTime'],
+      },
+      settingReducer
+    ),
+    toast: toastReducer,
   },
   // devTools: false,
 })

@@ -1,4 +1,6 @@
-import request from './request'
+import request, { setBaseUrl, testUrl, cancelAllPendingRequests } from './request'
+
+export { setBaseUrl, testUrl, cancelAllPendingRequests }
 
 /**
  * 1. 登录
@@ -13,7 +15,7 @@ export const createQrCode = ({ key }) =>
 export const checkQrCode = ({ key }) =>
   request('get', '/login/qr/check', null, { key, _: Date.now() })
 // 获取用户信息
-export const getUserInfo = () => 
+export const getUserInfo = () =>
   request('get', '/login/status')
 // 退出登录
 export const logout = () =>
