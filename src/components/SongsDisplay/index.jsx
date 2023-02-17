@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import { secondsToFormat } from '@/utils/time_parser'
@@ -11,6 +11,7 @@ import { songPicAndUrl } from '@/store/upload.slice'
 import { playPause } from '@/store/play.slice'
 
 const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
+  const quality = useSelector((state) => state.setting.quality)
   const dispatch = useDispatch()
   const [searchParams, setSearchParams] = useSearchParams()
   let keywords = searchParams.get('keywords')
@@ -27,7 +28,7 @@ const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
     },
     [keywords, setSearchParams, searchHandler]
   )
-  // 3. 处理歌曲跳转操作
+  // 3. 处理歌曲跳转操作(双击)
   const getAudioAndPic = (e) => {
     // 1. e.target 为 song_item 元素
     if (
@@ -43,7 +44,7 @@ const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
         id = e.target.parentElement.getAttribute('data')
         ;[name, artist] = e.target.parentElement.innerText.split('\n')
       }
-      dispatch(songPicAndUrl({ id, name, artist }))
+      dispatch(songPicAndUrl({ id, name, artist, br: quality }))
     }
     // 2. e.target.parentElement 为 song_item 元素
     // if (e.target.parentElement.className === 'song_item') {
@@ -63,7 +64,7 @@ const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
           {/* 展示 */}
           <div
             className="songitems"
-            onClick={getAudioAndPic}
+            onDoubleClick={getAudioAndPic}
           >
             {songs.map((song) => {
               return (

@@ -22,19 +22,33 @@ import {
   setDuration,
 } from '@/store/play.slice'
 import { updateCurrentIndex } from '@/store/lyrics.slice'
+import { songUrl } from '@/store/upload.slice'
+
+import { showToast } from '@/store/toast.slice'
 
 const MusicPlayer = React.memo(() => {
-  const { paused, currentIndex, targetTime, volume, edited, times, src } =
-    useSelector((state) => ({
-      paused: state.player.paused,
-      currentTime: state.player.currentTime,
-      targetTime: state.player.targetTime,
-      volume: state.player.volume,
-      edited: state.lyricsEdit.edited,
-      times: state.lyricsEdit.times,
-      currentIndex: state.lyricsEdit.currentIndex,
-      src: state.uploadFiles.src,
-    }))
+  const {
+    paused,
+    currentIndex,
+    targetTime,
+    volume,
+    edited,
+    times,
+    src,
+    id,
+    quality,
+  } = useSelector((state) => ({
+    paused: state.player.paused,
+    currentTime: state.player.currentTime,
+    targetTime: state.player.targetTime,
+    volume: state.player.volume,
+    edited: state.lyricsEdit.edited,
+    times: state.lyricsEdit.times,
+    currentIndex: state.lyricsEdit.currentIndex,
+    id: state.uploadFiles.id,
+    src: state.uploadFiles.src,
+    quality: state.setting.quality,
+  }))
   const dispatch = useDispatch()
   const timesRef = useRef(times.map((time) => formatToSeconds(time)))
   useEffect(() => {
@@ -84,6 +98,9 @@ const MusicPlayer = React.memo(() => {
     })
   }
   const handleError = (e) => {
+    dispatch(showToast('播放失败,尝试从新获取地址')).then(() => {
+      dispatch(songUrl({ id, br: quality }))
+    })
     errorHandler(e)
   }
   const handleSuspend = (e) => {
@@ -93,7 +110,7 @@ const MusicPlayer = React.memo(() => {
   const handleWaiting = (e) => {
     setNetworkId(
       setTimeout(() => {
-        console.log('网络不佳')
+        dispatch(showToast('网络不佳'))
       }, 20000)
     )
     waitingHandler(e, ({ e }) => {
