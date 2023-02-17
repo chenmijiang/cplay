@@ -55,6 +55,20 @@ export function animate({ timing, draw, duration }) {
  * @returns
  */
 export function copyLyrics(times, lyrics) {
+  let msg
+  if (navigator.clipboard.writeText) {
+    let copyContent = lyrics
+      .map((ly, index) => `[${times[index]}]${ly}`)
+      .join('\n')
+    navigator.clipboard.writeText(copyContent)
+    msg = '复制成功'
+  } else {
+    msg = oldCopyLyrics(times, lyrics)
+  }
+  return msg
+}
+
+export function oldCopyLyrics(times, lyrics) {
   if (typeof document.execCommand !== 'function') {
     return '复制失败'
   }
