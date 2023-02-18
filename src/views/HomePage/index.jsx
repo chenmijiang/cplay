@@ -127,7 +127,6 @@ function HomePage() {
           updateCurrentIndexDispatch={(index) => {
             dispatch(updateCurrentIndex(index))
           }}
-          // uploadStateDispatch={uploadStateDispatch}
           playPauseDispatch={(bool) => {
             dispatch(playPause(bool))
           }}

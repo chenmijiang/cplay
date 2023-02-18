@@ -9,6 +9,7 @@ import ImageLazy from '@/components/common/ImageLazy'
 import Pagination from '@/components/Pagination'
 import { songPicAndUrl } from '@/store/upload.slice'
 import { playPause } from '@/store/play.slice'
+import { showToast } from '@/store/toast.slice'
 
 const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
   const quality = useSelector((state) => state.setting.quality)
@@ -44,7 +45,14 @@ const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
         id = e.target.parentElement.getAttribute('data')
         ;[name, artist] = e.target.parentElement.innerText.split('\n')
       }
+      dispatch(showToast({ message: '正在尝试获取音频...' }))
       dispatch(songPicAndUrl({ id, name, artist, br: quality }))
+        .then(() => {
+          dispatch(showToast({ message: '获取成功' }))
+        })
+        .catch(() => {
+          dispatch(showToast({ message: '未知错误，获取失败' }))
+        })
     }
     // 2. e.target.parentElement 为 song_item 元素
     // if (e.target.parentElement.className === 'song_item') {
