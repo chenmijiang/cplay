@@ -16,6 +16,9 @@ import SongsDisplay from '@/components/SongsDisplay'
 
 import SearchInput from './SearchInput'
 import HistoryPanel from './HistoryPanel'
+import { motion } from 'framer-motion'
+
+import { pageVariant } from '@/variants'
 
 const SearchPage = () => {
   const { songsCache, songs, songCount } = useSelector((state) => state.search)
@@ -108,7 +111,14 @@ const SearchPage = () => {
   )
 
   return (
-    <SearchPageWrapper>
+    <SearchPageWrapper
+    variants={pageVariant}
+    initial="enter"
+    animate="show"
+    transition="transition"
+    exit="exit"
+      key="searchPage"
+    >
       <SearchInput
         ref={keywordsRef}
         searchHandler={searchHandler}
@@ -130,7 +140,7 @@ const SearchPage = () => {
   )
 }
 
-const SearchPageWrapper = styled.div`
+const SearchPageWrapper = styled(motion.div)`
   width: 95%;
   margin: 0 auto;
 `

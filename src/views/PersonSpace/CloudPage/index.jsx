@@ -1,9 +1,29 @@
 import React from 'react'
+import styled from 'styled-components'
+import { motion } from 'framer-motion'
 
-const ClooudPage = () => {
+import { pageVariant } from '@/variants'
+
+const CloudPage = () => {
   return (
-    <div>ClooudPage</div>
+    <CloudPageWrapper
+      variants={pageVariant}
+      initial="enter"
+      animate="show"
+      transition="transition"
+      exit="exit"
+      key="historyPage"
+    >
+      welcome to cloud page
+    </CloudPageWrapper>
   )
 }
 
-export default ClooudPage
+const CloudPageWrapper = styled(motion.div)`
+  width: 95%;
+  margin: 0 auto;
+  text-align: center;
+  line-height: calc(100vh - 164px);
+`
+
+export default CloudPage

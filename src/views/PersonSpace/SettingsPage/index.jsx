@@ -11,6 +11,9 @@ import { setBaseUrl, setMusicQuality } from '@/store/setting.slice'
 import { showToast } from '@/store/toast.slice'
 import { testUrl, cancelAllPendingRequests } from '@/apis'
 
+import { motion } from 'framer-motion'
+import { pageVariant } from '@/variants'
+
 const qualityItems = [
   { id: 1, name: '标准 - 128Kbps', value: 128000 },
   { id: 2, name: '较高 - 192Kbps', value: 192000 },
@@ -63,7 +66,14 @@ const SettingsPage = () => {
     apiRef.current.value = ''
   }
   return (
-    <SettingsWrapper>
+    <SettingsWrapper
+      variants={pageVariant}
+      initial="enter"
+      animate="show"
+      transition="transition"
+      exit="exit"
+      key="settings"
+    >
       {/* 退出登录 */}
       <Logout>
         {/* 头像 */}
@@ -124,7 +134,7 @@ const SettingsPage = () => {
   )
 }
 
-const SettingsWrapper = styled.div`
+const SettingsWrapper = styled(motion.div)`
   width: 95%;
   margin: 0 auto;
   padding-top: 20px;

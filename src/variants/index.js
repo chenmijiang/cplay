@@ -24,3 +24,23 @@ export const glassCoverVariant = {
     opacity: 0
   }
 }
+
+// 子路由切换动画
+export const pageVariant = {
+  enter: {
+    opacity: 0,
+    y: 5
+  },
+  show: {
+    opacity: 1,
+    y: 0
+  },
+  exit: {
+    opacity: 0,
+    y: -5
+  },
+  transition: {
+    ease: 'easeInOut',
+    duration: 0.3
+  }
+}
