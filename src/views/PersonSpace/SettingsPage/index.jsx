@@ -146,7 +146,7 @@ const Logout = styled.div`
   align-items: center;
   height: 100px;
   color: var(--font-gray-200);
-  grid-template-columns: 120px 200px 1fr 160px;
+  grid-template-columns: 130px 100px 1fr 120px;
   .avatar {
     width: 80px;
     height: 80px;
@@ -241,11 +241,14 @@ const SoundQuality = styled(SettingItem)`
   }
 `
 const CustomApi = styled(SettingItem)`
+  .setting_item {
+    display: flex;
+  }
   input {
     height: inherit;
     padding: 0 10px;
     width: 300px;
-    float: left;
+    min-width: 150px;
     background: var(--bg-gray-210);
   }
   button {

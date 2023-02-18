@@ -137,7 +137,7 @@ const Lyricsedit = React.memo(
                       className={style.ly_time}
                       style={{
                         width:
-                          editedState || clickIndex === index ? '24%' : '0%',
+                          editedState || clickIndex === index ? 'max(120px, 24%)' : '0%',
                       }}
                     >
                       [

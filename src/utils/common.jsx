@@ -106,3 +106,13 @@ export function oldCopyLyrics(times, lyrics) {
   document.execCommand('copy')
   return '复制成功'
 }
+
+/**
+ * 判断设备类型
+ * @returns true，移动设备；false，桌面设备
+ */
+export function isMobile() {
+  return /Mobile|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  )
+}

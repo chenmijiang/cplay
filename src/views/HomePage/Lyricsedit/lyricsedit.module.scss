@@ -4,6 +4,10 @@
   width: 50%;
   height: 100%;
   color: var(--font-white-100);
+
+  @include ll {
+    width: 100%;
+  }
 }
 
 .ly_header {
@@ -44,6 +48,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  @include ll {
+    width: 100%;
   }
 }
 
@@ -170,7 +178,7 @@
       }
 
       .active {
-        width: 24%;
+        width: max(120px, 24%);
       }
     }
   }

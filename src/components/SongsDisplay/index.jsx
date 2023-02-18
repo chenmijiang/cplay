@@ -148,7 +148,7 @@ const SongsResultWrapper = styled.div`
 const SongItemsWrapper = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 90px 500px 200px 1fr 100px;
+  grid-template-columns: 90px 2fr 1fr 1fr 60px;
   grid-template-rows: 70px;
   grid-template-areas: 'record name artist . duration';
   align-items: center;

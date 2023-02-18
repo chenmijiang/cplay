@@ -35,7 +35,7 @@ const SearchPage = () => {
         keywords,
         offset,
       }))
-      console.log('searchHandler - offset', offset)
+      // console.log('searchHandler - offset', offset)
       setSongLoaded(false)
       if (songsCache[keywords] && songsCache[keywords][offset]) {
         // 歌曲缓存中获取歌曲列表

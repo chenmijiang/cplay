@@ -42,7 +42,7 @@ const SearchInputWrapper = styled.div`
   left: 0;
   z-index: 10;
   .searchbox {
-    width: 670px;
+    width: min(670px, 100%);
     height: 46px;
     display: flex;
     box-shadow: 0 0 0 1px rgb(0 0 0 / 5%), 0 2px 4px 1px rgb(0 0 0 / 9%);

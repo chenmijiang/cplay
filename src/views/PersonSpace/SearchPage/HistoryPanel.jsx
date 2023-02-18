@@ -51,7 +51,7 @@ const HistoryPanel = React.memo(({ restoreHistory }) => {
 })
 
 const HistoryPanelWrapper = styled.div`
-  width: 800px;
+  width: min(800px, 100%);
   & > p {
     color: var(--font-gray-200);
     font-size: 15px;

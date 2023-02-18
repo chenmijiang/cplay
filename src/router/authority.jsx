@@ -15,7 +15,7 @@ export const Authority = ({ component }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return LazyLoad(component)
+  return <LazyLoad component={component} />
 }
 
 /**
@@ -34,5 +34,5 @@ export const AuthorityLogin = ({ component }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return LazyLoad(component)
+  return <LazyLoad component={component} />
 }

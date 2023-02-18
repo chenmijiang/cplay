@@ -61,7 +61,9 @@ function HomePage() {
             if (currentIndex < lyrics.length - 1) {
               let index = currentIndex + 1
               dispatch(updateCurrentIndex(index))
-              dispatch(updateTime(secondsToFormat(currentTime), index))
+              dispatch(
+                updateTime({ time: secondsToFormat(currentTime), index: index })
+              )
             }
             break
           default:
@@ -132,24 +134,26 @@ function HomePage() {
           }}
         />
       </div>
-      <PlayProgressbar
-        current={secondsToFormat(isDrag ? current : currentTime, 0)}
-        duration={secondsToFormat(duration, 0)}
-        curPercent={currentTime / duration}
-        prePercent={buffered}
-        setCurrentPercent={(percent, isD) => {
-          if (isDrag !== isD) {
-            setIsDrag(isD)
-          }
-          dispatch(setTargetTime(percent * duration))
-        }}
-        setCurrentTime={(percent, isD) => {
-          if (isDrag !== isD) {
-            setIsDrag(isD)
-          }
-          setCurrent(percent * duration)
-        }}
-      />
+      <div className={style.home_page_progress}>
+        <PlayProgressbar
+          current={secondsToFormat(isDrag ? current : currentTime, 0)}
+          duration={secondsToFormat(duration, 0)}
+          curPercent={currentTime / duration}
+          prePercent={buffered}
+          setCurrentPercent={(percent, isD) => {
+            if (isDrag !== isD) {
+              setIsDrag(isD)
+            }
+            dispatch(setTargetTime(percent * duration))
+          }}
+          setCurrentTime={(percent, isD) => {
+            if (isDrag !== isD) {
+              setIsDrag(isD)
+            }
+            setCurrent(percent * duration)
+          }}
+        />
+      </div>
       <Glasscover targetUrl={picUrl} />
       <Portal>
         <AnimatePresence>
