@@ -4,7 +4,7 @@ import { motion, useCycle } from 'framer-motion'
 
 import style from './navbar.module.scss'
 
-function HeaderNavbar({ links }) {
+const HeaderNavbar = React.memo(({ links}) => {
   const [isOpen, toggleOpen] = useCycle(false, true)
   return (
     <nav>
@@ -100,7 +100,7 @@ function HeaderNavbar({ links }) {
       </div>
     </nav>
   )
-}
+})
 
 const Path = (props) => (
   <motion.path

@@ -1,35 +1,22 @@
-import React, { useCallback } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { useInViewport } from 'ahooks'
 
 import { secondsToFormat } from '@/utils/time_parser'
 
 import ImageLazy from '@/components/common/ImageLazy'
-import Pagination from '@/components/Pagination'
+import { LoadAnimations } from '@/components/common/LazyLoad'
 import { songPicAndUrl } from '@/store/upload.slice'
 import { playPause } from '@/store/play.slice'
 import { showToast } from '@/store/toast.slice'
 
-const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
+const SongsDisplay = React.memo(({ songs, scrollToBottom }) => {
   const quality = useSelector((state) => state.setting.quality)
   const dispatch = useDispatch()
-  const [searchParams, setSearchParams] = useSearchParams()
-  let keywords = searchParams.get('keywords')
-  let offset = searchParams.get('offset')
-  // 1. 获取 歌曲列表 和 歌曲总数(传参)
-  // 2. 处理分页跳转操作
-  const changePageHandler = useCallback(
-    (page) => {
-      setSearchParams((pre) => ({
-        ...pre,
-        offset: page - 1,
-      }))
-      searchHandler(keywords, page - 1)
-    },
-    [keywords, setSearchParams, searchHandler]
-  )
-  // 3. 处理歌曲跳转操作(双击)
+
+  // 处理歌曲跳转操作(双击)
+  // 获取播放音频和图片链接
   const getAudioAndPic = (e) => {
     // 1. e.target 为 song_item 元素
     if (
@@ -54,14 +41,26 @@ const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
           dispatch(showToast({ message: '未知错误，获取失败' }))
         })
     }
-    // 2. e.target.parentElement 为 song_item 元素
-    // if (e.target.parentElement.className === 'song_item') {
-    //   let id = e.target.parentElement.getAttribute('data')
-    //   // dispatch(songPicAndUrl({ id }))
-    // }
   }
-  // 处理分页跳转操作
-  // 获取播放音频和图片链接
+
+  // 监听LoadingWrapper 是否可视，是的话加载更多数据
+  const [isLoading, setIsLoading] = useState(true)
+  const loadingAnimationRef = useRef(null)
+  const [inViewport, ratio] = useInViewport(loadingAnimationRef, {
+    threshold: [0, 0.25, 0.5, 0.75, 1],
+  })
+  const locked = useRef(false)
+  useEffect(() => {
+    if (inViewport && ratio === 1 && !locked.current) {
+      locked.current = true
+      scrollToBottom(({ loading }) => {
+        setIsLoading(loading)
+      })
+      setTimeout(() => {
+        locked.current = false
+      }, 10000)
+    }
+  }, [inViewport, ratio, scrollToBottom])
 
   return (
     <SongsResultWrapper>
@@ -83,14 +82,13 @@ const SongsDisplay = React.memo(({ searchHandler, songs, songCount }) => {
               )
             })}
           </div>
-          {/* 分页 */}
-          {parseInt(songCount / 30) > 1 && (
-            <Pagination
-              page={offset ? parseInt(offset) + 1 : 1}
-              itemsPerPage={30}
-              totalItems={songCount}
-              onChangePage={changePageHandler}
-            />
+          {/* 底部数据加载动画 */}
+          {isLoading === true ? (
+            <LoadingWrapper ref={loadingAnimationRef}>
+              <LoadAnimations />
+            </LoadingWrapper>
+          ) : (
+            <></>
           )}
         </>
       )}
@@ -179,6 +177,11 @@ const SongItemsWrapper = styled.div`
   .duration {
     grid-area: duration;
   }
+`
+const LoadingWrapper = styled.div`
+  width: 100%;
+  height: 70px;
+  position: relative;
 `
 
 export default SongsDisplay

@@ -26,7 +26,7 @@ let store = configureStore({
       {
         key: 'search',
         storage,
-        whitelist: ['history', 'songsCache', 'songCount'],
+        whitelist: ['history', 'songsCache'],
       },
       searchReducer
     ),

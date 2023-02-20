@@ -235,6 +235,7 @@ const SoundQuality = styled(SettingItem)`
     outline: none;
     appearance: none;
     color: inherit;
+    background: transparent;
   }
   option {
     text-align: center;

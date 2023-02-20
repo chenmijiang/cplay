@@ -2,21 +2,21 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { search as searchApi, songPic as songPicApi } from '@/apis'
 
 export const searchByKeywords = createAsyncThunk('search/search', async ({ keywords, offset }) => {
-  const { result } = await searchApi({ keywords, offset, type: 1 })
+  const { result } = await searchApi({ keywords, offset })
   let songs = result.songs
-  if (songs) {
-    songs = songs.map(song => {
-      return {
-        id: song.id,
-        name: song.name,
-        artist: song.artists.map(artist => artist.name).join('/'),
-        duration: song.duration
-      }
-    })
-  } else {
-    songs = []
+  if (!songs) {
+    // 在限制内通过折半查找最大数量
+    songs = binarySearch({ keywords, offset })
   }
-  return { songs, keywords, offset, songCount: result.songCount }
+  songs = songs.map(song => {
+    return {
+      id: song.id,
+      name: song.name,
+      artist: song.artists.map(artist => artist.name).join('/'),
+      duration: song.duration
+    }
+  })
+  return { songs, keywords, offset }
 })
 
 export const songPicByIds = createAsyncThunk('search/songPic', async ({ ids, keywords, offset }) => {
@@ -32,8 +32,6 @@ const searchSlice = createSlice({
     history: [],
     // {name: '歌曲名', id: '歌曲id', pic: '歌曲封面', artist: '歌手名', duration: '时长'}
     songs: [],
-    // 用于分页，记录当前搜索结果的总数
-    songCount: 30,
     // 搜索缓存，key为搜索关键词，value为缓存Map，默认最多缓存5组
     songsCache: {}
   },
@@ -55,46 +53,74 @@ const searchSlice = createSlice({
     },
     // 通过歌曲缓存设置歌曲列表
     setSongsByCache: (state, action) => {
-      const { songs, songCount } = action.payload
-      state.songs = songs
-      state.songCount = songCount
+      state.songs = action.payload
+    },
+    clearSongs: (state) => {
+      state.songs = []
     }
   },
   extraReducers: builder => {
     builder
       .addCase(searchByKeywords.fulfilled, (state, action) => {
-        const { songs, keywords, offset, songCount } = action.payload
-        state.songs = songs
-        state.songCount = songCount
+        const { songs, keywords, offset } = action.payload
+        // 去重操作
+        const songIdsSet = new Set()
+        state.songs = ([...state.songs, ...songs]).filter(({id})=>{
+          if(songIdsSet.has(id)){
+            return false
+          } else {
+            songIdsSet.add(id)
+            return true
+          }
+        })
         // 搜索缓存
-        songsCacheHandler(state.songsCache, { songs, keywords, offset, songCount })
+        songsCacheHandler(state.songsCache, { songs, keywords, offset })
       })
       .addCase(songPicByIds.fulfilled, (state, action) => {
         const { pics, keywords, offset } = action.payload
         for (let i = 0; i < pics.length; i++) {
-          state.songs[i].pic = pics[i]
+          state.songs[offset + i].pic = pics[i]
         }
         // 搜索缓存
         songsCacheHandler(state.songsCache, {
           songs: state.songs,
           keywords,
-          offset,
-          songCount: state.songCount
+          offset
         })
       })
   }
 })
 
-export const { clearHistory, saveHistory, setSongsByCache } = searchSlice.actions
+export const { clearHistory, saveHistory, setSongsByCache, clearSongs } = searchSlice.actions
 export const state = searchSlice.getInitialState()
 export default searchSlice.reducer
 
+// 在限制内通过折半查找最大数量
+const binarySearch = async ({ keywords, offset = 0, limit = 30 }) => {
+  let left = 0, right = offset + limit - 1
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2)
+    try {
+      const { result: { songs } } = await searchApi({ keywords, offset: mid, limit: 1 })
+      if (songs && songs.length !== 0) {
+        left = mid + 1
+      } else {
+        right = mid - 1
+      }
+    } catch (e) {
+      console.log('binarySearch - ', e)
+    }
+  }
+  if (left - 1 === offset) return []
+  const { result } = await searchApi({ keywords, offset, limit: left - offset - 1 })
+  return result.songs
+}
 
-function songsCacheHandler(songsCache, { keywords, offset, songs, songCount }) {
+function songsCacheHandler(songsCache, { keywords, songs, offset }) {
   // 搜索缓存
   if (!songsCache[keywords]) {
     // 关键词缓存最多5条
-    if (Object.keys(songsCache).length >= 5) {
+    if (Object.keys(songsCache).length > 5) {
       // 删除缓存数据最少的那条
       let key = Object.keys(songsCache).reduce((pre, cur) =>
         songsCache[cur].size - songsCache[pre].size >= 0 ?
@@ -104,13 +130,9 @@ function songsCacheHandler(songsCache, { keywords, offset, songs, songCount }) {
     }
     songsCache[keywords] = {}
   }
-  // 每个关键词最多缓存10组数据
-  let keys = Object.keys(songsCache[keywords]).filter(key => key !== 'songCount')
-  if (keys.length >= 10) {
-    delete songsCache[keywords][keys[0]]
-  }
-  songsCache[keywords][offset] = songs
-  songsCache[keywords]['songCount'] = songCount
-
+  // 每个关键词最多缓存90组数据
+  let songItems = songsCache[keywords]
+  if (songItems.length > 90) return songsCache
+  songsCache[keywords][offset / 30 + 1] = songs
   return songsCache
 }
