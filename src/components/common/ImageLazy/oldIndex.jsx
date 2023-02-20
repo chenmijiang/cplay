@@ -1,26 +1,40 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useInViewport } from 'ahooks'
 import styled, { keyframes } from 'styled-components'
 
 import Icon from '@/components/common/IconSvg'
 
-const ImageLazy = React.memo(({ src, iconame, root, ...props }) => {
+const Image = React.memo(({ src, iconame, root, ...props }) => {
+  // 参数： 图片源
+  // 实现 懒加载 和 加载动画
   const [isLoading, setIsLoading] = useState(true)
   const [isError, setIsError] = useState(false)
   const imageRef = useRef(null)
-  const [inViewport] = useInViewport(imageRef)
+
   useEffect(() => {
-    if (inViewport) {
-      const img = imageRef.current
-      if (src !== '' && src !== undefined) {
-        img.src = src
-        // 从缓存中读出
-        img.complete && setIsLoading(false)
-      } else {
-        setIsError(true)
-      }
-    }
-  }, [inViewport, src])
+    // 实现懒加载的核心代码
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = imageRef.current
+            if (src !== '' && src !== undefined) {
+              img.src = src
+              // 从缓存中读出
+              img.complete && setIsLoading(false)
+            } else {
+              setIsError(true)
+            }
+            observer.disconnect()
+          }
+        })
+      },
+      { root: document.querySelector(`${root}`) }
+    )
+    observer.observe(imageRef.current)
+    return () => observer.disconnect()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <ImageWrapper {...props}>
       {/* 加载动画 */}
@@ -78,12 +92,12 @@ const ImageWrapper = styled.div`
   }
 `
 const lodingAnimation = keyframes`
-from {
-  opacity: 1;
-}
-to {
-  opacity: 0.5;
-}
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
 `
 const Motion = styled.div`
   width: inherit;
@@ -92,4 +106,4 @@ const Motion = styled.div`
   animation-play-state: ${({ isError }) => (isError ? 'paused' : 'running')};
 `
 
-export default ImageLazy
+export default Image

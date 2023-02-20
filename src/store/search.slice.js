@@ -6,7 +6,7 @@ export const searchByKeywords = createAsyncThunk('search/search', async ({ keywo
   let songs = result.songs
   if (!songs) {
     // 在限制内通过折半查找最大数量
-    songs = binarySearch({ keywords, offset })
+    songs = await binarySearch({ keywords, offset })
   }
   songs = songs.map(song => {
     return {
@@ -63,30 +63,23 @@ const searchSlice = createSlice({
     builder
       .addCase(searchByKeywords.fulfilled, (state, action) => {
         const { songs, keywords, offset } = action.payload
-        // 去重操作
-        const songIdsSet = new Set()
-        state.songs = ([...state.songs, ...songs]).filter(({id})=>{
-          if(songIdsSet.has(id)){
-            return false
-          } else {
-            songIdsSet.add(id)
-            return true
-          }
-        })
+        state.songs = [...state.songs, ...songs]
         // 搜索缓存
         songsCacheHandler(state.songsCache, { songs, keywords, offset })
       })
       .addCase(songPicByIds.fulfilled, (state, action) => {
         const { pics, keywords, offset } = action.payload
-        for (let i = 0; i < pics.length; i++) {
-          state.songs[offset + i].pic = pics[i]
+        if (state.songs[offset]) {
+          for (let i = 0; i < pics.length; i++) {
+            state.songs[offset + i].pic = pics[i]
+          }
+          // 搜索缓存
+          songsCacheHandler(state.songsCache, {
+            songs: state.songs,
+            keywords,
+            offset
+          })
         }
-        // 搜索缓存
-        songsCacheHandler(state.songsCache, {
-          songs: state.songs,
-          keywords,
-          offset
-        })
       })
   }
 })
@@ -110,6 +103,7 @@ const binarySearch = async ({ keywords, offset = 0, limit = 30 }) => {
     } catch (e) {
       console.log('binarySearch - ', e)
     }
+    await new Promise(resolve => setTimeout(resolve, 1500))
   }
   if (left - 1 === offset) return []
   const { result } = await searchApi({ keywords, offset, limit: left - offset - 1 })
@@ -130,9 +124,10 @@ function songsCacheHandler(songsCache, { keywords, songs, offset }) {
     }
     songsCache[keywords] = {}
   }
-  // 每个关键词最多缓存90组数据
-  let songItems = songsCache[keywords]
-  if (songItems.length > 90) return songsCache
-  songsCache[keywords][offset / 30 + 1] = songs
+  // 每个关键词最多缓存60组数据
+  let songPages = songsCache[keywords], page = offset / 30 + 1
+  if (page > 2) return songsCache
+  songPages[page] = songs
+
   return songsCache
 }

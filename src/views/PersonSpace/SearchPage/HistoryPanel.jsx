@@ -5,17 +5,19 @@ import styled from 'styled-components'
 import { clearHistory } from '@/store/search.slice'
 import Icon from '@/components/common/IconSvg'
 
-const HistoryPanel = React.memo(({ restoreHistory }) => {
+const HistoryPanel = React.memo(({ searchHandler }) => {
   const { history } = useSelector((state) => state.search)
   const dispatch = useDispatch()
+  // 4. 通过历史记录跳转到详情页
   const restoreHandler = (e) => {
     if (e.target.className !== 'history_item') return
     let keywords = e.target.innerText
-    restoreHistory(keywords)
+    searchHandler(keywords)
   }
   const clearHistoryHandler = () => {
     dispatch(clearHistory())
   }
+
   return (
     <HistoryPanelWrapper>
       {history.length === 0 ? (

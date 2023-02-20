@@ -5,7 +5,7 @@ import { saveHistory, searchByKeywords, setSongsByCache, songPicByIds } from '@/
 
 export default function useSearchHandler() {
   // 加载动画
-  const [isLoading, setIsLoading] = useState(true)
+  const [[isLoading, isError], setLoadingState] = useState([true, false])
   // 歌曲缓存
   const songsCache = useSelector((state) => state.search.songsCache)
   const dispatch = useDispatch()
@@ -14,6 +14,7 @@ export default function useSearchHandler() {
    * 通过缓存或远程获取歌曲
    */
   const fetchSongs = useCallback((keywords, page) => {
+    setLoadingState([true, false])
     if (songsCache[keywords] && songsCache[keywords][page]) {
       // 歌曲缓存中获取歌曲列表
       let songs = []
@@ -21,7 +22,7 @@ export default function useSearchHandler() {
         songs = [...songs, ...songsCache[keywords][i]]
       }
       dispatch(setSongsByCache(songs))
-      setIsLoading(false)
+      setLoadingState([false, false])
     } else {
       // 保存历史记录
       dispatch(saveHistory({ keywords }))
@@ -37,15 +38,15 @@ export default function useSearchHandler() {
                 offset: (page - 1) * 30,
               })
             ).then(() => {
-              setIsLoading(false)
+              setLoadingState([false, false])
             })
           } else {
-            setIsLoading(false)
+            setLoadingState([false, true])
           }
         }
       )
     }
   }, [dispatch, songsCache])
 
-  return { isLoading, fetchSongs }
+  return { isLoading, isError, fetchSongs }
 }

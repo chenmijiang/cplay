@@ -58,7 +58,7 @@ const SongsDisplay = React.memo(({ songs, scrollToBottom }) => {
       })
       setTimeout(() => {
         locked.current = false
-      }, 10000)
+      }, 5000)
     }
   }, [inViewport, ratio, scrollToBottom])
 
@@ -107,7 +107,6 @@ function SongItems({ id, pic, name, artist, duration }) {
         className="record"
         src={pic}
         iconame="record"
-        root="#root"
       />
       <div
         className="name"
