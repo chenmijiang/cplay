@@ -90,7 +90,7 @@ export default searchSlice.reducer
 
 // 在限制内通过折半查找最大数量
 const binarySearch = async ({ keywords, offset = 0, limit = 30 }) => {
-  let left = 0, right = offset + limit - 1
+  let left = offset, right = offset + limit - 1
   while (left <= right) {
     let mid = Math.floor((left + right) / 2)
     try {
@@ -105,7 +105,7 @@ const binarySearch = async ({ keywords, offset = 0, limit = 30 }) => {
     }
     await new Promise(resolve => setTimeout(resolve, 1500))
   }
-  if (left - 1 === offset) return []
+  if (left - 1 <= offset) return []
   const { result } = await searchApi({ keywords, offset, limit: left - offset - 1 })
   return result.songs
 }
