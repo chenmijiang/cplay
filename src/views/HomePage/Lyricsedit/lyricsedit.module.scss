@@ -190,21 +190,3 @@
     transition: font 0.1s;
   }
 }
-
-.lyrics-list .lr-li span {
-  display: none;
-  font-style: normal;
-  cursor: text;
-  -moz-user-select: text;
-  -moz-user-select: text;
-  -o-user-select: text;
-  -khtml-user-select: text;
-  -webkit-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.lyrics-list .lr-li span:focus {
-  border: none;
-  outline: 0
-}

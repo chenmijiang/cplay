@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 
-import SimpleBar from 'simplebar-react'
-import 'simplebar/dist/simplebar.min.css'
-import { checkTime, animate, copyLyrics } from '@/utils/common'
+import LyricsScroll from '@/components/LyricsScroll'
+
+import { copyLyrics } from '@/utils/common'
 import { animation_duration } from '@/configs/default'
+
 import style from './lyricsedit.module.scss'
 
 const Lyricsedit = React.memo(
@@ -16,56 +17,9 @@ const Lyricsedit = React.memo(
     lyricsState,
     uploadBoxShowDispatch,
     setEditedDispatch,
-    updateTimeDispatch,
     updateCurrentIndexDispatch,
     playPauseDispatch,
   }) => {
-    const [lyTimes, setLyTimes] = useState(lytimesState)
-    const oldLyTimes = useRef(lytimesState)
-    useEffect(() => {
-      if (oldLyTimes.current !== lytimesState) {
-        oldLyTimes.current = lytimesState
-        setLyTimes(lytimesState)
-      }
-    }, [lytimesState])
-
-    const [clickIndex, setClickIndex] = useState(-1) //可编辑预览模式，显示单行时间轴
-    const [checked, setChecked] = useState(true) //检测时间轴格式是否正确
-    const [changed, setChanged] = useState(false) //检测时间是否改变
-    const handleTimeChange = (time, index) => {
-      setLyTimes((pre) => {
-        let lytimes = [...pre]
-        lytimes[index] = time
-        return lytimes
-      })
-      setChanged(true)
-    }
-    const scrollableNodeRef = useRef() //滚动事件
-    //歌词滚动
-    useEffect(() => {
-      let el = scrollableNodeRef.current
-      //获取滚动歌词到歌词栏顶端的距离
-      let top = currentIndexState * 39
-      //获取滚动可视高度
-      let clientheight = el.el.clientHeight
-      //需滚动的高度
-      let height = top - clientheight / 2 + 100
-      animate({
-        duration: animation_duration, // 默认 300ms
-        timing: function (timeFraction) {
-          return -timeFraction * timeFraction + 2 * timeFraction
-        },
-        draw: function (progress) {
-          el.contentWrapperEl.scroll(0, height - (1 - progress) * 39)
-        },
-      })
-    }, [currentIndexState])
-    //复制提示
-    const [hinted, setHinted] = useState({
-      isCopied: false,
-      clearTimeId: 0,
-      content: '',
-    })
     const handlerUploadBtn = () => {
       uploadBoxShowDispatch(true)
       playPauseDispatch(true)
@@ -78,6 +32,12 @@ const Lyricsedit = React.memo(
       setEditedDispatch(false)
       updateCurrentIndexDispatch(-1)
     }
+    //复制提示
+    const [hinted, setHinted] = useState({
+      isCopied: false,
+      clearTimeId: 0,
+      content: '',
+    })
     const handlerCopyBtn = () => {
       const content = copyLyrics(lytimesState, lyricsState)
 
@@ -106,59 +66,13 @@ const Lyricsedit = React.memo(
         </div>
         {/* lyrics show && edit */}
         <div className={style.show_edit_content}>
-          <div className={style.ly_content}>
-            <SimpleBar
-              className={style.lyrics_list}
-              ref={scrollableNodeRef}
-            >
-                {lyricsState.map((ly, index) => (
-                  <li
-                    key={index}
-                    className={[
-                      style.lr_li,
-                      currentIndexState === index ? style.active : '',
-                    ].join(' ')}
-                    style={{ cursor: editedState ? 'default' : 'pointer' }}
-                    onClick={() => !editedState && setClickIndex(index)}
-                    onMouseLeave={() => {
-                      //限流
-                      if (clickIndex === index && checked && changed) {
-                        setChanged(false)
-                        setChecked(false)
-                        // 将数据同步到状态上
-                        updateTimeDispatch(lyTimes[index], index)
-                      }
-                      if (clickIndex !== -1) {
-                        setClickIndex(-1)
-                      }
-                    }}
-                  >
-                    <div
-                      className={style.ly_time}
-                      style={{
-                        width:
-                          editedState || clickIndex === index ? 'max(120px, 24%)' : '0%',
-                      }}
-                    >
-                      [
-                      <input
-                        type="text"
-                        value={lyTimes[index]}
-                        onChange={(evt) => {
-                          handleTimeChange(evt.target.value, index)
-                        }}
-                        onMouseLeave={(evt) => {
-                          setChecked(checkTime(evt.target.value))
-                          setClickIndex(index)
-                        }}
-                      />
-                      ]
-                    </div>
-                    {ly}
-                  </li>
-                ))}
-            </SimpleBar>
-          </div>
+          <LyricsScroll
+            lyrics={lyricsState} //歌词
+            lyTimes={lytimesState} //歌词时间轴
+            animate_time={animation_duration} //滚动动画时间
+            currentIndex={currentIndexState} //当前歌词索引
+            edited={editedState} // 编辑 || 预览 切换
+          />
           {/* buttons bar */}
           <div className={style.btns_handle}>
             <div>

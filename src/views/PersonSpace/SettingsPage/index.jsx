@@ -27,7 +27,7 @@ const SettingsPage = () => {
     }
   }, [])
   // 获取用户信息
-  const { profile, quality, baseUrl } = useSelector((state) => ({
+  const { profile, quality, baseUrl, animationTime } = useSelector((state) => ({
     ...state.user,
     ...state.setting,
   }))
@@ -130,6 +130,18 @@ const SettingsPage = () => {
           <button onClick={resetApi}>重置</button>
         </div>
       </CustomApi>
+      {/* 滚动动画 */}
+      <AnimationWrapper>
+        <h2>歌词滚动动画时间</h2>
+        <div className="setting_item">
+          <input
+            type="number"
+            placeholder={animationTime}
+          />
+          <button>设置</button>
+          <button>重置</button>
+        </div>
+      </AnimationWrapper>
     </SettingsWrapper>
   )
 }
@@ -265,6 +277,12 @@ const CustomApi = styled(SettingItem)`
     &:active {
       opacity: 1;
     }
+  }
+`
+const AnimationWrapper = styled(CustomApi)`
+  input {
+    width: 150px;
+    min-width: 100px;
   }
 `
 export default SettingsPage

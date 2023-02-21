@@ -102,10 +102,6 @@ body {
   overflow: hidden;
 }
 
-.simplebar-scrollbar::before {
-  background-color: var(--bg-white-300) !important;
-}
-
 .space_dashboard .simplebar-scrollbar::before {
   background-color: var(--bg-gray-100) !important;
 }

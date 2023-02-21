@@ -23,7 +23,7 @@ const lyricsSlice = createSlice({
     },
     updateTime: (state, action) => {
       const { time, index } = action.payload
-      // console.log(time, index)
+      console.log(time, index)
       state.times[index] = time
     },
     initTimes: (state, action) => {
