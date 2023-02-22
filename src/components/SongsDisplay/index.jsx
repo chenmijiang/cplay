@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { useInViewport } from 'ahooks'
 
@@ -7,94 +6,81 @@ import { secondsToFormat } from '@/utils/time_parser'
 
 import ImageLazy from '@/components/common/ImageLazy'
 import { LoadAnimations } from '@/components/common/LazyLoad'
-import { songPicAndUrl } from '@/store/upload.slice'
-import { playPause } from '@/store/play.slice'
-import { showToast } from '@/store/toast.slice'
 
-const SongsDisplay = React.memo(({ songs, scrollToBottom }) => {
-  const quality = useSelector((state) => state.setting.quality)
-  const dispatch = useDispatch()
-
-  // 处理歌曲跳转操作(双击)
-  // 获取播放音频和图片链接
-  const getAudioAndPic = (e) => {
-    // 1. e.target 为 song_item 元素
-    if (
-      e.target.classList.contains('song_item') ||
-      e.target.parentElement.classList.contains('song_item')
-    ) {
-      dispatch(playPause(true))
-      let name, artist, id
-      if (e.target.classList.contains('song_item')) {
-        id = e.target.getAttribute('data')
-        ;[name, artist] = e.target.innerText.split('\n')
-      } else {
-        id = e.target.parentElement.getAttribute('data')
-        ;[name, artist] = e.target.parentElement.innerText.split('\n')
+const SongsDisplay = React.memo(
+  ({ songs, scrollToBottom, DoubleClick, hintwords }) => {
+    // 处理点击操作(双击)
+    const handleDoubleClick = (e) => {
+      // 1. e.target 为 song_item 元素
+      if (
+        e.target.classList.contains('song_item') ||
+        e.target.parentElement.classList.contains('song_item')
+      ) {
+        let name, artist, id
+        if (e.target.classList.contains('song_item')) {
+          id = e.target.getAttribute('data')
+          ;[name, artist] = e.target.innerText.split('\n')
+        } else {
+          id = e.target.parentElement.getAttribute('data')
+          ;[name, artist] = e.target.parentElement.innerText.split('\n')
+        }
+        DoubleClick({ id, name, artist })
       }
-      dispatch(showToast({ message: '正在尝试获取音频...' }))
-      dispatch(songPicAndUrl({ id, name, artist, br: quality }))
-        .then(() => {
-          dispatch(showToast({ message: '获取成功' }))
-        })
-        .catch(() => {
-          dispatch(showToast({ message: '未知错误，获取失败' }))
-        })
     }
+
+    // 监听LoadingWrapper 是否可视，是的话加载更多数据
+    const [isLoading, setIsLoading] = useState(true)
+    const loadingAnimationRef = useRef(null)
+    const [inViewport, ratio] = useInViewport(loadingAnimationRef, {
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+    })
+    const locked = useRef(false)
+    useEffect(() => {
+      if (inViewport && ratio === 1 && !locked.current) {
+        locked.current = true
+        scrollToBottom(({ loading }) => {
+          setIsLoading(loading)
+        })
+        setTimeout(() => {
+          locked.current = false
+        }, 5000)
+      }
+    }, [inViewport, ratio, scrollToBottom])
+
+    return (
+      <SongsResultWrapper>
+        {songs.length === 0 ? (
+          <p>{!!hintwords ? hintwords : '找不到。。。换个词试试~'}</p>
+        ) : (
+          <>
+            {/* 展示 */}
+            <div
+              className="songitems"
+              onDoubleClick={handleDoubleClick}
+            >
+              {songs.map((song) => {
+                return (
+                  <SongItems
+                    key={song.id}
+                    {...song}
+                  />
+                )
+              })}
+            </div>
+            {/* 底部数据加载动画 */}
+            {isLoading === true ? (
+              <LoadingWrapper ref={loadingAnimationRef}>
+                <LoadAnimations />
+              </LoadingWrapper>
+            ) : (
+              <></>
+            )}
+          </>
+        )}
+      </SongsResultWrapper>
+    )
   }
-
-  // 监听LoadingWrapper 是否可视，是的话加载更多数据
-  const [isLoading, setIsLoading] = useState(true)
-  const loadingAnimationRef = useRef(null)
-  const [inViewport, ratio] = useInViewport(loadingAnimationRef, {
-    threshold: [0, 0.25, 0.5, 0.75, 1],
-  })
-  const locked = useRef(false)
-  useEffect(() => {
-    if (inViewport && ratio === 1 && !locked.current) {
-      locked.current = true
-      scrollToBottom(({ loading }) => {
-        setIsLoading(loading)
-      })
-      setTimeout(() => {
-        locked.current = false
-      }, 5000)
-    }
-  }, [inViewport, ratio, scrollToBottom])
-
-  return (
-    <SongsResultWrapper>
-      {songs.length === 0 ? (
-        <p>找不到。。。换个词试试~</p>
-      ) : (
-        <>
-          {/* 展示 */}
-          <div
-            className="songitems"
-            onDoubleClick={getAudioAndPic}
-          >
-            {songs.map((song) => {
-              return (
-                <SongItems
-                  key={song.id}
-                  {...song}
-                />
-              )
-            })}
-          </div>
-          {/* 底部数据加载动画 */}
-          {isLoading === true ? (
-            <LoadingWrapper ref={loadingAnimationRef}>
-              <LoadAnimations />
-            </LoadingWrapper>
-          ) : (
-            <></>
-          )}
-        </>
-      )}
-    </SongsResultWrapper>
-  )
-})
+)
 
 function SongItems({ id, pic, name, artist, duration }) {
   return (

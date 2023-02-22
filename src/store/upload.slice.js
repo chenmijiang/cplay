@@ -8,6 +8,7 @@ export const songPicAndUrl = createAsyncThunk('upload/songPicAndUrl', async (
   const { data } = await songUrlApi({ id, br })
   const { songs } = await songPicApi({ ids: id })
   return {
+    id,
     src: data[0].url,
     name,
     artist,
@@ -125,7 +126,8 @@ const uploadSlice = createSlice({
   },
   extraReducers: build => {
     build.addCase(songPicAndUrl.fulfilled, (state, action) => {
-      const { src, name, artist, picUrl } = action.payload
+      const { id, src, name, artist, picUrl } = action.payload
+      state.id = id
       state.src = src
       state.name = name
       state.artist = artist

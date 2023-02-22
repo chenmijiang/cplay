@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
 import lyricsReducer from './lyrics.slice'
 import playReducer from './play.slice'
@@ -9,12 +8,15 @@ import searchReducer from './search.slice'
 import userReducer from './user.slice'
 import settingReducer from './setting.slice'
 import toastReducer from './toast.slice'
+import historyReducer from './history.slice'
 
-const playerPersistConfig = {
-  key: 'player',
-  storage: storage,
-  whitelist: ['volume'],
-}
+import {
+  historyPersistConfig,
+  playerPersistConfig,
+  profilePersistConfig,
+  searchPersistConfig,
+  settingPersistConfig,
+} from './persistConfig'
 
 let store = configureStore({
   preloadedState: {},
@@ -22,27 +24,11 @@ let store = configureStore({
     player: persistReducer(playerPersistConfig, playReducer),
     lyricsEdit: lyricsReducer,
     uploadFiles: uploadReducer,
-    search: persistReducer(
-      {
-        key: 'search',
-        storage,
-        whitelist: ['history', 'songsCache'],
-      },
-      searchReducer
-    ),
-    user: persistReducer(
-      { key: 'profile', storage, whitelist: ['profile'] },
-      userReducer
-    ),
-    setting: persistReducer(
-      {
-        key: 'setting',
-        storage,
-        whitelist: ['quality', 'baseUrl', 'animationTime'],
-      },
-      settingReducer
-    ),
+    search: persistReducer(searchPersistConfig, searchReducer),
+    user: persistReducer(profilePersistConfig, userReducer),
+    setting: persistReducer(settingPersistConfig, settingReducer),
     toast: toastReducer,
+    history: persistReducer(historyPersistConfig, historyReducer),
   },
   // devTools: false,
 })
