@@ -7,20 +7,30 @@ import '@/assets/scss/index.scss'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from '@/store'
+import { isMobile } from '@/utils/common'
 
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import LazyLoad from './components/common/LazyLoad'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <Provider store={store}>
-    <PersistGate
-      loading={null}
-      persistor={persistor}
-    >
-        <App />
-    </PersistGate>
-  </Provider>
+  <>
+    {isMobile() === true ? (
+      <LazyLoad
+        component={import(/* webpackChunkName:"mobile" */ './Mobile')}
+      />
+    ) : (
+      <Provider store={store}>
+        <PersistGate
+          loading={null}
+          persistor={persistor}
+        >
+          <App />
+        </PersistGate>
+      </Provider>
+    )}
+  </>
 )
 
 // If you want to start measuring performance in your app, pass a function

@@ -4,6 +4,10 @@
   width: 50%;
   height: 100%;
   color: var(--font-white-100);
+
+  @include ll {
+    width: 100%;
+  }
 }
 
 .ly_header {
@@ -44,6 +48,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  @include ll {
+    width: 100%;
   }
 }
 
@@ -170,7 +178,7 @@
       }
 
       .active {
-        width: 24%;
+        width: max(120px, 24%);
       }
     }
   }
@@ -181,22 +189,4 @@
     font-weight: bold;
     transition: font 0.1s;
   }
-}
-
-.lyrics-list .lr-li span {
-  display: none;
-  font-style: normal;
-  cursor: text;
-  -moz-user-select: text;
-  -moz-user-select: text;
-  -o-user-select: text;
-  -khtml-user-select: text;
-  -webkit-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.lyrics-list .lr-li span:focus {
-  border: none;
-  outline: 0
 }

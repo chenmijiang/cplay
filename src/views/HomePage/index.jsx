@@ -13,7 +13,6 @@ import { secondsToFormat } from '@/utils/time_parser'
 import { setKeyEvents, clearKeyEvents } from '@/utils/keyEvent'
 import style from './home.module.scss'
 import {
-  setEdited,
   updateCurrentIndex,
   updateTime,
   uploadBoxShow,
@@ -29,10 +28,7 @@ function HomePage() {
     currentTime,
     uploaded,
     edited,
-    times,
     currentIndex,
-    name,
-    artist,
     lyrics,
     picUrl,
   } = useSelector((state) => ({
@@ -61,7 +57,9 @@ function HomePage() {
             if (currentIndex < lyrics.length - 1) {
               let index = currentIndex + 1
               dispatch(updateCurrentIndex(index))
-              dispatch(updateTime(secondsToFormat(currentTime), index))
+              dispatch(
+                updateTime({ time: secondsToFormat(currentTime), index: index })
+              )
             }
             break
           default:
@@ -106,51 +104,28 @@ function HomePage() {
           }}
         />
         {/* <!--歌词编辑区--> */}
-        <Lyricsedit
-          pausedState={paused}
-          currentTimeState={currentTime}
-          editedState={edited}
-          lytimesState={times}
-          currentIndexState={currentIndex}
-          nameState={name}
-          artistState={artist}
-          lyricsState={lyrics}
-          uploadBoxShowDispatch={(bool) => {
-            dispatch(uploadBoxShow(bool))
+        <Lyricsedit />
+      </div>
+      <div className={style.home_page_progress}>
+        <PlayProgressbar
+          current={secondsToFormat(isDrag ? current : currentTime, 0)}
+          duration={secondsToFormat(duration, 0)}
+          curPercent={currentTime / duration}
+          prePercent={buffered}
+          setCurrentPercent={(percent, isD) => {
+            if (isDrag !== isD) {
+              setIsDrag(isD)
+            }
+            dispatch(setTargetTime(percent * duration))
           }}
-          setEditedDispatch={(bool) => {
-            dispatch(setEdited(bool))
-          }}
-          updateTimeDispatch={(time, index) => {
-            dispatch(updateTime({ time, index }))
-          }}
-          updateCurrentIndexDispatch={(index) => {
-            dispatch(updateCurrentIndex(index))
-          }}
-          // uploadStateDispatch={uploadStateDispatch}
-          playPauseDispatch={(bool) => {
-            dispatch(playPause(bool))
+          setCurrentTime={(percent, isD) => {
+            if (isDrag !== isD) {
+              setIsDrag(isD)
+            }
+            setCurrent(percent * duration)
           }}
         />
       </div>
-      <PlayProgressbar
-        current={secondsToFormat(isDrag ? current : currentTime, 0)}
-        duration={secondsToFormat(duration, 0)}
-        curPercent={currentTime / duration}
-        prePercent={buffered}
-        setCurrentPercent={(percent, isD) => {
-          if (isDrag !== isD) {
-            setIsDrag(isD)
-          }
-          dispatch(setTargetTime(percent * duration))
-        }}
-        setCurrentTime={(percent, isD) => {
-          if (isDrag !== isD) {
-            setIsDrag(isD)
-          }
-          setCurrent(percent * duration)
-        }}
-      />
       <Glasscover targetUrl={picUrl} />
       <Portal>
         <AnimatePresence>

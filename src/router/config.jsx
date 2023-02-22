@@ -44,37 +44,47 @@ const config = [
       },
       {
         path: 'search',
-        element: LazyLoad(
-          import(
-            /* webpackChunkName:"space" */ '@/views/PersonSpace/SearchPage'
-          )
+        element: (
+          <LazyLoad
+            component={import(
+              /* webpackChunkName:"space" */ '@/views/PersonSpace/SearchPage'
+            )}
+          />
         ),
       },
       {
         path: 'history',
-        element: LazyLoad(
-          import(
-            /* webpackChunkName:"space" */ '@/views/PersonSpace/HistoryPage'
-          )
+        element: (
+          <LazyLoad
+            component={import(
+              /* webpackChunkName:"space" */ '@/views/PersonSpace/HistoryPage'
+            )}
+          />
         ),
       },
       {
         path: 'cloud',
-        element: LazyLoad(
-          import(/* webpackChunkName:"space" */ '@/views/PersonSpace/CloudPage')
+        element: (
+          <LazyLoad
+            component={import(
+              /* webpackChunkName:"space" */ '@/views/PersonSpace/CloudPage'
+            )}
+          />
         ),
       },
       {
         path: 'settings',
-        element: LazyLoad(
-          import(
-            /* webpackChunkName:"space" */ '@/views/PersonSpace/SettingsPage'
-          )
+        element: (
+          <LazyLoad
+            component={import(
+              /* webpackChunkName:"space" */ '@/views/PersonSpace/SettingsPage'
+            )}
+          />
         ),
       },
     ],
   },
-  { path: '*', element: LazyLoad(import('@/views/NotFound')) },
+  { path: '*', element: <LazyLoad component={import('@/views/NotFound')} /> },
 ]
 
 export default config

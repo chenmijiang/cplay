@@ -16,9 +16,12 @@ const settingSlice = createSlice({
     setBaseUrl: (state, action) => {
       state.baseUrl = action.payload
       setBaseUrlApi(action.payload)
+    },
+    setAnimationTime: (state, action) => {
+      state.animationTime = action.payload
     }
   }
 })
 
-export const { setBaseUrl, setMusicQuality } = settingSlice.actions
+export const { setBaseUrl, setMusicQuality, setAnimationTime } = settingSlice.actions
 export default settingSlice.reducer

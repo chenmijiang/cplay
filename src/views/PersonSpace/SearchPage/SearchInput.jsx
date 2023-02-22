@@ -1,10 +1,21 @@
-import React from 'react'
-
+import React, { useRef } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { useKeyPress } from 'ahooks'
 
 import Icon from '@/components/common/IconSvg'
 
-const SearchInput = React.forwardRef(({ searchHandler }, keywordsRef) => {
+const SearchInput = React.memo(({ searchHandler }) => {
+  const [searchParams] = useSearchParams()
+  const keywordsRef = useRef()
+  // 事件绑定：搜索框的回车事件，通过useKeyPress绑定
+  useKeyPress(
+    'enter',
+    () => {
+      searchHandler(keywordsRef.current.value)
+    },
+    { target: keywordsRef }
+  )
   return (
     <SearchInputWrapper>
       <div className="searchbox">
@@ -21,11 +32,12 @@ const SearchInput = React.forwardRef(({ searchHandler }, keywordsRef) => {
           type="text"
           maxLength="100"
           placeholder="搜索音乐..."
+          defaultValue={searchParams.get('keywords') || ''}
           ref={keywordsRef}
         />
         {/* 清除操作图标 */}
-        <div className="search_clear">
-          <Icon name="clear" />
+        <div className="search_clean">
+          <Icon name="clean" />
         </div>
       </div>
     </SearchInputWrapper>
@@ -42,7 +54,7 @@ const SearchInputWrapper = styled.div`
   left: 0;
   z-index: 10;
   .searchbox {
-    width: 670px;
+    width: min(670px, 100%);
     height: 46px;
     display: flex;
     box-shadow: 0 0 0 1px rgb(0 0 0 / 5%), 0 2px 4px 1px rgb(0 0 0 / 9%);
@@ -57,7 +69,7 @@ const SearchInputWrapper = styled.div`
     color: var(--font-gray-200);
   }
   .search_btn svg,
-  .search_clear svg {
+  .search_clean svg {
     width: 30px;
     height: 30px;
     margin: 8px 10px;
@@ -65,11 +77,12 @@ const SearchInputWrapper = styled.div`
     fill: var(--bg-gray-100);
     cursor: pointer;
   }
-  .search_clear svg {
+  .search_clean svg {
     width: 20px;
     margin: 8px 16px;
   }
-  .search_clear {
+  .search_clean {
+    /* visibility: ${({ clean }) => (clean ? 'visible' : 'hidden')}; */
     visibility: hidden;
   }
 `

@@ -2,8 +2,8 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
 // 懒加载
-export default function LazyLoad(importComponent, animation) {
-  const Comp = React.lazy(() => importComponent)
+export default function LazyLoad({ component, animation }) {
+  const Comp = React.lazy(() => component)
   return (
     <React.Suspense fallback={animation ? animation : <LoadAnimations />}>
       <Comp />

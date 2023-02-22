@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Icon from '@/components/common/IconSvg'
 import Progressbar from '@/components/Progressbar'
@@ -20,12 +21,21 @@ const MinimusicPlaybar = React.memo(
     setCurrentPercent,
     setCurrentTime,
   }) => {
+    const navigate = useNavigate()
     return (
       <MiniplayContent>
-        <Image
-          src={picUrl}
-          iconame="record"
-        />
+        <div
+          className="switch_to_home"
+          onClick={() => {
+            navigate('/')
+          }}
+        >
+          <Image
+            src={picUrl}
+            iconame="record"
+            className="music_cover"
+          />
+        </div>
         <Playpause
           onClick={() => {
             playPause(!paused)
@@ -67,6 +77,14 @@ const MiniplayContent = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
+  .switch_to_home {
+    cursor: pointer;
+    position: relative;
+    &:hover {
+      transition: all 0.2s;
+      filter: brightness(0.8);
+    }
+  }
 `
 const Playpause = styled.div`
   width: 42px;

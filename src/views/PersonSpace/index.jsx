@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -11,7 +11,6 @@ import SideNavbar from './SideNavbar'
 import MinimusicPlaybar from '@/components/MinimusicPlaybar'
 
 import { secondsToFormat } from '@/utils/time_parser'
-import { setKeyEvents, clearKeyEvents } from '@/utils/keyEvent'
 
 import style from './personspace.module.scss'
 
@@ -23,22 +22,6 @@ const PersonSpace = () => {
   // 设置进度条拖拽
   const [isDrag, setIsDrag] = useState(false)
   const [current, setCurrent] = useState(0)
-  // 设置 键盘快捷键
-  useEffect(() => {
-    const keyEvents = (evt) => {
-      let event = evt || window.event
-      switch (event.key.toLowerCase()) {
-        case ' ': // 暂停播放和开始播放
-          dispatch(playPause(!paused))
-          break
-        default:
-          break
-      }
-    }
-
-    setKeyEvents(keyEvents)
-    return () => clearKeyEvents()
-  }, [paused, dispatch])
 
   return (
     <motion.div

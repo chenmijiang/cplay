@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 
 import Image from '@/components/common/Image'
 import Icon from '@/components/common/IconSvg'
@@ -8,14 +9,13 @@ import Icon from '@/components/common/IconSvg'
 import { logout } from '@/store/user.slice'
 import { playPause } from '@/store/play.slice'
 import { setBaseUrl, setMusicQuality } from '@/store/setting.slice'
+import { setAnimationTime } from '@/store/setting.slice'
 import { showToast } from '@/store/toast.slice'
 import { testUrl, cancelAllPendingRequests } from '@/apis'
 
-const qualityItems = [
-  { id: 1, name: '标准 - 128Kbps', value: 128000 },
-  { id: 2, name: '较高 - 192Kbps', value: 192000 },
-  { id: 3, name: '高品质 - 320Kbps', value: 320000 },
-]
+import { pageVariant } from '@/variants'
+
+import { qualityItems } from '@/configs/default'
 
 const SettingsPage = () => {
   useEffect(() => {
@@ -24,7 +24,7 @@ const SettingsPage = () => {
     }
   }, [])
   // 获取用户信息
-  const { profile, quality, baseUrl } = useSelector((state) => ({
+  const { profile, quality, baseUrl, animationTime } = useSelector((state) => ({
     ...state.user,
     ...state.setting,
   }))
@@ -62,8 +62,32 @@ const SettingsPage = () => {
     dispatch(setBaseUrl('https://cplay-api.vercel.app'))
     apiRef.current.value = ''
   }
+  // 设置 滚动动画
+  const aniamtionRef = useRef()
+  const AnimationTime = () => {
+    let time = aniamtionRef.current.value
+    if (time === '') return
+    if (200 <= +time && +time <= 800) {
+      dispatch(setAnimationTime(time))
+      aniamtionRef.current.value = ''
+      dispatch(showToast({ message: '设置成功' }))
+    } else {
+      dispatch(showToast({ message: '超出范围200~800(ms)' }))
+    }
+  }
+  const resetAnimationTime = () => {
+    dispatch(setAnimationTime(300))
+    aniamtionRef.current.value = ''
+  }
   return (
-    <SettingsWrapper>
+    <SettingsWrapper
+      variants={pageVariant}
+      initial="enter"
+      animate="show"
+      transition="transition"
+      exit="exit"
+      key="settings"
+    >
       {/* 退出登录 */}
       <Logout>
         {/* 头像 */}
@@ -120,11 +144,24 @@ const SettingsPage = () => {
           <button onClick={resetApi}>重置</button>
         </div>
       </CustomApi>
+      {/* 滚动动画 */}
+      <AnimationWrapper>
+        <h2>歌词滚动动画时间</h2>
+        <div className="setting_item">
+          <input
+            type="number"
+            placeholder={animationTime}
+            ref={aniamtionRef}
+          />
+          <button onClick={AnimationTime}>设置</button>
+          <button onClick={resetAnimationTime}>重置</button>
+        </div>
+      </AnimationWrapper>
     </SettingsWrapper>
   )
 }
 
-const SettingsWrapper = styled.div`
+const SettingsWrapper = styled(motion.div)`
   width: 95%;
   margin: 0 auto;
   padding-top: 20px;
@@ -136,7 +173,7 @@ const Logout = styled.div`
   align-items: center;
   height: 100px;
   color: var(--font-gray-200);
-  grid-template-columns: 120px 200px 1fr 160px;
+  grid-template-columns: 130px 100px 1fr 120px;
   .avatar {
     width: 80px;
     height: 80px;
@@ -225,17 +262,21 @@ const SoundQuality = styled(SettingItem)`
     outline: none;
     appearance: none;
     color: inherit;
+    background: transparent;
   }
   option {
     text-align: center;
   }
 `
 const CustomApi = styled(SettingItem)`
+  .setting_item {
+    display: flex;
+  }
   input {
     height: inherit;
     padding: 0 10px;
     width: 300px;
-    float: left;
+    min-width: 150px;
     background: var(--bg-gray-210);
   }
   button {
@@ -251,6 +292,18 @@ const CustomApi = styled(SettingItem)`
     &:active {
       opacity: 1;
     }
+  }
+`
+const AnimationWrapper = styled(CustomApi)`
+  input {
+    width: 150px;
+    min-width: 100px;
+    appearance: textfield;
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
   }
 `
 export default SettingsPage
