@@ -4,6 +4,8 @@
 
 [视频教程](https://www.bilibili.com/video/BV1vf4y1c7co/?spm_id_from=333.999.0.0)
 
+如果方便的话，请给我一个star吧 ˗ˋˏ♡ˎˊ˗
+
 ## 功能
 
 在线编辑歌词时间轴
