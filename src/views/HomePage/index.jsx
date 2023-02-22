@@ -13,7 +13,6 @@ import { secondsToFormat } from '@/utils/time_parser'
 import { setKeyEvents, clearKeyEvents } from '@/utils/keyEvent'
 import style from './home.module.scss'
 import {
-  setEdited,
   updateCurrentIndex,
   updateTime,
   uploadBoxShow,
@@ -29,10 +28,7 @@ function HomePage() {
     currentTime,
     uploaded,
     edited,
-    times,
     currentIndex,
-    name,
-    artist,
     lyrics,
     picUrl,
   } = useSelector((state) => ({
@@ -108,31 +104,7 @@ function HomePage() {
           }}
         />
         {/* <!--歌词编辑区--> */}
-        <Lyricsedit
-          pausedState={paused}
-          currentTimeState={currentTime}
-          editedState={edited}
-          lytimesState={times}
-          currentIndexState={currentIndex}
-          nameState={name}
-          artistState={artist}
-          lyricsState={lyrics}
-          uploadBoxShowDispatch={(bool) => {
-            dispatch(uploadBoxShow(bool))
-          }}
-          setEditedDispatch={(bool) => {
-            dispatch(setEdited(bool))
-          }}
-          updateTimeDispatch={(time, index) => {
-            dispatch(updateTime({ time, index }))
-          }}
-          updateCurrentIndexDispatch={(index) => {
-            dispatch(updateCurrentIndex(index))
-          }}
-          playPauseDispatch={(bool) => {
-            dispatch(playPause(bool))
-          }}
-        />
+        <Lyricsedit />
       </div>
       <div className={style.home_page_progress}>
         <PlayProgressbar

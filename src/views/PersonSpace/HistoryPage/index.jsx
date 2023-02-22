@@ -14,7 +14,7 @@ const HostoryPage = () => {
     exit="exit"
       key="historyPage"
     >
-      welcome to history page
+      暂未开发，敬请期待
     </HistoryPageWrapper>
   )
 }

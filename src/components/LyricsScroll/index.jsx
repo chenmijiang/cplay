@@ -77,8 +77,6 @@ const LyricsScroll = React.memo(
     const [blockHeight, setBlockHeight] = useState(0)
     useEffect(() => {
       let contentWrapper = scrollableNodeRef.current
-      //获取滚动歌词到歌词栏顶端的距离
-      let top = currentIndex * 39
       //获取滚动可视高度
       let clientheight = contentWrapper.clientHeight
       setBlockHeight((pre) => {
@@ -88,7 +86,7 @@ const LyricsScroll = React.memo(
         return pre
       })
       //需滚动的高度
-      let height = top - clientheight / 2 + 100
+      let height = currentIndex * 39
       animate({
         duration: animate_time, // 默认 300ms
         timing: function (timeFraction) {
@@ -109,6 +107,7 @@ const LyricsScroll = React.memo(
           className="lyrics_list"
           scrollableNodeProps={{ ref: scrollableNodeRef }}
         >
+          <div className="ly_block"></div>
           {lyrics.map((ly, index) => (
             <li
               key={index}
@@ -191,6 +190,9 @@ const LyContent = styled.div`
     }
   }
   .ly_block {
+    &:first-child {
+      height: ${({ blockHeight }) => `${blockHeight / 2 - 100}px`};
+    }
     height: ${({ blockHeight }) => `${blockHeight}px`};
   }
 `

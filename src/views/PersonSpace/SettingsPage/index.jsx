@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 
 import Image from '@/components/common/Image'
 import Icon from '@/components/common/IconSvg'
@@ -8,17 +9,13 @@ import Icon from '@/components/common/IconSvg'
 import { logout } from '@/store/user.slice'
 import { playPause } from '@/store/play.slice'
 import { setBaseUrl, setMusicQuality } from '@/store/setting.slice'
+import { setAnimationTime } from '@/store/setting.slice'
 import { showToast } from '@/store/toast.slice'
 import { testUrl, cancelAllPendingRequests } from '@/apis'
 
-import { motion } from 'framer-motion'
 import { pageVariant } from '@/variants'
 
-const qualityItems = [
-  { id: 1, name: '标准 - 128Kbps', value: 128000 },
-  { id: 2, name: '较高 - 192Kbps', value: 192000 },
-  { id: 3, name: '高品质 - 320Kbps', value: 320000 },
-]
+import { qualityItems } from '@/configs/default'
 
 const SettingsPage = () => {
   useEffect(() => {
@@ -64,6 +61,23 @@ const SettingsPage = () => {
   const resetApi = () => {
     dispatch(setBaseUrl('https://cplay-api.vercel.app'))
     apiRef.current.value = ''
+  }
+  // 设置 滚动动画
+  const aniamtionRef = useRef()
+  const AnimationTime = () => {
+    let time = aniamtionRef.current.value
+    if (time === '') return
+    if (200 <= +time && +time <= 800) {
+      dispatch(setAnimationTime(time))
+      aniamtionRef.current.value = ''
+      dispatch(showToast({ message: '设置成功' }))
+    } else {
+      dispatch(showToast({ message: '超出范围200~800(ms)' }))
+    }
+  }
+  const resetAnimationTime = () => {
+    dispatch(setAnimationTime(300))
+    aniamtionRef.current.value = ''
   }
   return (
     <SettingsWrapper
@@ -137,9 +151,10 @@ const SettingsPage = () => {
           <input
             type="number"
             placeholder={animationTime}
+            ref={aniamtionRef}
           />
-          <button>设置</button>
-          <button>重置</button>
+          <button onClick={AnimationTime}>设置</button>
+          <button onClick={resetAnimationTime}>重置</button>
         </div>
       </AnimationWrapper>
     </SettingsWrapper>
@@ -283,6 +298,12 @@ const AnimationWrapper = styled(CustomApi)`
   input {
     width: 150px;
     min-width: 100px;
+    appearance: textfield;
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
   }
 `
 export default SettingsPage

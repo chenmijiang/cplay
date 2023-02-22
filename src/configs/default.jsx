@@ -28,5 +28,8 @@ export const side_navlinks = [
   },
 ]
 
-// 300毫秒滚动动画时长，该项可能会造成歌词时间轴不准确
-export const animation_duration = 300
+export const qualityItems = [
+  { id: 1, name: '标准 - 128Kbps', value: 128000 },
+  { id: 2, name: '较高 - 192Kbps', value: 192000 },
+  { id: 3, name: '高品质 - 320Kbps', value: 320000 },
+]

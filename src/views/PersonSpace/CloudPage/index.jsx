@@ -14,7 +14,7 @@ const CloudPage = () => {
       exit="exit"
       key="historyPage"
     >
-      welcome to cloud page
+      暂未开发，敬请期待
     </CloudPageWrapper>
   )
 }

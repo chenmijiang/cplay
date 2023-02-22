@@ -7,7 +7,6 @@ const lyricsSlice = createSlice({
     //edited === true 编辑模式(显示所有时间轴)
     //edited === false 可编辑预览模式(点击歌词才显示时间轴，并且歌词可滚动)
     edited: true,
-    // edited == false && viewed == (true || false)
     copyed: false, //区分登录和未登录时关闭窗口是否保存音频文件和歌词文件
     uploaded: false, //区分登录和未登录时关闭窗口是否保存音频文件和歌词文件
     currentIndex: -1, //当前索引
@@ -23,7 +22,6 @@ const lyricsSlice = createSlice({
     },
     updateTime: (state, action) => {
       const { time, index } = action.payload
-      console.log(time, index)
       state.times[index] = time
     },
     initTimes: (state, action) => {
