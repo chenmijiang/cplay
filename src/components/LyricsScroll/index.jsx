@@ -79,13 +79,15 @@ const LyricsScroll = React.memo(
       let contentWrapper = scrollableNodeRef.current
       //获取滚动可视高度
       let clientheight = contentWrapper.clientHeight
+      // 当前滚动位置
+      let currentHeight = contentWrapper.scrollTop
       setBlockHeight((pre) => {
         if (pre !== clientheight) {
           return clientheight
         }
         return pre
       })
-      //需滚动的高度
+      //需滚动到的位置
       let height = currentIndex * 39
       animate({
         duration: animate_time, // 默认 300ms
@@ -93,7 +95,10 @@ const LyricsScroll = React.memo(
           return -timeFraction * timeFraction + 2 * timeFraction
         },
         draw: function (progress) {
-          contentWrapper.scroll(0, height - (1 - progress) * 39)
+          contentWrapper.scroll(
+            0,
+            height + (1 - progress) * (currentHeight - height)
+          )
         },
       })
     }, [currentIndex, animate_time])
