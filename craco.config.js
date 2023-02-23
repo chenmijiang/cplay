@@ -36,7 +36,7 @@ module.exports = {
         test: /\.md$/,
         use: [
           {
-            loader: path.resolve(__dirname, 'src/loader/md-loader.js'),
+            loader: 'md-loader',
             options: {
               gfm: true,
               tables: true,
@@ -49,6 +49,9 @@ module.exports = {
           }
         ],
       },)
+      webpackConfig.resolveLoader = {
+        modules: ['node_modules', './src/loader'],
+      }
       return webpackConfig
     }
   },
