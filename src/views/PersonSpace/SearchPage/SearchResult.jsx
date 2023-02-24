@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -9,8 +9,16 @@ import { playPause } from '@/store/play.slice'
 import { showToast } from '@/store/toast.slice'
 import { songPicAndUrl } from '@/store/upload.slice'
 
+import { cancelAllPendingRequests } from '@/apis'
+
 const SearchResult = React.memo(
   ({ searchHandler, currentPageRef, isLoading, isError }) => {
+    useEffect(() => {
+      return () => {
+        // 清空所有请求
+        cancelAllPendingRequests()
+      }
+    }, [])
     const dispatch = useDispatch()
     const { songs, quality } = useSelector((state) => ({
       songs: state.search.songs,
@@ -31,7 +39,7 @@ const SearchResult = React.memo(
     const [searchParams] = useSearchParams()
     const scrollToBottom = useCallback(
       (callback) => {
-        // 限制刷2页数据，二分估测大概率把暂时搞崩
+        // 限制刷2页数据，二分估测大概率把接口搞崩
         if (currentPageRef.current < 2) {
           const keywords = searchParams.get('keywords')
           searchHandler(keywords, ++currentPageRef.current)

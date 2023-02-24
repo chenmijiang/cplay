@@ -5,22 +5,36 @@ import { songPic as songPicApi, songUrl as songUrlApi } from '@/apis'
 // 歌曲封面 && 歌曲播放地址
 export const songPicAndUrl = createAsyncThunk('upload/songPicAndUrl', async (
   { id, name, artist, br = 128000 }) => {
-  const { data } = await songUrlApi({ id, br })
-  const { songs } = await songPicApi({ ids: id })
-  return {
-    id,
-    src: data[0].url,
-    name,
-    artist,
-    picUrl: songs[0].al.picUrl,
+  let src = ''
+  let picUrl = ''
+  try {
+    const { data } = await songUrlApi({ id, br })
+    const { songs } = await songPicApi({ ids: id })
+    src = data[0].url
+    picUrl = songs[0].al.picUrl
+  } catch (e) {
+    console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+  } finally {
+    return {
+      id,
+      src,
+      name,
+      artist,
+      picUrl,
+    }
   }
 })
 
 // 歌曲播放地址，一段时间会失效，需要重新请求
 export const songUrl = createAsyncThunk('upload/songUrl', async (id, br = 128000) => {
-  const { data } = await songUrlApi({ id, br })
-  return {
-    src: data[0].url
+  let src = ''
+  try {
+    const { data } = await songUrlApi({ id, br })
+    src = data[0].url
+  } catch (e) {
+    console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+  } finally {
+    return { src }
   }
 })
 
