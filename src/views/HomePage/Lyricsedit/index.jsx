@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { motion } from 'framer-motion'
 
 import LyricsScroll from '@/components/LyricsScroll'
 
@@ -13,6 +14,7 @@ import {
 } from '@/store/lyrics.slice'
 import { playPause } from '@/store/play.slice'
 import { saveHistoryItem } from '@/store/history.slice'
+import { btnTapSpringVariant } from '@/variants'
 
 const Lyricsedit = React.memo(() => {
   const dispatch = useDispatch()
@@ -112,28 +114,28 @@ const Lyricsedit = React.memo(() => {
         />
         {/* buttons bar */}
         <div className={style.btns_handle}>
-          <div>
+          <motion.div whileTap="tap" variants={btnTapSpringVariant}>
             <i
               className={[style.icon, style.uploading].join(' ')}
               title="上传文件"
               onClick={handlerUploadBtn}
             ></i>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div whileTap="tap" variants={btnTapSpringVariant}>
             <i
               className={[style.icon, style.edit].join(' ')}
               title="编辑模式"
               onClick={handlerEditBtn}
             ></i>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div whileTap="tap" variants={btnTapSpringVariant}>
             <i
               className={[style.icon, style.overview].join(' ')}
               title="可编辑预览模式"
               onClick={handlerOverviewBtn}
             ></i>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div whileTap="tap" variants={btnTapSpringVariant}>
             <i
               className={[style.icon, style.copy].join(' ')}
               title="歌词复制"
@@ -149,7 +151,7 @@ const Lyricsedit = React.memo(() => {
                 {hinted.content}
               </span>
             </i>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

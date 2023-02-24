@@ -85,6 +85,13 @@ const SongsDisplay = React.memo(
 function SongItems({ id, pic, name, artist, duration }) {
   return (
     <SongItemsWrapper
+      whileHover={{
+        scale: 1.01,
+      }}
+      transition={{
+        type: 'spring',
+        duration: 0.3,
+      }}
       className="song_item"
       data={id}
     >

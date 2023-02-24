@@ -53,7 +53,7 @@ const LyricsScroll = React.memo(
       return (evt) => {
         setLytimeFormated((pre) => {
           let right = checkTime(evt.target.value)
-          if(right) {
+          if (right) {
             evt.target.blur()
           }
           return right

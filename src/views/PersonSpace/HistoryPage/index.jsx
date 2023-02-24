@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
-import { pageVariant } from '@/variants'
+import { routerSwitchVariant } from '@/variants'
 import SongsDisplay from '@/components/SongsDisplay'
 import Icon from '@/components/common/IconSvg'
 import { playPause } from '@/store/play.slice'
@@ -48,7 +48,7 @@ const HistoryPage = () => {
   }
   return (
     <HistoryPageWrapper
-      variants={pageVariant}
+      variants={routerSwitchVariant}
       initial="enter"
       animate="show"
       transition="transition"
