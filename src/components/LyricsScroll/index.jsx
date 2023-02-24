@@ -52,7 +52,11 @@ const LyricsScroll = React.memo(
     const handleLytimeFormated = (index) => {
       return (evt) => {
         setLytimeFormated((pre) => {
-          return checkTime(evt.target.value)
+          let right = checkTime(evt.target.value)
+          if(right) {
+            evt.target.blur()
+          }
+          return right
         })
       }
     }

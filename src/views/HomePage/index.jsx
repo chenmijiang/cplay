@@ -45,6 +45,7 @@ function HomePage() {
       let event = evt || window.event
       switch (event.key.toLowerCase()) {
         case ' ': // 暂停播放和开始播放
+          event.preventDefault()
           dispatch(playPause(!paused))
           break
         default:
@@ -54,6 +55,7 @@ function HomePage() {
         switch (event.key.toLowerCase()) {
           // 添加时间轴
           case 'enter':
+            event.preventDefault()
             if (currentIndex < lyrics.length - 1) {
               let index = currentIndex + 1
               dispatch(updateCurrentIndex(index))
