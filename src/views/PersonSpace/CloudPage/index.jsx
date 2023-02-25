@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
-import { pageVariant } from '@/variants'
+import { routerSwitchVariant } from '@/variants'
 
 const CloudPage = () => {
   return (
     <CloudPageWrapper
-      variants={pageVariant}
+      variants={routerSwitchVariant}
       initial="enter"
       animate="show"
       transition="transition"

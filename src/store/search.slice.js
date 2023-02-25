@@ -2,27 +2,40 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { search as searchApi, songPic as songPicApi } from '@/apis'
 
 export const searchByKeywords = createAsyncThunk('search/search', async ({ keywords, offset }) => {
-  const { result } = await searchApi({ keywords, offset })
-  let songs = result.songs
-  if (!songs) {
-    // 在限制内通过折半查找最大数量
-    songs = await binarySearch({ keywords, offset })
-  }
-  songs = songs.map(song => {
-    return {
-      id: song.id,
-      name: song.name,
-      artist: song.artists.map(artist => artist.name).join('/'),
-      duration: song.duration
+  let result = {}, songs = []
+  try {
+    let res = await searchApi({ keywords, offset })
+    result = res.result
+    songs = result.songs
+    if (!songs) {
+      // 在限制内通过折半查找最大数量
+      songs = await binarySearch({ keywords, offset })
     }
-  })
-  return { songs, keywords, offset }
+    songs = songs.map(song => {
+      return {
+        id: song.id,
+        name: song.name,
+        artist: song.artists.map(artist => artist.name).join('/'),
+        duration: song.duration
+      }
+    })
+  } catch (e) {
+    console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+  } finally {
+    return { songs, keywords, offset }
+  }
 })
 
 export const songPicByIds = createAsyncThunk('search/songPic', async ({ ids, keywords, offset }) => {
-  const { songs } = await songPicApi({ ids })
-  let pics = songs.map(song => song.al.picUrl)
-  return { pics, keywords, offset }
+  let pics = []
+  try {
+    const { songs } = await songPicApi({ ids })
+    pics = songs.map(song => song.al.picUrl)
+  } catch (e) {
+    console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+  } finally {
+    return { pics, keywords, offset }
+  }
 })
 
 const searchSlice = createSlice({
@@ -101,7 +114,7 @@ const binarySearch = async ({ keywords, offset = 0, limit = 30 }) => {
         right = mid - 1
       }
     } catch (e) {
-      console.log('binarySearch - ', e)
+      console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
     }
     await new Promise(resolve => setTimeout(resolve, 1500))
   }

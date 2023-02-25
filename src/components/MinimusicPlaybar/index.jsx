@@ -1,11 +1,13 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
+import { motion } from 'framer-motion'
 
 import Icon from '@/components/common/IconSvg'
 import Progressbar from '@/components/Progressbar'
 
-import styled from 'styled-components'
 import Image from '@/components/common/Image'
+import { btnTapSpringVariant } from '@/variants'
 
 const MinimusicPlaybar = React.memo(
   ({
@@ -37,6 +39,8 @@ const MinimusicPlaybar = React.memo(
           />
         </div>
         <Playpause
+          variants={btnTapSpringVariant}
+          whileTap="tap"
           onClick={() => {
             playPause(!paused)
           }}
@@ -86,7 +90,7 @@ const MiniplayContent = styled.div`
     }
   }
 `
-const Playpause = styled.div`
+const Playpause = styled(motion.div)`
   width: 42px;
   height: 42px;
   cursor: pointer;

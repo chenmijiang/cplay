@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { motion } from 'framer-motion'
 
 import LyricsScroll from '@/components/LyricsScroll'
 
@@ -12,6 +13,8 @@ import {
   uploadBoxShow,
 } from '@/store/lyrics.slice'
 import { playPause } from '@/store/play.slice'
+import { saveHistoryItem } from '@/store/history.slice'
+import { btnTapSpringVariant } from '@/variants'
 
 const Lyricsedit = React.memo(() => {
   const dispatch = useDispatch()
@@ -23,14 +26,22 @@ const Lyricsedit = React.memo(() => {
     title,
     currentIndex,
     lyrics,
+    id,
+    quality,
+    picUrl,
+    duration,
   } = useSelector((state) => ({
     edited: state.lyricsEdit.edited,
     lytimes: state.lyricsEdit.times,
     animationTime: state.setting.animationTime,
     artist: state.uploadFiles.artist,
     title: state.uploadFiles.name,
+    id: state.uploadFiles.id,
     lyrics: state.uploadFiles.lyrics,
     currentIndex: state.lyricsEdit.currentIndex,
+    quality: state.setting.quality,
+    picUrl: state.uploadFiles.picUrl,
+    duration: state.player.duration,
   }))
 
   const handlerUploadBtn = () => {
@@ -65,6 +76,21 @@ const Lyricsedit = React.memo(() => {
     if (clearTimeId === hinted.clearTimeId) {
       clearTimeout(hinted.clearTimeId)
     }
+    // 保存到历史记录,限制仅搜索歌曲时才保存
+    if (id !== 0) {
+      dispatch(
+        saveHistoryItem({
+          id,
+          quality,
+          lyrics,
+          lytimes,
+          title,
+          artist,
+          picUrl,
+          duration: duration * 1000,
+        })
+      )
+    }
     setHinted({ isCopied: true, clearTimeId, content })
   }
 
@@ -88,28 +114,28 @@ const Lyricsedit = React.memo(() => {
         />
         {/* buttons bar */}
         <div className={style.btns_handle}>
-          <div>
+          <motion.div whileTap="tap" variants={btnTapSpringVariant}>
             <i
               className={[style.icon, style.uploading].join(' ')}
               title="上传文件"
               onClick={handlerUploadBtn}
             ></i>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div whileTap="tap" variants={btnTapSpringVariant}>
             <i
               className={[style.icon, style.edit].join(' ')}
               title="编辑模式"
               onClick={handlerEditBtn}
             ></i>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div whileTap="tap" variants={btnTapSpringVariant}>
             <i
               className={[style.icon, style.overview].join(' ')}
               title="可编辑预览模式"
               onClick={handlerOverviewBtn}
             ></i>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div whileTap="tap" variants={btnTapSpringVariant}>
             <i
               className={[style.icon, style.copy].join(' ')}
               title="歌词复制"
@@ -125,7 +151,7 @@ const Lyricsedit = React.memo(() => {
                 {hinted.content}
               </span>
             </i>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

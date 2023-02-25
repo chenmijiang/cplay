@@ -49,6 +49,7 @@ const config = [
             component={import(
               /* webpackChunkName:"space" */ '@/views/PersonSpace/SearchPage'
             )}
+            animation={<></>}
           />
         ),
       },
@@ -59,6 +60,7 @@ const config = [
             component={import(
               /* webpackChunkName:"space" */ '@/views/PersonSpace/HistoryPage'
             )}
+            animation={<></>}
           />
         ),
       },
@@ -69,6 +71,7 @@ const config = [
             component={import(
               /* webpackChunkName:"space" */ '@/views/PersonSpace/CloudPage'
             )}
+            animation={<></>}
           />
         ),
       },
@@ -79,12 +82,16 @@ const config = [
             component={import(
               /* webpackChunkName:"space" */ '@/views/PersonSpace/SettingsPage'
             )}
+            animation={<></>}
           />
         ),
       },
     ],
   },
-  { path: '*', element: <LazyLoad component={import('@/views/NotFound')} /> },
+  {
+    path: '*',
+    element: <LazyLoad component={import('@/views/NotFound')} />,
+  },
 ]
 
 export default config

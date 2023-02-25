@@ -13,7 +13,7 @@ import { setAnimationTime } from '@/store/setting.slice'
 import { showToast } from '@/store/toast.slice'
 import { testUrl, cancelAllPendingRequests } from '@/apis'
 
-import { pageVariant } from '@/variants'
+import { routerSwitchVariant } from '@/variants'
 
 import { qualityItems } from '@/configs/default'
 
@@ -81,7 +81,7 @@ const SettingsPage = () => {
   }
   return (
     <SettingsWrapper
-      variants={pageVariant}
+      variants={routerSwitchVariant}
       initial="enter"
       animate="show"
       transition="transition"

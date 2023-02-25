@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useKeyPress } from 'ahooks'
@@ -8,6 +8,9 @@ import Icon from '@/components/common/IconSvg'
 const SearchInput = React.memo(({ searchHandler }) => {
   const [searchParams] = useSearchParams()
   const keywordsRef = useRef()
+  useEffect(() => {
+    keywordsRef.current.value = searchParams.get('keywords') || ''
+  }, [searchParams])
   // 事件绑定：搜索框的回车事件，通过useKeyPress绑定
   useKeyPress(
     'enter',
@@ -32,7 +35,6 @@ const SearchInput = React.memo(({ searchHandler }) => {
           type="text"
           maxLength="100"
           placeholder="搜索音乐..."
-          defaultValue={searchParams.get('keywords') || ''}
           ref={keywordsRef}
         />
         {/* 清除操作图标 */}

@@ -4,23 +4,26 @@
 
 [视频教程](https://www.bilibili.com/video/BV1vf4y1c7co/?spm_id_from=333.999.0.0)
 
-如果方便的话，请给我一个star吧 ˗ˋˏ♡ˎˊ˗
+如果方便的话，请给我一个star吧 [![GitHub stars](https://img.shields.io/github/stars/chenmijiang/cplay.svg?style=plastic&label=Stars)](https://github.com/chenmijiang/cplay)
 
 ## 功能
 
-在线编辑歌词时间轴
+1.在线编辑歌词时间轴
 
-在线搜索音频(网易源)
+2.在线搜索音频(网易源)
 
-> 注意：由于vip限制有些音频只有30秒左右或者音频没有切换，多半需要登录vip账号
+> 注意：由于vip限制有些音频只有30秒左右或者音频没有切换，多半需要登录vip账号，其他情况可以不登录
 
-编辑历史保存(暂未制作)
+3.编辑历史保存
 
-网易云盘管理(暂未制作)
+- 仅支持通过搜索获取的音频，这是因为本地音频在浏览器不好保存
 
-设置
+4.网易云盘管理(暂未制作)
 
-- 自定义`后台接口`：接口[下载地址](https://github.com/Binaryify/NeteaseCloudMusicApi)，自行部署即可
+5.设置
+
+- 自定义`后台接口`：接口访问过慢，请自定义接口或梯子访问。接口[下载地址](https://github.com/Binaryify/NeteaseCloudMusicApi)，自行部署即可
+- 滚动动画时间：默认300ms
 
 ## 联系我
 

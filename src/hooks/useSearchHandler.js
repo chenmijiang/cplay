@@ -15,7 +15,7 @@ export default function useSearchHandler() {
    */
   const fetchSongs = useCallback((keywords, page) => {
     setLoadingState([true, false])
-    if (songsCache[keywords] && songsCache[keywords][page]) {
+    if (songsCache[keywords] && songsCache[keywords][page] && songsCache[keywords][page].length > 0) {
       // 歌曲缓存中获取歌曲列表
       let songs = []
       for (let i = 1; i <= page; i++) {

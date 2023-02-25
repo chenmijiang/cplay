@@ -10,7 +10,7 @@ import SearchInput from './SearchInput'
 import HistoryPanel from './HistoryPanel'
 import SearchResult from './SearchResult'
 
-import { pageVariant } from '@/variants'
+import { routerSwitchVariant } from '@/variants'
 import useSearchHandler from '@/hooks/useSearchHandler'
 
 const SearchPage = () => {
@@ -44,7 +44,7 @@ const SearchPage = () => {
 
   return (
     <SearchPageWrapper
-      variants={pageVariant}
+      variants={routerSwitchVariant}
       initial="enter"
       animate="show"
       transition="transition"

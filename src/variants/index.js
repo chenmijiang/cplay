@@ -26,21 +26,29 @@ export const glassCoverVariant = {
 }
 
 // 子路由切换动画
-export const pageVariant = {
+export const routerSwitchVariant = {
   enter: {
     opacity: 0,
-    y: 5
   },
   show: {
     opacity: 1,
-    y: 0
   },
   exit: {
     opacity: 0,
-    y: -5
   },
   transition: {
     ease: 'easeInOut',
+    duration: 0.3
+  }
+}
+
+// 按钮回弹
+export const btnTapSpringVariant = {
+  tap: {
+    scale: 1.03
+  },
+  transition: {
+    type: 'spring',
     duration: 0.3
   }
 }

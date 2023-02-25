@@ -36,7 +36,7 @@ module.exports = {
         test: /\.md$/,
         use: [
           {
-            loader: path.resolve(__dirname, 'src/loader/md-loader.js'),
+            loader: 'md-loader',
             options: {
               gfm: true,
               tables: true,
@@ -49,6 +49,36 @@ module.exports = {
           }
         ],
       },)
+      webpackConfig.resolveLoader = {
+        modules: ['node_modules', './src/loader'],
+      }
+      if (process.env.NODE_ENV === "production") {
+        webpackConfig.optimization.splitChunks = {
+          ...webpackConfig.optimization.splitChunks,
+          cacheGroups: {
+            base: {
+              // 基本框架
+              chunks: 'all',
+              test: /(react|react-dom|react-dom-router)/,
+              name: 'base',
+              priority: 100,
+            },
+            framer: {
+              chunks: 'all',
+              test: /(framer-motion)/,
+              name: 'framer',
+              priority: 100,
+            },
+            commons: {
+              chunks: 'all',
+              // 将两个以上的chunk所共享的模块打包至commons组。
+              minChunks: 2,
+              name: 'commons',
+              priority: 80,
+            },
+          },
+        }
+      }
       return webpackConfig
     }
   },

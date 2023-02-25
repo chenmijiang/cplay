@@ -28,7 +28,8 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "GENERATE_SOURCEMAP=false craco build",
+    "deploy": "GENERATE_SOURCEMAP=false craco build && ./deploy.sh",
     "test": "craco test",
     "eject": "craco eject"
   },
