@@ -4,7 +4,7 @@
 
 [视频教程](https://www.bilibili.com/video/BV1vf4y1c7co/?spm_id_from=333.999.0.0)
 
-如果方便的话，请给我一个star吧 ˗ˋˏ♡ˎˊ˗
+如果方便的话，请给我一个star吧 [![GitHub stars](https://img.shields.io/github/stars/chenmijiang/cplay.svg?style=plastic&label=Stars)](https://github.com/chenmijiang/cplay)
 
 ## 功能
 
