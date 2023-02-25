@@ -83,6 +83,7 @@ const HistoryPage = () => {
             callback({ loading: false, isError: false })
           }}
           DoubleClick={restoreEditHistory}
+          loadMore={false}
         />
       </HistorySongDisplay>
     </HistoryPageWrapper>

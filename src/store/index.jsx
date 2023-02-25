@@ -30,7 +30,7 @@ let store = configureStore({
     toast: toastReducer,
     history: persistReducer(historyPersistConfig, historyReducer),
   },
-  // devTools: false,
+  devTools: process.env.NODE_ENV === 'production' ? false : true,
 })
 
 let persistor = persistStore(store)

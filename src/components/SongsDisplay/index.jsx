@@ -8,7 +8,7 @@ import ImageLazy from '@/components/common/ImageLazy'
 import { LoadAnimations } from '@/components/common/LazyLoad'
 
 const SongsDisplay = React.memo(
-  ({ songs, scrollToBottom, DoubleClick, hintwords }) => {
+  ({ songs, scrollToBottom, DoubleClick, hintwords, loadMore }) => {
     // 处理点击操作(双击)
     const handleDoubleClick = (e) => {
       // 1. e.target 为 song_item 元素
@@ -36,7 +36,7 @@ const SongsDisplay = React.memo(
     })
     const locked = useRef(false)
     useEffect(() => {
-      if (inViewport && ratio === 1 && !locked.current) {
+      if (inViewport && ratio >= 0.98 && !locked.current) {
         locked.current = true
         scrollToBottom(({ loading }) => {
           setIsLoading(loading)
@@ -68,7 +68,7 @@ const SongsDisplay = React.memo(
               })}
             </div>
             {/* 底部数据加载动画 */}
-            {isLoading === true ? (
+            {isLoading === true && loadMore === true ? (
               <LoadingWrapper ref={loadingAnimationRef}>
                 <LoadAnimations />
               </LoadingWrapper>

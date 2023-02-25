@@ -87,6 +87,7 @@ const SearchResult = React.memo(
             songs={songsItems}
             scrollToBottom={scrollToBottom}
             DoubleClick={getAudioAndPic}
+            loadMore={true}
           />
         )}
       </div>
