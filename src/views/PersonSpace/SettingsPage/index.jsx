@@ -173,7 +173,7 @@ const Logout = styled.div`
   align-items: center;
   height: 100px;
   color: var(--font-gray-200);
-  grid-template-columns: 130px 100px 1fr 120px;
+  grid-template-columns: 130px 200px 1fr 120px;
   .avatar {
     width: 80px;
     height: 80px;
@@ -199,6 +199,10 @@ const Logout = styled.div`
   .nickname {
     font-size: 32px;
     font-weight: bold;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .logout {
     grid-column: 4;
