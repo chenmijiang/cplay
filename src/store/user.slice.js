@@ -67,7 +67,6 @@ const userSlice = createSlice({
           state.verify.code = 0
         } else if (code === 803) {
           onLoginCookie(cookie)
-          console.log(document.cookie)
           state.verify.code = 1
         } else if (code === 800) {
           state.verify = { state: 2, message }
