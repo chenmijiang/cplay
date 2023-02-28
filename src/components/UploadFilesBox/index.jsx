@@ -10,7 +10,6 @@ import style from './uploadfilesbox.module.scss'
 import { uploadLyrics, uploadMusicWay } from '@/store/upload.slice'
 import { initTimes, updateCurrentIndex } from '@/store/lyrics.slice'
 import Textarea from '@/components/common/Textarea'
-import { showToast } from '@/store/toast.slice'
 
 const UploadBox = React.memo(({ closeUploadBox }) => {
   const dispatch = useDispatch()
@@ -35,9 +34,9 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
       dispatch(uploadLyrics(lyrics.current))
       dispatch(initTimes(timeShaft.current))
       dispatch(updateCurrentIndex(-1))
-      dispatch(showToast({ message: '上传成功' }))
+      console.log('上传成功')
     } else {
-      dispatch(showToast({ message: '上传失败' }))
+      console.log('上传失败')
     }
   }
 

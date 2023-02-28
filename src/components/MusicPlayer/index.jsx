@@ -98,9 +98,8 @@ const MusicPlayer = React.memo(() => {
     })
   }
   const handleError = (e) => {
-    dispatch(showToast('播放失败,尝试从新获取地址')).then(() => {
-      dispatch(songUrl({ id, br: quality }))
-    })
+    dispatch(showToast('播放失败,尝试从新获取地址'))
+    dispatch(songUrl({ id, br: quality }))
     errorHandler(e)
   }
   const handleSuspend = (e) => {

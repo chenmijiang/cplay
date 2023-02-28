@@ -37,7 +37,6 @@ const HistoryPage = () => {
       dispatch(playPause(true))
       dispatch(uploadLyrics(song.lyrics))
       dispatch(initTimes(song.lytimes))
-      console.log('id', id)
       if (Number.isInteger(+id)) {
         dispatch(showToast({ message: '恢复制作记录中...' }))
         dispatch(songPicAndUrl({ id, name, artist, br: song.quality }))
