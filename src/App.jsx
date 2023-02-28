@@ -9,6 +9,7 @@ import HeaderNavbar from '@/components/HeaderNavbar'
 import { navbar_links } from '@/configs/default'
 import Toast from '@/components/common/Toast'
 import { setBaseUrl } from '@/apis'
+import { initDB } from '@/hooks/useSongsDB'
 
 function App() {
   const baseUrl = useSelector((state) => state.setting.baseUrl)
@@ -16,6 +17,8 @@ function App() {
     if (baseUrl) {
       setBaseUrl(baseUrl)
     }
+    // 初始化 db
+    initDB()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (

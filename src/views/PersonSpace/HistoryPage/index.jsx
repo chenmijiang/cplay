@@ -8,9 +8,14 @@ import SongsDisplay from '@/components/SongsDisplay'
 import Icon from '@/components/common/IconSvg'
 import { playPause } from '@/store/play.slice'
 import { showToast } from '@/store/toast.slice'
-import { songPicAndUrl, uploadLyrics } from '@/store/upload.slice'
+import {
+  restoreUploadState,
+  songPicAndUrl,
+  uploadLyrics,
+} from '@/store/upload.slice'
 import { initTimes } from '@/store/lyrics.slice'
 import { clearAllHistory } from '@/store/history.slice'
+import { useSongsDB } from '@/hooks/useSongsDB'
 
 const HistoryPage = () => {
   const dispatch = useDispatch()
@@ -25,26 +30,44 @@ const HistoryPage = () => {
     }))
   }, [history])
   // 恢复制作记录历史
+  const { selectSong } = useSongsDB()
   const restoreEditHistory = useCallback(
     ({ id, name, artist }) => {
       const song = history.find((song) => song.id === id)
-      dispatch(showToast({ message: '恢复制作记录中...' }))
       dispatch(playPause(true))
       dispatch(uploadLyrics(song.lyrics))
       dispatch(initTimes(song.lytimes))
-      dispatch(songPicAndUrl({ id, name, artist, br: song.quality }))
-        .then(() => {
-          dispatch(showToast({ message: '恢复成功' }))
+      console.log('id', id)
+      if (Number.isInteger(+id)) {
+        dispatch(showToast({ message: '恢复制作记录中...' }))
+        dispatch(songPicAndUrl({ id, name, artist, br: song.quality }))
+          .then(() => {
+            dispatch(showToast({ message: '恢复成功' }))
+          })
+          .catch(() => {
+            dispatch(showToast({ message: '未知错误，获取失败' }))
+          })
+      } else {
+        selectSong(id).then((item) => {
+          dispatch(
+            restoreUploadState({
+              id,
+              src: URL.createObjectURL(item.file),
+              name,
+              artist,
+              picUrl: song.picUrl,
+            })
+          )
         })
-        .catch(() => {
-          dispatch(showToast({ message: '未知错误，获取失败' }))
-        })
+      }
     },
-    [dispatch, history]
+    [dispatch, history, selectSong]
   )
   // 清空历史记录
+  const { clearAllSongs } = useSongsDB()
   const clearHistoryHandler = () => {
     dispatch(clearAllHistory())
+    clearAllSongs()
   }
   return (
     <HistoryPageWrapper
@@ -62,13 +85,10 @@ const HistoryPage = () => {
         </div>
         <div className="playlist_dec">
           <h3>这里是你的制作记录</h3>
-          <p>点按首页的复制按钮保存记录，仅支持搜索音频制作的记录</p>
+          <p>点按首页的复制按钮保存记录</p>
         </div>
         <div className="playlist_clear">
-          <div
-            className="clear_history"
-            onClick={clearHistoryHandler}
-          >
+          <div className="clear_history" onClick={clearHistoryHandler}>
             <Icon name="garbage" />
             <span>清空记录</span>
           </div>
