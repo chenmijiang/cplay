@@ -76,21 +76,19 @@ const Lyricsedit = React.memo(() => {
     if (clearTimeId === hinted.clearTimeId) {
       clearTimeout(hinted.clearTimeId)
     }
-    // 保存到历史记录,限制仅搜索歌曲时才保存
-    if (id !== 0) {
-      dispatch(
-        saveHistoryItem({
-          id,
-          quality,
-          lyrics,
-          lytimes,
-          title,
-          artist,
-          picUrl,
-          duration: duration * 1000,
-        })
-      )
-    }
+    // 保存到历史记录
+    dispatch(
+      saveHistoryItem({
+        id,
+        quality,
+        lyrics,
+        lytimes,
+        title,
+        artist,
+        picUrl,
+        duration: duration * 1000,
+      })
+    )
     setHinted({ isCopied: true, clearTimeId, content })
   }
 

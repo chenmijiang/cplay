@@ -123,8 +123,8 @@ const uploadSlice = createSlice({
       state.lyrics = action.payload
     },
     uploadMusicWay: (state, action) => {
-      const { src, name, artist, picUrl, sameUrled } = action.payload
-      state.id = 0
+      const { id, src, name, artist, picUrl, sameUrled } = action.payload
+      state.id = id
       state.src = src
       state.name = name
       state.artist = artist
@@ -136,6 +136,14 @@ const uploadSlice = createSlice({
     },
     uploadPicUrl: (state, action) => {
       state.picUrl = action.payload
+    },
+    restoreUploadState: (state, action) => {
+      const { id, src, name, artist, picUrl } = action.payload
+      state.id = id
+      state.src = src
+      state.name = name
+      state.artist = artist
+      state.picUrl = picUrl
     }
   },
   extraReducers: build => {
@@ -154,6 +162,7 @@ export const {
   uploadLyrics,
   uploadMusicWay,
   uploadSameUrl,
-  uploadPicUrl
+  uploadPicUrl,
+  restoreUploadState
 } = uploadSlice.actions
 export default uploadSlice.reducer

@@ -34,9 +34,9 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
       dispatch(uploadLyrics(lyrics.current))
       dispatch(initTimes(timeShaft.current))
       dispatch(updateCurrentIndex(-1))
-      console.log('upload successfully')
+      console.log('上传成功')
     } else {
-      console.log('upload failed')
+      console.log('上传失败')
     }
   }
 
@@ -58,10 +58,7 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
         transition="transition"
       >
         {/* 关闭按钮 */}
-        <div
-          className={style.upload_close}
-          onClick={handleCloseClick}
-        >
+        <div className={style.upload_close} onClick={handleCloseClick}>
           <svg
             width="30.000000"
             height="30.000000"
@@ -76,11 +73,7 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
             </g>
             <defs>
               <clipPath id="clip9_8">
-                <rect
-                  width="30.000000"
-                  height="30.000000"
-                  fill="white"
-                />
+                <rect width="30.000000" height="30.000000" fill="white" />
               </clipPath>
             </defs>
           </svg>
@@ -166,7 +159,9 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
                     />
                   </div>
                   <div className={style.file_des}>
-                    <label htmlFor="music-file">音频上传(非必须): 支持mp3、flac</label>
+                    <label htmlFor="music-file">
+                      音频上传(非必须): 支持mp3、flac
+                    </label>
                   </div>
                 </div>
                 <div

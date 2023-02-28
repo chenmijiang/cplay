@@ -1,10 +1,12 @@
 import { useState } from 'react'
 
 import { getMusicInfo } from '@/utils/file_parser'
+import { useSongsDB } from '@/hooks/useSongsDB'
 
 export default function useMusicFile() {
   const [musicfile, setMusicfile] = useState({})
   const [isMusicUpload, setIsMusicUpload] = useState(false)
+  const { addSong } = useSongsDB()
 
   function musicChangeListener({ target }) {
     let result = checkFile(target, 'audio')
@@ -12,9 +14,13 @@ export default function useMusicFile() {
       getMusicInfo(result.data.file).then(({ data }) => {
         // 音频链接
         let src = URL.createObjectURL(result.data.file)
+        data.id = `${new Date().getTime()}-${data.name}-${data.artist}`
         data.src = src
         data.sameUrled = false
-        setMusicfile(data)
+        return data
+      }).then((song) => {
+        addSong(song.id, result.data.file)
+        setMusicfile(song)
       })
     }
     setIsMusicUpload(result.code === 200 ? true : false)

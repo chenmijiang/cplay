@@ -33,3 +33,20 @@ export const qualityItems = [
   { id: 2, name: '较高 - 192Kbps', value: 192000 },
   { id: 3, name: '高品质 - 320Kbps', value: 320000 },
 ]
+
+export const idbConfig = {
+  databaseName: 'songs-db',
+  version: 1,
+  stores: [
+    {
+      name: 'songs',
+      id: { keyPath: 'id', autoIncrement: true },
+      indices: [
+        // 保存歌曲的sid
+        { name: 'sid', keyPath: 'sid', options: { unique: false } },
+        // 保存歌曲源
+        { name: 'file', keyPath: 'file', options: { unique: false } },
+      ],
+    },
+  ],
+}
