@@ -3,8 +3,16 @@ import { NavLink } from 'react-router-dom'
 import { motion, useCycle } from 'framer-motion'
 
 import style from './navbar.module.scss'
+import {
+  backgroundVariants,
+  buttonVariants,
+  linkVariants,
+  menuVariants,
+} from './variants'
 
-const HeaderNavbar = React.memo(({ links}) => {
+const NavlinkMotion = motion(NavLink)
+
+const HeaderNavbar = React.memo(({ links }) => {
   const [isOpen, toggleOpen] = useCycle(false, true)
   return (
     <nav>
@@ -13,11 +21,7 @@ const HeaderNavbar = React.memo(({ links}) => {
         <div className={style.menu_links}>
           {/* 路由导航 */}
           {links.map((link, index) => (
-            <NavLink
-              key={index}
-              to={link.path}
-              className={style.link}
-            >
+            <NavLink key={index} to={link.path} className={style.link}>
               {link.detail}
             </NavLink>
           ))}
@@ -32,6 +36,7 @@ const HeaderNavbar = React.memo(({ links}) => {
         </div>
         <motion.div
           className={style.menu_icon}
+          initial={false}
           animate={isOpen ? 'open' : 'closed'}
           onClick={() => toggleOpen()}
         >
@@ -39,14 +44,7 @@ const HeaderNavbar = React.memo(({ links}) => {
             width="30"
             height="30"
             viewBox="0 0 30 30"
-            variants={{
-              closed: {
-                stroke: 'var(--bg-white-200)',
-              },
-              open: {
-                stroke: 'var(--bg-white-100)',
-              },
-            }}
+            variants={buttonVariants}
           >
             <Path
               variants={{
@@ -70,31 +68,29 @@ const HeaderNavbar = React.memo(({ links}) => {
             />
           </motion.svg>
           <motion.div
-            className={style.mini_nav_link}
-            variants={{
-              closed: { opacity: 0, x: 1000 },
-              open: { opacity: 1, x: 0 },
-            }}
-            transition={{ duration: 0.2, type: 'spring' }}
-          >
-            {/* 路由导航 */}
+            className={style.mini_nav_background}
+            variants={backgroundVariants}
+          />
+          <motion.div className={style.mini_links} variants={menuVariants}>
             {links.map((link, index) => (
-              <NavLink
+              <NavlinkMotion
+                variants={linkVariants}
                 key={index}
                 to={link.path}
                 className={style.mini_link}
               >
                 {link.detail}
-              </NavLink>
+              </NavlinkMotion>
             ))}
-            <a
+            <motion.a
+              variants={linkVariants}
               className={style.mini_link}
               href="https://github.com/chenmijiang/cplay"
               target="_blank"
               rel="noreferrer"
             >
               项目地址
-            </a>
+            </motion.a>
           </motion.div>
         </motion.div>
       </div>
@@ -106,7 +102,6 @@ const Path = (props) => (
   <motion.path
     fill="transparent"
     strokeWidth="3"
-    // stroke="var(--bg-white-200)"
     strokeLinecap="round"
     {...props}
   />
