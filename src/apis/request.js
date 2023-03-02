@@ -16,11 +16,9 @@ const generateCancelTokenKey = (config) => {
 
 instance.interceptors.request.use((config) => {
   // 取消请求令牌
-  const cancelToken = new axios.CancelToken((cancel) => {
-    const key = generateCancelTokenKey(config)
-    pendingRequests.set(key, cancel)
-  })
-  config.cancelToken = cancelToken
+  const controller = new AbortController();
+  pendingRequests.set(generateCancelTokenKey(config), controller)
+  config.signal = controller.signal
   return config
 })
 
@@ -45,8 +43,8 @@ const request = (method, url, data, params) => {
 
 // 取消所有挂起的请求
 export const cancelAllPendingRequests = () => {
-  for (const [key, cancel] of pendingRequests.entries()) {
-    cancel(`Cancel request: ${key}`)
+  for (const [key, controller] of pendingRequests.entries()) {
+    controller.abort()
     pendingRequests.delete(key)
   }
 }
