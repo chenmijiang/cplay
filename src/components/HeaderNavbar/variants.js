@@ -11,7 +11,7 @@ export const buttonVariants = {
 // 背景变体
 export const backgroundVariants = {
   open: {
-    x: '-600px',
+    x: '-640px',
     transition: {
       type: 'spring',
       stiffness: 120,
