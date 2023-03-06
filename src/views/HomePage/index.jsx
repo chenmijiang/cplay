@@ -31,7 +31,7 @@ function HomePage() {
   )
   const { edited, uploaded, currentIndex } = useSelector((state) => ({
     edited: state.lyricsEdit.edited,
-    uploaded: state.uploadFiles.uploaded,
+    uploaded: state.lyricsEdit.uploaded,
     currentIndex: state.lyricsEdit.currentIndex,
   }))
   const { lyrics, picUrl } = useSelector((state) => ({
