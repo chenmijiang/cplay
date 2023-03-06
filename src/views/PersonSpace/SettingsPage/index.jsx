@@ -25,8 +25,10 @@ const SettingsPage = () => {
   }, [])
   // 获取用户信息
   const { profile, quality, baseUrl, animationTime } = useSelector((state) => ({
-    ...state.user,
-    ...state.setting,
+    profile: state.user.profile,
+    quality: state.setting.quality,
+    baseUrl: state.setting.baseUrl,
+    animationTime: state.setting.animationTime,
   }))
   const { nickname, avatarUrl } = profile
   const dispatch = useDispatch()
@@ -92,19 +94,12 @@ const SettingsPage = () => {
       <Logout>
         {/* 头像 */}
         <div className="avatar">
-          <Image
-            src={avatarUrl}
-            iconame="user"
-            className="user_avatar"
-          />
+          <Image src={avatarUrl} iconame="user" className="user_avatar" />
         </div>
         {/* 昵称 */}
         <div className="nickname">{nickname}</div>
         {/* 登出按钮 */}
-        <div
-          className="logout"
-          onClick={logoutHandler}
-        >
+        <div className="logout" onClick={logoutHandler}>
           <div className="logout_svg">
             <Icon name="logout" />
           </div>
@@ -121,10 +116,7 @@ const SettingsPage = () => {
             defaultValue={quality}
           >
             {qualityItems.map((item) => (
-              <option
-                key={item.id}
-                value={item.value}
-              >
+              <option key={item.id} value={item.value}>
                 {item.name}
               </option>
             ))}
@@ -135,11 +127,7 @@ const SettingsPage = () => {
       <CustomApi>
         <h2>自定义后台接口</h2>
         <div className="setting_item">
-          <input
-            type="text"
-            placeholder={baseUrl}
-            ref={apiRef}
-          />
+          <input type="text" placeholder={baseUrl} ref={apiRef} />
           <button onClick={testApi}>测试</button>
           <button onClick={resetApi}>重置</button>
         </div>
@@ -148,11 +136,7 @@ const SettingsPage = () => {
       <AnimationWrapper>
         <h2>歌词滚动动画时间</h2>
         <div className="setting_item">
-          <input
-            type="number"
-            placeholder={animationTime}
-            ref={aniamtionRef}
-          />
+          <input type="number" placeholder={animationTime} ref={aniamtionRef} />
           <button onClick={AnimationTime}>设置</button>
           <button onClick={resetAnimationTime}>重置</button>
         </div>

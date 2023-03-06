@@ -20,21 +20,23 @@ import {
 import { playPause, setTargetTime } from '@/store/play.slice'
 
 function HomePage() {
-  const {
-    paused,
-    scrolled,
-    buffered,
-    duration,
-    currentTime,
-    uploaded,
-    edited,
-    currentIndex,
-    lyrics,
-    picUrl,
-  } = useSelector((state) => ({
-    ...state.player,
-    ...state.lyricsEdit,
-    ...state.uploadFiles,
+  const { paused, buffered, duration, currentTime, scrolled } = useSelector(
+    (state) => ({
+      paused: state.player.paused,
+      buffered: state.player.buffered,
+      duration: state.player.duration,
+      currentTime: state.player.currentTime,
+      scrolled: state.player.scrolled,
+    })
+  )
+  const { edited, uploaded, currentIndex } = useSelector((state) => ({
+    edited: state.lyricsEdit.edited,
+    uploaded: state.uploadFiles.uploaded,
+    currentIndex: state.lyricsEdit.currentIndex,
+  }))
+  const { lyrics, picUrl } = useSelector((state) => ({
+    lyrics: state.uploadFiles.lyrics,
+    picUrl: state.uploadFiles.picUrl,
   }))
   const dispatch = useDispatch()
   const [isDrag, setIsDrag] = useState(false)

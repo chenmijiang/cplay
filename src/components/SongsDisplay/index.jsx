@@ -54,17 +54,9 @@ const SongsDisplay = React.memo(
         ) : (
           <>
             {/* 展示 */}
-            <div
-              className="songitems"
-              onDoubleClick={handleDoubleClick}
-            >
+            <div className="songitems" onDoubleClick={handleDoubleClick}>
               {songs.map((song) => {
-                return (
-                  <SongItems
-                    key={song.id}
-                    {...song}
-                  />
-                )
+                return <SongItems key={song.id} {...song} />
               })}
             </div>
             {/* 底部数据加载动画 */}
@@ -84,39 +76,16 @@ const SongsDisplay = React.memo(
 
 function SongItems({ id, pic, name, artist, duration }) {
   return (
-    <SongItemsWrapper
-      whileHover={{
-        scale: 1.01,
-      }}
-      transition={{
-        type: 'spring',
-        duration: 0.3,
-      }}
-      className="song_item"
-      data={id}
-    >
+    <SongItemsWrapper className="song_item" data={id}>
       {/* 图片懒加载 */}
-      <ImageLazy
-        className="record"
-        src={pic}
-        iconame="record"
-      />
-      <div
-        className="name"
-        title={name}
-      >
+      <ImageLazy className="record" src={pic} iconame="record" />
+      <div className="name" title={name}>
         {name}
       </div>
-      <div
-        className="artist"
-        artist={artist}
-      >
+      <div className="artist" artist={artist}>
         {artist}
       </div>
-      <div
-        className="duration"
-        duration={duration}
-      >
+      <div className="duration" duration={duration}>
         {secondsToFormat(duration / 1000, 0)}
       </div>
     </SongItemsWrapper>

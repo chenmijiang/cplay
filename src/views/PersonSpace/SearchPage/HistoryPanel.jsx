@@ -6,7 +6,7 @@ import { clearHistory } from '@/store/search.slice'
 import Icon from '@/components/common/IconSvg'
 
 const HistoryPanel = React.memo(({ searchHandler }) => {
-  const { history } = useSelector((state) => state.search)
+  const history = useSelector((state) => state.search.history)
   const dispatch = useDispatch()
   // 4. 通过历史记录跳转到详情页
   const restoreHandler = (e) => {
@@ -24,24 +24,15 @@ const HistoryPanel = React.memo(({ searchHandler }) => {
         <p>暂无搜索历史</p>
       ) : (
         <>
-          <div
-            className="history_items"
-            onClick={restoreHandler}
-          >
+          <div className="history_items" onClick={restoreHandler}>
             {history.map((item, index) => (
-              <div
-                className="history_item"
-                key={index}
-              >
+              <div className="history_item" key={index}>
                 {item}
               </div>
             ))}
           </div>
           <div className="history_handle">
-            <div
-              className="clear_history"
-              onClick={clearHistoryHandler}
-            >
+            <div className="clear_history" onClick={clearHistoryHandler}>
               <Icon name="garbage" />
               <span>清除历史</span>
             </div>

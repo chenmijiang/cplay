@@ -40,7 +40,15 @@ export const songUrl = ({ id, br }) =>
 export const searchHot = () =>
   request('get', '/search/hot')
 
-
-// 历史记录(歌单管理)
-
-// 云盘上传
+/**
+ *  3. 云盘
+ */
+// 获取用户云盘数据
+export const getUserCloud = ({ limit, offset }) =>
+  request('get', '/user/cloud', null, { limit, offset })
+// 获取用户歌曲详情
+export const getUserCloudDetail = ({ id }) =>
+  request('get', '/user/cloud/detail', null, { id, timestamp: new Date().getMinutes() })
+// 删除用户云盘数据
+export const deleteUserCloud = ({ id }) =>
+  request('get', '/user/cloud/del', null, { id })
