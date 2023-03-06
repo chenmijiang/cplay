@@ -11,7 +11,7 @@ export const getUserCloud = createAsyncThunk('cloud/getCloudList', async ({ offs
         id: song.songId,
         name: song.songName,
         artist: song.artist,
-        pic: song.simpleSong.al.picUrl,
+        pic: song.simpleSong.al.picUrl.replace('http://', 'https://'),
         duration: song.simpleSong.dt,
         addTime: song.addTime,
       }
