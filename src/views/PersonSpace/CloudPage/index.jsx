@@ -80,7 +80,7 @@ const CloudPage = () => {
         <div className="playlist_clear">
           <div className="clear_cloud" onClick={clearCloudHandler}>
             <Icon name="garbage" />
-            <span>清空云盘缓存</span>
+            <span>清空缓存</span>
           </div>
         </div>
       </PlaylistIntroduction>
