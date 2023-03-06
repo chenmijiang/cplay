@@ -30,7 +30,7 @@ export const songPicByIds = createAsyncThunk('search/songPic', async ({ ids, key
   let pics = []
   try {
     const { songs } = await songPicApi({ ids })
-    pics = songs.map(song => song.al.picUrl)
+    pics = songs.map(song => song.al.picUrl.replace('http://', 'https://'))
   } catch (e) {
     console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
   } finally {

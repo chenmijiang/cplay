@@ -15,8 +15,17 @@ import { secondsToFormat } from '@/utils/time_parser'
 import style from './personspace.module.scss'
 
 const PersonSpace = () => {
-  const { paused, buffered, duration, currentTime, name, artist, picUrl } =
-    useSelector((state) => ({ ...state.player, ...state.uploadFiles }))
+  const { paused, buffered, duration, currentTime } = useSelector((state) => ({
+    paused: state.player.paused,
+    buffered: state.player.buffered,
+    duration: state.player.duration,
+    currentTime: state.player.currentTime,
+  }))
+  const { name, artist, picUrl } = useSelector((state) => ({
+    name: state.uploadFiles.name,
+    artist: state.uploadFiles.artist,
+    picUrl: state.uploadFiles.picUrl,
+  }))
   const dispatch = useDispatch()
 
   // 设置进度条拖拽
@@ -71,10 +80,7 @@ const PersonSpace = () => {
         />
       </motion.div>
       <div className={style.content}>
-        <SimpleBar
-          className="space_dashboard"
-          style={{ height: 'inherit' }}
-        >
+        <SimpleBar className="space_dashboard" style={{ height: 'inherit' }}>
           <Outlet />
         </SimpleBar>
       </div>

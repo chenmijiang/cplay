@@ -29,3 +29,9 @@ export const historyPersistConfig = {
   key: 'history',
   storage
 }
+
+export const cloudPersistConfig = {
+  key: 'cloud',
+  storage,
+  whitelist: ['cloudList', 'lastUploadTime']
+}

@@ -129,15 +129,34 @@ nav {
       overflow: hidden;
     }
 
+    .mini_nav_background {
+      height: 100vh;
+      width: 105vw;
+      background-color: var(--bg-black-150);
+      top: -12px;
+      position: absolute;
+      right: -670px;
+      z-index: -1;
+    }
+
+    .mini_links {
+      width: 100vw;
+      position: absolute;
+      top: 100px;
+      right: -623px;
+    }
+
     .mini_link {
       text-align: center;
       display: block;
-      line-height: 36px;
-      height: 36px;
-      color: var(--font-gray-200);
+      display: block;
+      font-size: 28px;
+      line-height: 72px;
+      height: 72px;
+      color: var(--font-white-200);
 
       &:hover {
-        color: var(--font-black-100);
+        color: var(--font-white-100);
       }
     }
   }

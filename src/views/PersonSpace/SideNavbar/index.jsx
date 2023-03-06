@@ -8,20 +8,13 @@ import Image from '@/components/common/Image'
 import style from './sidenavbar.module.scss'
 
 const SideNavbar = React.memo(() => {
-  const { profile } = useSelector((state) => state.user)
+  const profile = useSelector((state) => state.user.profile)
   const { avatarUrl } = profile
 
   return (
     <div className={style.sidenav_content}>
-      <NavLink
-        to="login"
-        className={style.user}
-      >
-        <Image
-          src={avatarUrl}
-          iconame="user"
-          className={style.user_avatar}
-        />
+      <NavLink to="login" className={style.user}>
+        <Image src={avatarUrl} iconame="user" className={style.user_avatar} />
       </NavLink>
       {side_navlinks.map((link) => (
         <NavLink

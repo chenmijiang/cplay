@@ -9,6 +9,7 @@ import userReducer from './user.slice'
 import settingReducer from './setting.slice'
 import toastReducer from './toast.slice'
 import historyReducer from './history.slice'
+import cloudReducer from './cloud.slice'
 
 import {
   historyPersistConfig,
@@ -16,6 +17,7 @@ import {
   profilePersistConfig,
   searchPersistConfig,
   settingPersistConfig,
+  cloudPersistConfig
 } from './persistConfig'
 
 let store = configureStore({
@@ -29,6 +31,7 @@ let store = configureStore({
     setting: persistReducer(settingPersistConfig, settingReducer),
     toast: toastReducer,
     history: persistReducer(historyPersistConfig, historyReducer),
+    cloud: persistReducer(cloudPersistConfig, cloudReducer)
   },
   devTools: process.env.NODE_ENV === 'production' ? false : true,
 })

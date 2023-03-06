@@ -61,8 +61,9 @@ const SearchInputWrapper = styled.div`
     display: flex;
     box-shadow: 0 0 0 1px rgb(0 0 0 / 5%), 0 2px 4px 1px rgb(0 0 0 / 9%);
     border-radius: 26px;
+    transition: all 0.3s;
     &:hover {
-      box-shadow: 0 0 0 1px rgb(0 0 0 / 10%), 0 2px 4px 1px rgb(0 0 0 / 18%);
+      box-shadow: 0 0 0 1px rgb(0 0 0 / 10%), 0 2px 4px 1px rgb(0 0 0 / 11%)
     }
   }
   .search_input {
@@ -84,7 +85,7 @@ const SearchInputWrapper = styled.div`
     margin: 8px 16px;
   }
   .search_clean {
-    /* visibility: ${({ clean }) => (clean ? 'visible' : 'hidden')}; */
+    /* visibility: ${({ empty }) => (empty ? 'hidden' : 'visible')}; */
     visibility: hidden;
   }
 `

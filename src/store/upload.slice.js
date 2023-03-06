@@ -26,7 +26,7 @@ export const songPicAndUrl = createAsyncThunk('upload/songPicAndUrl', async (
 })
 
 // 歌曲播放地址，一段时间会失效，需要重新请求
-export const songUrl = createAsyncThunk('upload/songUrl', async (id, br = 128000) => {
+export const songUrl = createAsyncThunk('upload/songUrl', async ({ id, br = 128000 }) => {
   let src = ''
   try {
     const { data } = await songUrlApi({ id, br })
@@ -147,14 +147,19 @@ const uploadSlice = createSlice({
     }
   },
   extraReducers: build => {
-    build.addCase(songPicAndUrl.fulfilled, (state, action) => {
-      const { id, src, name, artist, picUrl } = action.payload
-      state.id = id
-      state.src = src
-      state.name = name
-      state.artist = artist
-      state.picUrl = picUrl
-    })
+    build
+      .addCase(songPicAndUrl.fulfilled, (state, action) => {
+        const { id, src, name, artist, picUrl } = action.payload
+        state.id = id
+        state.src = src
+        state.name = name
+        state.artist = artist
+        state.picUrl = picUrl
+      })
+      .addCase(songUrl.fulfilled, (state, action) => {
+        const { src } = action.payload
+        state.src = src
+      })
   }
 })
 

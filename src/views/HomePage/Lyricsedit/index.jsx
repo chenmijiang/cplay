@@ -77,18 +77,20 @@ const Lyricsedit = React.memo(() => {
       clearTimeout(hinted.clearTimeId)
     }
     // 保存到历史记录
-    dispatch(
-      saveHistoryItem({
-        id,
-        quality,
-        lyrics,
-        lytimes,
-        title,
-        artist,
-        picUrl,
-        duration: duration * 1000,
-      })
-    )
+    if (parseInt(id) !== 0) {
+      dispatch(
+        saveHistoryItem({
+          id,
+          quality,
+          lyrics,
+          lytimes,
+          title,
+          artist,
+          picUrl,
+          duration: duration * 1000,
+        })
+      )
+    }
     setHinted({ isCopied: true, clearTimeId, content })
   }
 

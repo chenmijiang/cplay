@@ -6,7 +6,7 @@ import PersonSpace from '@/views/PersonSpace'
 import LazyLoad from '@/components/common/LazyLoad'
 import MessageInfo from '@/components/common/MessageInfo'
 
-import { AuthorityLogin } from './authority'
+import { AuthorityLogin, Authority } from './authority'
 
 const config = [
   {
@@ -67,7 +67,7 @@ const config = [
       {
         path: 'cloud',
         element: (
-          <LazyLoad
+          <Authority
             component={import(
               /* webpackChunkName:"space" */ '@/views/PersonSpace/CloudPage'
             )}
