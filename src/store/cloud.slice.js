@@ -1,4 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+/** @format */
+
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getUserCloud as getUserCloudApi } from '@/apis'
 
 // 接口获取云盘歌曲数据
@@ -6,14 +8,14 @@ export const getUserCloud = createAsyncThunk('cloud/getCloudList', async ({ offs
   let songs = []
   try {
     let res = await getUserCloudApi({ offset })
-    songs = res.data.map(song => {
+    songs = res.data.map((song) => {
       return {
         id: song.songId,
         name: song.songName,
         artist: song.artist,
         pic: song.simpleSong.al.picUrl.replace('http://', 'https://'),
         duration: song.simpleSong.dt,
-        addTime: song.addTime,
+        addTime: song.addTime
       }
     })
   } catch (e) {
@@ -37,7 +39,7 @@ export const shouldUpdateCloud = createAsyncThunk('cloud/shouldUpdateCloud', asy
 })
 
 const cloudSlice = createSlice({
-  name: "cloud",
+  name: 'cloud',
   initialState: {
     cloudList: [],
     lastUploadTime: 0
@@ -58,7 +60,7 @@ const cloudSlice = createSlice({
       })
       .addCase(shouldUpdateCloud.fulfilled, (state, action) => {
         state.lastUploadTime = action.payload.lastUploadTime
-      });
+      })
   }
 })
 

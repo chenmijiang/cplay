@@ -1,3 +1,5 @@
+/** @format */
+
 import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 
@@ -33,7 +35,7 @@ let store = configureStore({
     history: persistReducer(historyPersistConfig, historyReducer),
     cloud: persistReducer(cloudPersistConfig, cloudReducer)
   },
-  devTools: process.env.NODE_ENV === 'production' ? false : true,
+  devTools: process.env.NODE_ENV === 'production' ? false : true
 })
 
 let persistor = persistStore(store)

@@ -1,4 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+/** @format */
+
+import { createSlice } from '@reduxjs/toolkit'
 
 const historySlice = createSlice({
   name: 'history',
@@ -12,13 +14,15 @@ const historySlice = createSlice({
       const song = action.payload
       state.history = clearExtraHistory(state.history)
       const index = state.history.findIndex((item) => item.id === song.id)
-      if (index === -1) { state.history.push(song) } else {
+      if (index === -1) {
+        state.history.push(song)
+      } else {
         state.history[index] = song
       }
     },
     clearHistory: (state, action) => {
       const song = action.payload
-      state.history = state.history.filter(item => item.id !== song.id)
+      state.history = state.history.filter((item) => item.id !== song.id)
     },
     clearAllHistory: (state) => {
       state.history = []
@@ -33,7 +37,7 @@ export const { saveHistoryItem, clearAllHistory } = historySlice.actions
 function clearExtraHistory(history) {
   const length = history.length
   if (length >= 30) {
-    return ([...history]).slice(length - 29)
+    return [...history].slice(length - 29)
   }
   return history
 }

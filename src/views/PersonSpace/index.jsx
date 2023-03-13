@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Outlet } from 'react-router-dom'
@@ -19,12 +21,12 @@ const PersonSpace = () => {
     paused: state.player.paused,
     buffered: state.player.buffered,
     duration: state.player.duration,
-    currentTime: state.player.currentTime,
+    currentTime: state.player.currentTime
   }))
   const { name, artist, picUrl } = useSelector((state) => ({
     name: state.uploadFiles.name,
     artist: state.uploadFiles.artist,
-    picUrl: state.uploadFiles.picUrl,
+    picUrl: state.uploadFiles.picUrl
   }))
   const dispatch = useDispatch()
 
@@ -39,7 +41,7 @@ const PersonSpace = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{
-        ease: 'easeInOut',
+        ease: 'easeInOut'
       }}
     >
       <div className={style.headerbar_body} />

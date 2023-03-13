@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useMemo } from 'react'
 import { useRoutes, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
@@ -17,7 +19,7 @@ export default function MRouter() {
     <AnimatePresence initial={false}>
       {React.cloneElement(element, {
         location: { location },
-        key: pathname,
+        key: pathname
       })}
     </AnimatePresence>
   )

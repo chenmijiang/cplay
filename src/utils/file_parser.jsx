@@ -1,5 +1,7 @@
 /**
  * 格式化歌词内容
+ *
+ * @format
  * @param {string} content textarea content
  * @returns string[]
  */
@@ -32,11 +34,7 @@ export async function getMusicInfo(musicfile) {
           for (let i = 0; i < imageData.length; i++) {
             base64String += String.fromCharCode(imageData[i])
           }
-          picture =
-            'data:' +
-            tag.tags.picture.format +
-            ';base64,' +
-            window.btoa(base64String)
+          picture = 'data:' + tag.tags.picture.format + ';base64,' + window.btoa(base64String)
         }
         resolve({
           code: 200,
@@ -45,11 +43,11 @@ export async function getMusicInfo(musicfile) {
             artist: tag.tags.artist || '未知',
             name: tag.tags.title || '未知',
             album: tag.tags.album || '未知',
-            picUrl: picture || '',
-          },
+            picUrl: picture || ''
+          }
         })
       },
-      onError: reject,
+      onError: reject
     })
   })
 }

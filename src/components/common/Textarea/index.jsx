@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { forwardRef } from 'react'
 import styled from 'styled-components'
 import SimpleBar from 'simplebar-react'
@@ -5,26 +7,21 @@ import SimpleBar from 'simplebar-react'
 // 使用 contenteditable 属性 代替 textarea
 // 修改滚动条样式
 // 模拟 placeholder
-const Textarea = forwardRef(
-  ({ placeholder, scrollbarName = 'scrollbar', ...props }, ref) => {
-    return (
-      <CustomTextarea {...props}>
-        <SimpleBar
-          className={scrollbarName}
-          style={{ height: 'inherit' }}
-        >
-          <div
-            className="custom-textarea"
-            contentEditable="true"
-            placeholder={placeholder}
-            ref={ref}
-            // onChange={onChange}
-          ></div>
-        </SimpleBar>
-      </CustomTextarea>
-    )
-  }
-)
+const Textarea = forwardRef(({ placeholder, scrollbarName = 'scrollbar', ...props }, ref) => {
+  return (
+    <CustomTextarea {...props}>
+      <SimpleBar className={scrollbarName} style={{ height: 'inherit' }}>
+        <div
+          className="custom-textarea"
+          contentEditable="true"
+          placeholder={placeholder}
+          ref={ref}
+          // onChange={onChange}
+        ></div>
+      </SimpleBar>
+    </CustomTextarea>
+  )
+})
 
 const CustomTextarea = styled.div`
   overflow: hidden;

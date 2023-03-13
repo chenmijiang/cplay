@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
@@ -28,7 +30,7 @@ const SettingsPage = () => {
     profile: state.user.profile,
     quality: state.setting.quality,
     baseUrl: state.setting.baseUrl,
-    animationTime: state.setting.animationTime,
+    animationTime: state.setting.animationTime
   }))
   const { nickname, avatarUrl } = profile
   const dispatch = useDispatch()
@@ -110,11 +112,7 @@ const SettingsPage = () => {
       <SoundQuality>
         <h2>音质设置</h2>
         <div className="setting_item">
-          <select
-            name="quality"
-            onChange={selectQuality}
-            defaultValue={quality}
-          >
+          <select name="quality" onChange={selectQuality} defaultValue={quality}>
             {qualityItems.map((item) => (
               <option key={item.id} value={item.value}>
                 {item.name}

@@ -1,72 +1,61 @@
+/** @format */
+
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const Pagination = React.memo(
-  ({ page, itemsPerPage, totalItems, onChangePage }) => {
-    const [currentPage, setCurrentPage] = useState(page)
-    function handlePageClick(page) {
-      setCurrentPage(page)
-      onChangePage(page)
-    }
-    const totalPages = Math.ceil(totalItems / itemsPerPage)
-    const pageNumbers = []
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(i)
-    }
-    let showList = limitedPageList(pageNumbers, currentPage, 8)
-
-    return (
-      <PaginationWrapper>
-        <ul className="pagination">
-          {currentPage !== 1 && (
-            <li className="page-item">
-              <button
-                className="page-pre"
-                onClick={() => handlePageClick(currentPage - 1)}
-              >
-                上一页
-              </button>
-            </li>
-          )}
-          {showList.map((page, index) => (
-            <li
-              key={index}
-              className="page-item"
-            >
-              {page === '...' ? (
-                page
-              ) : (
-                <button
-                  className="page-link"
-                  onClick={() => handlePageClick(page)}
-                  style={{
-                    backgroundColor:
-                      page === currentPage
-                        ? 'var(--bg-gray-100)'
-                        : 'var(--bg-white-100)',
-                    color: page === currentPage ? 'var(--font-white-100)' : '',
-                  }}
-                >
-                  {page}
-                </button>
-              )}
-            </li>
-          ))}
-          {currentPage !== totalPages && (
-            <li className="page-item">
-              <button
-                className="page-next"
-                onClick={() => handlePageClick(currentPage + 1)}
-              >
-                下一页
-              </button>
-            </li>
-          )}
-        </ul>
-      </PaginationWrapper>
-    )
+const Pagination = React.memo(({ page, itemsPerPage, totalItems, onChangePage }) => {
+  const [currentPage, setCurrentPage] = useState(page)
+  function handlePageClick(page) {
+    setCurrentPage(page)
+    onChangePage(page)
   }
-)
+  const totalPages = Math.ceil(totalItems / itemsPerPage)
+  const pageNumbers = []
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i)
+  }
+  let showList = limitedPageList(pageNumbers, currentPage, 8)
+
+  return (
+    <PaginationWrapper>
+      <ul className="pagination">
+        {currentPage !== 1 && (
+          <li className="page-item">
+            <button className="page-pre" onClick={() => handlePageClick(currentPage - 1)}>
+              上一页
+            </button>
+          </li>
+        )}
+        {showList.map((page, index) => (
+          <li key={index} className="page-item">
+            {page === '...' ? (
+              page
+            ) : (
+              <button
+                className="page-link"
+                onClick={() => handlePageClick(page)}
+                style={{
+                  backgroundColor:
+                    page === currentPage ? 'var(--bg-gray-100)' : 'var(--bg-white-100)',
+                  color: page === currentPage ? 'var(--font-white-100)' : ''
+                }}
+              >
+                {page}
+              </button>
+            )}
+          </li>
+        ))}
+        {currentPage !== totalPages && (
+          <li className="page-item">
+            <button className="page-next" onClick={() => handlePageClick(currentPage + 1)}>
+              下一页
+            </button>
+          </li>
+        )}
+      </ul>
+    </PaginationWrapper>
+  )
+})
 
 const limitedPageList = (pageList, currentPage, limit) => {
   let leftCount = Math.floor(limit / 2)
@@ -81,9 +70,7 @@ const limitedPageList = (pageList, currentPage, limit) => {
       showList = ['...'].concat(pageList.slice(-limit + 1))
     } else {
       showList = ['...']
-        .concat(
-          pageList.slice(currentPage - leftCount, currentPage + rightCount)
-        )
+        .concat(pageList.slice(currentPage - leftCount, currentPage + rightCount))
         .concat(['...'])
     }
   }

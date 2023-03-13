@@ -1,8 +1,11 @@
+/** @format */
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { search as searchApi, songPic as songPicApi } from '@/apis'
 
 export const searchByKeywords = createAsyncThunk('search/search', async ({ keywords, offset }) => {
-  let result = {}, songs = []
+  let result = {},
+    songs = []
   try {
     let res = await searchApi({ keywords, offset })
     result = res.result
@@ -11,11 +14,11 @@ export const searchByKeywords = createAsyncThunk('search/search', async ({ keywo
       // 在限制内通过折半查找最大数量
       songs = await binarySearch({ keywords, offset })
     }
-    songs = songs.map(song => {
+    songs = songs.map((song) => {
       return {
         id: song.id,
         name: song.name,
-        artist: song.artists.map(artist => artist.name).join('/'),
+        artist: song.artists.map((artist) => artist.name).join('/'),
         duration: song.duration
       }
     })
@@ -26,17 +29,20 @@ export const searchByKeywords = createAsyncThunk('search/search', async ({ keywo
   }
 })
 
-export const songPicByIds = createAsyncThunk('search/songPic', async ({ ids, keywords, offset }) => {
-  let pics = []
-  try {
-    const { songs } = await songPicApi({ ids })
-    pics = songs.map(song => song.al.picUrl.replace('http://', 'https://'))
-  } catch (e) {
-    console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
-  } finally {
-    return { pics, keywords, offset }
+export const songPicByIds = createAsyncThunk(
+  'search/songPic',
+  async ({ ids, keywords, offset }) => {
+    let pics = []
+    try {
+      const { songs } = await songPicApi({ ids })
+      pics = songs.map((song) => song.al.picUrl.replace('http://', 'https://'))
+    } catch (e) {
+      console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+    } finally {
+      return { pics, keywords, offset }
+    }
   }
-})
+)
 
 const searchSlice = createSlice({
   name: 'search',
@@ -72,7 +78,7 @@ const searchSlice = createSlice({
       state.songs = []
     }
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(searchByKeywords.fulfilled, (state, action) => {
         const { songs, keywords, offset } = action.payload
@@ -103,11 +109,14 @@ export default searchSlice.reducer
 
 // 在限制内通过折半查找最大数量
 const binarySearch = async ({ keywords, offset = 0, limit = 30 }) => {
-  let left = offset, right = offset + limit - 1
+  let left = offset,
+    right = offset + limit - 1
   while (left <= right) {
     let mid = Math.floor((left + right) / 2)
     try {
-      const { result: { songs } } = await searchApi({ keywords, offset: mid, limit: 1 })
+      const {
+        result: { songs }
+      } = await searchApi({ keywords, offset: mid, limit: 1 })
       if (songs && songs.length !== 0) {
         left = mid + 1
       } else {
@@ -116,7 +125,7 @@ const binarySearch = async ({ keywords, offset = 0, limit = 30 }) => {
     } catch (e) {
       console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
     }
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    await new Promise((resolve) => setTimeout(resolve, 1500))
   }
   if (left - 1 <= offset) return []
   const { result } = await searchApi({ keywords, offset, limit: left - offset - 1 })
@@ -130,15 +139,15 @@ function songsCacheHandler(songsCache, { keywords, songs, offset }) {
     if (Object.keys(songsCache).length > 5) {
       // 删除缓存数据最少的那条
       let key = Object.keys(songsCache).reduce((pre, cur) =>
-        songsCache[cur].size - songsCache[pre].size >= 0 ?
-          pre : cur
+        songsCache[cur].size - songsCache[pre].size >= 0 ? pre : cur
       )
       delete songsCache[key]
     }
     songsCache[keywords] = {}
   }
   // 每个关键词最多缓存60组数据
-  let songPages = songsCache[keywords], page = offset / 30 + 1
+  let songPages = songsCache[keywords],
+    page = offset / 30 + 1
   if (page > 2) return songsCache
   songPages[page] = songs
 

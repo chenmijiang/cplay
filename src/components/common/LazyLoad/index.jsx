@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
@@ -27,7 +29,7 @@ export function LoadAnimations() {
 
 const colors = {
   alpha: 'rgb(138, 189, 202)',
-  beta: 'rgb(234 147 147)',
+  beta: 'rgb(234 147 147)'
 }
 
 const stretch = keyframes`

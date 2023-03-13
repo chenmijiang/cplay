@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -21,7 +23,7 @@ const MinimusicPlaybar = React.memo(
     curPercent,
     prePercent,
     setCurrentPercent,
-    setCurrentTime,
+    setCurrentTime
   }) => {
     const navigate = useNavigate()
     return (
@@ -32,11 +34,7 @@ const MinimusicPlaybar = React.memo(
             navigate('/')
           }}
         >
-          <Image
-            src={picUrl}
-            iconame="record"
-            className="music_cover"
-          />
+          <Image src={picUrl} iconame="record" className="music_cover" />
         </div>
         <Playpause
           variants={btnTapSpringVariant}
@@ -48,10 +46,7 @@ const MinimusicPlaybar = React.memo(
           {paused ? <Icon name="pause" /> : <Icon name="play" />}
         </Playpause>
         <MiniProgressBar>
-          <p
-            className="song"
-            title={song}
-          >
+          <p className="song" title={song}>
             {song}
           </p>
           <p className="artist">{artist}</p>

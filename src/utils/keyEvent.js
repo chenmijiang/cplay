@@ -1,5 +1,7 @@
 /**
  * setKeyEvents
+ *
+ * @format
  */
 export const setKeyEvents = (callback) => {
   callback && (document.onkeydown = callback)

@@ -1,13 +1,19 @@
+/** @format */
+
 // 下滑动画
 export const boxShowVariant = {
   initial: {
-    x: '-50%', y: 0, opacity: 0
+    x: '-50%',
+    y: 0,
+    opacity: 0
   },
   animate: {
-    x: '-50%', y: '20vh', opacity: 1
+    x: '-50%',
+    y: '20vh',
+    opacity: 1
   },
   exit: { x: '-50%', y: '5vh', opacity: 0 },
-  transition: { ease: 'easeInOut', }
+  transition: { ease: 'easeInOut' }
 }
 
 export const glassCoverVariant = {
@@ -28,13 +34,13 @@ export const glassCoverVariant = {
 // 子路由切换动画
 export const routerSwitchVariant = {
   enter: {
-    opacity: 0,
+    opacity: 0
   },
   show: {
-    opacity: 1,
+    opacity: 1
   },
   exit: {
-    opacity: 0,
+    opacity: 0
   },
   transition: {
     ease: 'easeInOut',

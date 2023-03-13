@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -79,10 +81,7 @@ const LoginQR = React.memo(() => {
                 <Icon name="qr" />
               </>
             ) : (
-              <img
-                src={qrimg}
-                alt="二维码"
-              />
+              <img src={qrimg} alt="二维码" />
             )}
           </div>
         </div>

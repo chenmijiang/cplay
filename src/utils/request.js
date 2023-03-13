@@ -1,3 +1,5 @@
+/** @format */
+
 import { songCheck as songCheckApi } from '@/apis'
 
 // 歌曲是否可用

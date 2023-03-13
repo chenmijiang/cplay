@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -12,14 +14,14 @@ import {
   progressHandler,
   suspendHandler,
   timeUpdateHandler,
-  waitingHandler,
+  waitingHandler
 } from './eventHandler'
 import {
   playPause,
   setBuffered,
   setCoverScroll,
   setCurrentTime,
-  setDuration,
+  setDuration
 } from '@/store/play.slice'
 import { updateCurrentIndex } from '@/store/lyrics.slice'
 import { songUrl } from '@/store/upload.slice'
@@ -27,28 +29,20 @@ import { songUrl } from '@/store/upload.slice'
 import { showToast } from '@/store/toast.slice'
 
 const MusicPlayer = React.memo(() => {
-  const {
-    paused,
-    currentIndex,
-    targetTime,
-    volume,
-    edited,
-    times,
-    src,
-    id,
-    quality,
-  } = useSelector((state) => ({
-    paused: state.player.paused,
-    currentTime: state.player.currentTime,
-    targetTime: state.player.targetTime,
-    volume: state.player.volume,
-    edited: state.lyricsEdit.edited,
-    times: state.lyricsEdit.times,
-    currentIndex: state.lyricsEdit.currentIndex,
-    id: state.uploadFiles.id,
-    src: state.uploadFiles.src,
-    quality: state.setting.quality,
-  }))
+  const { paused, currentIndex, targetTime, volume, edited, times, src, id, quality } = useSelector(
+    (state) => ({
+      paused: state.player.paused,
+      currentTime: state.player.currentTime,
+      targetTime: state.player.targetTime,
+      volume: state.player.volume,
+      edited: state.lyricsEdit.edited,
+      times: state.lyricsEdit.times,
+      currentIndex: state.lyricsEdit.currentIndex,
+      id: state.uploadFiles.id,
+      src: state.uploadFiles.src,
+      quality: state.setting.quality
+    })
+  )
   const dispatch = useDispatch()
   const timesRef = useRef(times.map((time) => formatToSeconds(time)))
   useEffect(() => {

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useCallback, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { useSelector, useDispatch } from 'react-redux'
@@ -8,11 +10,7 @@ import SongsDisplay from '@/components/SongsDisplay'
 import Icon from '@/components/common/IconSvg'
 import { playPause } from '@/store/play.slice'
 import { showToast } from '@/store/toast.slice'
-import {
-  restoreUploadState,
-  songPicAndUrl,
-  uploadLyrics,
-} from '@/store/upload.slice'
+import { restoreUploadState, songPicAndUrl, uploadLyrics } from '@/store/upload.slice'
 import { initTimes } from '@/store/lyrics.slice'
 import { clearAllHistory } from '@/store/history.slice'
 import { useSongsDB } from '@/hooks/useSongsDB'
@@ -26,7 +24,7 @@ const HistoryPage = () => {
       pic: song.picUrl,
       name: song.title,
       artist: song.artist,
-      duration: song.duration || 0,
+      duration: song.duration || 0
     }))
   }, [history])
   // 恢复制作记录历史
@@ -54,7 +52,7 @@ const HistoryPage = () => {
               src: URL.createObjectURL(item.file),
               name,
               artist,
-              picUrl: song.picUrl,
+              picUrl: song.picUrl
             })
           )
         })

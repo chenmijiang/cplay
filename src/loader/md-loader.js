@@ -1,3 +1,5 @@
+/** @format */
+
 const { marked } = require('marked')
 
 function mdLoader(markdown) {

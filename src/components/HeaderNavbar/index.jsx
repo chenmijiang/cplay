@@ -1,14 +1,11 @@
+/** @format */
+
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { motion, useCycle } from 'framer-motion'
 
 import style from './navbar.module.scss'
-import {
-  backgroundVariants,
-  buttonVariants,
-  linkVariants,
-  menuVariants,
-} from './variants'
+import { backgroundVariants, buttonVariants, linkVariants, menuVariants } from './variants'
 
 const NavlinkMotion = motion(NavLink)
 
@@ -40,37 +37,29 @@ const HeaderNavbar = React.memo(({ links }) => {
           animate={isOpen ? 'open' : 'closed'}
           onClick={() => toggleOpen()}
         >
-          <motion.svg
-            width="30"
-            height="30"
-            viewBox="0 0 30 30"
-            variants={buttonVariants}
-          >
+          <motion.svg width="30" height="30" viewBox="0 0 30 30" variants={buttonVariants}>
             <Path
               variants={{
                 closed: { d: 'M 3 4.5 L 27 4.5' },
-                open: { d: 'M 4 26.5 L 26 3.5' },
+                open: { d: 'M 4 26.5 L 26 3.5' }
               }}
             />
             <Path
               d="M 3 13.423 L 27 13.423"
               variants={{
                 closed: { opacity: 1 },
-                open: { opacity: 0 },
+                open: { opacity: 0 }
               }}
               transition={{ duration: 0.1 }}
             />
             <Path
               variants={{
                 closed: { d: 'M 3 22.346 L 27 22.346' },
-                open: { d: 'M 4 3.5 L 26 26.346' },
+                open: { d: 'M 4 3.5 L 26 26.346' }
               }}
             />
           </motion.svg>
-          <motion.div
-            className={style.mini_nav_background}
-            variants={backgroundVariants}
-          />
+          <motion.div className={style.mini_nav_background} variants={backgroundVariants} />
           <motion.div className={style.mini_links} variants={menuVariants}>
             {links.map((link, index) => (
               <NavlinkMotion
@@ -99,12 +88,7 @@ const HeaderNavbar = React.memo(({ links }) => {
 })
 
 const Path = (props) => (
-  <motion.path
-    fill="transparent"
-    strokeWidth="3"
-    strokeLinecap="round"
-    {...props}
-  />
+  <motion.path fill="transparent" strokeWidth="3" strokeLinecap="round" {...props} />
 )
 
 export default HeaderNavbar

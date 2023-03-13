@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react'
 
 import HomePage from '@/views/HomePage'
@@ -11,7 +13,7 @@ import { AuthorityLogin, Authority } from './authority'
 const config = [
   {
     path: '/',
-    element: <HomePage />,
+    element: <HomePage />
   },
   {
     path: '/space',
@@ -20,7 +22,7 @@ const config = [
     children: [
       {
         index: true,
-        element: <MessageInfo />,
+        element: <MessageInfo />
       },
       // {
       //   path: 'userinfo',
@@ -36,62 +38,52 @@ const config = [
         path: 'login',
         element: (
           <AuthorityLogin
-            component={import(
-              /* webpackChunkName:"space" */ '@/views/PersonSpace/LoginQR'
-            )}
+            component={import(/* webpackChunkName:"space" */ '@/views/PersonSpace/LoginQR')}
           />
-        ),
+        )
       },
       {
         path: 'search',
         element: (
           <LazyLoad
-            component={import(
-              /* webpackChunkName:"space" */ '@/views/PersonSpace/SearchPage'
-            )}
+            component={import(/* webpackChunkName:"space" */ '@/views/PersonSpace/SearchPage')}
             animation={<></>}
           />
-        ),
+        )
       },
       {
         path: 'history',
         element: (
           <LazyLoad
-            component={import(
-              /* webpackChunkName:"space" */ '@/views/PersonSpace/HistoryPage'
-            )}
+            component={import(/* webpackChunkName:"space" */ '@/views/PersonSpace/HistoryPage')}
             animation={<></>}
           />
-        ),
+        )
       },
       {
         path: 'cloud',
         element: (
           <Authority
-            component={import(
-              /* webpackChunkName:"space" */ '@/views/PersonSpace/CloudPage'
-            )}
+            component={import(/* webpackChunkName:"space" */ '@/views/PersonSpace/CloudPage')}
             animation={<></>}
           />
-        ),
+        )
       },
       {
         path: 'settings',
         element: (
           <LazyLoad
-            component={import(
-              /* webpackChunkName:"space" */ '@/views/PersonSpace/SettingsPage'
-            )}
+            component={import(/* webpackChunkName:"space" */ '@/views/PersonSpace/SettingsPage')}
             animation={<></>}
           />
-        ),
-      },
-    ],
+        )
+      }
+    ]
   },
   {
     path: '*',
-    element: <LazyLoad component={import('@/views/NotFound')} />,
-  },
+    element: <LazyLoad component={import('@/views/NotFound')} />
+  }
 ]
 
 export default config

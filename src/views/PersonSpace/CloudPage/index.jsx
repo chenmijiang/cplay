@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
@@ -45,7 +47,7 @@ const CloudPage = () => {
               name,
               artist,
               picUrl: song.pic,
-              sameUrled: false,
+              sameUrled: false
             })
           )
           dispatch(showToast({ message: '获取成功' }))

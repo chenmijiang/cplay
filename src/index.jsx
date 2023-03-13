@@ -1,4 +1,6 @@
-import React from 'react'
+/** @format */
+
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 
 import 'reset-css'
@@ -14,18 +16,18 @@ import reportWebVitals from './reportWebVitals'
 import LazyLoad from './components/common/LazyLoad'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
+// 白屏加载动画
+// const loadingContainer = document.getElementById('loading')
+// if (loadingContainer) {
+//   loadingContainer.remove()
+// }
 root.render(
   <>
     {isMobile() === true ? (
-      <LazyLoad
-        component={import(/* webpackChunkName:"mobile" */ './Mobile')}
-      />
+      <LazyLoad component={import(/* webpackChunkName:"mobile" */ './Mobile')} />
     ) : (
       <Provider store={store}>
-        <PersistGate
-          loading={null}
-          persistor={persistor}
-        >
+        <PersistGate loading={null} persistor={persistor}>
           <App />
         </PersistGate>
       </Provider>

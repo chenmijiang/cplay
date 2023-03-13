@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,20 +17,10 @@ function NotFound() {
     <div className={style.not_found_body}>
       <section className={style.wrapper}>
         <div className={style.container}>
-          <div
-            id="scene"
-            className={style.scene}
-            data-hover-only="false"
-          >
-            <div
-              className={style.circle}
-              data-depth="1.2"
-            ></div>
+          <div id="scene" className={style.scene} data-hover-only="false">
+            <div className={style.circle} data-depth="1.2"></div>
 
-            <div
-              className={style.one}
-              data-depth="0.9"
-            >
+            <div className={style.one} data-depth="0.9">
               <div className={style.content}>
                 <span className={style.piece}></span>
                 <span className={style.piece}></span>
@@ -36,10 +28,7 @@ function NotFound() {
               </div>
             </div>
 
-            <div
-              className={style.two}
-              data-depth="0.60"
-            >
+            <div className={style.two} data-depth="0.60">
               <div className={style.content}>
                 <span className={style.piece}></span>
                 <span className={style.piece}></span>
@@ -47,10 +36,7 @@ function NotFound() {
               </div>
             </div>
 
-            <div
-              className={style.three}
-              data-depth="0.40"
-            >
+            <div className={style.three} data-depth="0.40">
               <div className={style.content}>
                 <span className={style.piece}></span>
                 <span className={style.piece}></span>
@@ -58,16 +44,10 @@ function NotFound() {
               </div>
             </div>
 
-            <p
-              className={style.p404}
-              data-depth="0.50"
-            >
+            <p className={style.p404} data-depth="0.50">
               404
             </p>
-            <p
-              className={style.p404}
-              data-depth="0.10"
-            >
+            <p className={style.p404} data-depth="0.10">
               404
             </p>
           </div>

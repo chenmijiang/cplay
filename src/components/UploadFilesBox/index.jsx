@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
@@ -20,11 +22,8 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
   const [isEnlarged, setIsEnlarged] = useState(false)
   // animation: music is uploaded successfully
   const [[musicfile, isMusicUpload], musicChangeListener] = useMusicFile()
-  const [
-    [lyrics, timeShaft, isLyricsEmpty],
-    lyricsContentRef,
-    lyricsContentListener,
-  ] = useLyricsContent()
+  const [[lyrics, timeShaft, isLyricsEmpty], lyricsContentRef, lyricsContentListener] =
+    useLyricsContent()
 
   const handleUploadClick = () => {
     lyricsContentListener()
@@ -46,10 +45,7 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
   }
 
   return (
-    <motion.div
-      className={style.upload_glass}
-      transition={{ delayChildren: 0.2 }}
-    >
+    <motion.div className={style.upload_glass} transition={{ delayChildren: 0.2 }}>
       <motion.div
         className={style.upload_box}
         variants={boxShowVariant}
@@ -60,12 +56,7 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
       >
         {/* 关闭按钮 */}
         <div className={style.upload_close} onClick={handleCloseClick}>
-          <svg
-            width="30.000000"
-            height="30.000000"
-            viewBox="0 0 30 30"
-            fill="none"
-          >
+          <svg width="30.000000" height="30.000000" viewBox="0 0 30 30" fill="none">
             <g clipPath="url(#clip9_8)">
               <path
                 d="M15 3.75C8.8125 3.75 3.75 8.8125 3.75 15C3.75 21.1875 8.8125 26.25 15 26.25C21.1875 26.25 26.25 21.1875 26.25 15C26.25 8.8125 21.1875 3.75 15 3.75L15 3.75M15 24.375C9.75 24.375 5.625 20.25 5.625 15C5.625 9.75 9.75 5.625 15 5.625C20.25 5.625 24.375 9.75 24.375 15C24.375 20.25 20.25 24.375 15 24.375L15 24.375M19.6875 10.3125C19.3125 9.9375 18.75 9.9375 18.375 10.3125L15 13.6875L11.625 10.3125C11.25 9.9375 10.6875 9.9375 10.3125 10.3125C9.9375 10.6875 9.9375 11.25 10.3125 11.625L13.6875 15L10.3125 18.375C9.9375 18.75 9.9375 19.3125 10.3125 19.6875C10.6875 20.0625 11.25 20.0625 11.625 19.6875L15 16.3125L18.375 19.6875C18.75 20.0625 19.3125 20.0625 19.6875 19.6875C20.0625 19.3125 20.0625 18.75 19.6875 18.375L16.3125 15L19.6875 11.625C20.0625 11.25 20.0625 10.6875 19.6875 10.3125L19.6875 10.3125Z"
@@ -93,7 +84,7 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
                 <div
                   className={style.upload_music_contain}
                   style={{
-                    visibility: nextStep === 0 ? 'visible' : 'hidden',
+                    visibility: nextStep === 0 ? 'visible' : 'hidden'
                   }}
                 >
                   <div className={style.upload_file}>
@@ -102,9 +93,7 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
                       height="50.000000"
                       viewBox="0 0 50 50"
                       animate={{
-                        fill: isMusicUpload
-                          ? 'var(--bg-cyan-100)'
-                          : 'var(--bg-gray-100)',
+                        fill: isMusicUpload ? 'var(--bg-cyan-100)' : 'var(--bg-gray-100)'
                       }}
                       transition={{ when: 'afterChildren' }}
                     >
@@ -123,7 +112,7 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
                             type: 'tween',
                             ease: 'easeOut',
                             delay: 0.5,
-                            duration: 0.5,
+                            duration: 0.5
                           }}
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -143,11 +132,7 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
                       </g>
                       <defs>
                         <clipPath id="clip9_4">
-                          <rect
-                            width="50.000000"
-                            height="50.000000"
-                            fill="white"
-                          />
+                          <rect width="50.000000" height="50.000000" fill="white" />
                         </clipPath>
                       </defs>
                     </motion.svg>
@@ -160,15 +145,13 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
                     />
                   </div>
                   <div className={style.file_des}>
-                    <label htmlFor="music-file">
-                      音频上传(非必须): 支持mp3、flac
-                    </label>
+                    <label htmlFor="music-file">音频上传(非必须): 支持mp3、flac</label>
                   </div>
                 </div>
                 <div
                   className={style.upload_lyrics_contain}
                   style={{
-                    visibility: nextStep === 0 ? 'hidden' : 'visible',
+                    visibility: nextStep === 0 ? 'hidden' : 'visible'
                   }}
                 >
                   <motion.div
@@ -176,7 +159,7 @@ const UploadBox = React.memo(({ closeUploadBox }) => {
                     animate={{ height: isEnlarged ? '500%' : '100%' }}
                     transition={{
                       type: 'spring',
-                      duration: 0.4,
+                      duration: 0.4
                     }}
                   >
                     {/* upload_lyrics_contain && submit */}

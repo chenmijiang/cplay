@@ -1,9 +1,12 @@
 /**
  * 保留小数点后位数
+ *
+ * @format
  * @param {数字} data 数字
  * @param {位数} number 小数点后位数,默认3位
  * @returns 格式化数字,字符串
  */
+
 function numberToFixed(data, number = 3) {
   return data.toFixed(number)
 }

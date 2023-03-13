@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState } from 'react'
 
 import { getMusicInfo } from '@/utils/file_parser'
@@ -11,17 +13,19 @@ export default function useMusicFile() {
   function musicChangeListener({ target }) {
     let result = checkFile(target, 'audio')
     if (result.code === 200) {
-      getMusicInfo(result.data.file).then(({ data }) => {
-        // 音频链接
-        let src = URL.createObjectURL(result.data.file)
-        data.id = `${new Date().getTime()}-${data.name}-${data.artist}`
-        data.src = src
-        data.sameUrled = false
-        return data
-      }).then((song) => {
-        addSong(song.id, result.data.file)
-        setMusicfile(song)
-      })
+      getMusicInfo(result.data.file)
+        .then(({ data }) => {
+          // 音频链接
+          let src = URL.createObjectURL(result.data.file)
+          data.id = `${new Date().getTime()}-${data.name}-${data.artist}`
+          data.src = src
+          data.sameUrled = false
+          return data
+        })
+        .then((song) => {
+          addSong(song.id, result.data.file)
+          setMusicfile(song)
+        })
     }
     setIsMusicUpload(result.code === 200 ? true : false)
   }
@@ -33,11 +37,11 @@ function checkFile(el, type) {
   let file = el.files[0]
   return file && file.type.includes(type)
     ? {
-      code: 200,
-      data: { file },
-    }
+        code: 200,
+        data: { file }
+      }
     : {
-      code: 500,
-      data: { msg: '文件格式错误或空文件' },
-    }
+        code: 500,
+        data: { msg: '文件格式错误或空文件' }
+      }
 }

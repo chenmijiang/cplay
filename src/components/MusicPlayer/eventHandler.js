@@ -1,12 +1,14 @@
 /**
  * 音频处理事件
+ *
+ * @format
  */
 
 export const loadedDataHandler = (e, callback) => {
   // console.log('音频的第一帧加载完成 - onLoadedData', e)
   callback &&
     callback({
-      e,
+      e
     })
 }
 
@@ -14,7 +16,7 @@ export const progressHandler = (e, callback) => {
   // console.log("音频正在加载 - progress");
   callback &&
     callback({
-      e,
+      e
     })
 }
 
@@ -37,7 +39,7 @@ export const timeUpdateHandler = (e, callback) => {
   callback &&
     callback({
       e,
-      value,
+      value
     })
 }
 
@@ -45,7 +47,7 @@ export const endedHandler = (e, callback) => {
   // console.log('播放结束')
   callback &&
     callback({
-      e,
+      e
     })
 }
 
@@ -56,7 +58,7 @@ export const errorHandler = (e, callback) => {
   // )
   callback &&
     callback({
-      e,
+      e
     })
 }
 
@@ -64,7 +66,7 @@ export const suspendHandler = (e, callback) => {
   // console.log('音频加载暂停时触发 - suspend')
   callback &&
     callback({
-      e,
+      e
     })
 }
 
@@ -72,7 +74,7 @@ export const waitingHandler = (e, callback) => {
   // console.log('开始播放前缓冲下一帧时触发 waiting')
   callback &&
     callback({
-      e,
+      e
     })
 }
 
@@ -80,7 +82,7 @@ export const canplayHandler = (e, callback) => {
   // console.log('浏览器能够开始播放音频时触发 canplay')
   callback &&
     callback({
-      e,
+      e
     })
 }
 
@@ -90,6 +92,6 @@ export const canPlayThroughHandler = (e, callback) => {
   // )
   callback &&
     callback({
-      e,
+      e
     })
 }

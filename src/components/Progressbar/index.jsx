@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from 'react'
 
 import './progressbar.scss'
@@ -7,13 +9,7 @@ import './progressbar.scss'
  * 2. 事件触发：子传父
  * @returns
  */
-function Progressbar({
-  curPercent,
-  prePercent,
-  maxValue,
-  setCurrentPercent,
-  setCurrentTime,
-}) {
+function Progressbar({ curPercent, prePercent, maxValue, setCurrentPercent, setCurrentTime }) {
   const [value, setValue] = useState(0) //进度条的值
   const [pre, setPre] = useState(0) //预加载的值：小数
   const [isDrag, setIsDrag] = useState(false) //是否处于拖拽
@@ -42,7 +38,7 @@ function Progressbar({
       className="slider_container"
       style={{
         '--fill-width': `${(value / max) * 100}%`,
-        '--pre-width': `${pre * 100}%`,
+        '--pre-width': `${pre * 100}%`
       }}
     >
       <div className="progress">

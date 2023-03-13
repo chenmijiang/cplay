@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useRef, useEffect } from 'react'
 import { useInViewport } from 'ahooks'
 import styled, { keyframes } from 'styled-components'

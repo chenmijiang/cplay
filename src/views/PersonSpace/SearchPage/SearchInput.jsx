@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -23,10 +25,7 @@ const SearchInput = React.memo(({ searchHandler }) => {
     <SearchInputWrapper>
       <div className="searchbox">
         {/* 搜索图标 */}
-        <div
-          className="search_btn"
-          onClick={() => searchHandler(keywordsRef.current.value)}
-        >
+        <div className="search_btn" onClick={() => searchHandler(keywordsRef.current.value)}>
           <Icon name="search" />
         </div>
         {/* 搜索框 */}
@@ -63,7 +62,7 @@ const SearchInputWrapper = styled.div`
     border-radius: 26px;
     transition: all 0.3s;
     &:hover {
-      box-shadow: 0 0 0 1px rgb(0 0 0 / 10%), 0 2px 4px 1px rgb(0 0 0 / 11%)
+      box-shadow: 0 0 0 1px rgb(0 0 0 / 10%), 0 2px 4px 1px rgb(0 0 0 / 11%);
     }
   }
   .search_input {

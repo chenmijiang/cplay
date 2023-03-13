@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
@@ -7,11 +9,7 @@ import LyricsScroll from '@/components/LyricsScroll'
 import { copyLyrics } from '@/utils/common'
 
 import style from './lyricsedit.module.scss'
-import {
-  setEdited,
-  updateCurrentIndex,
-  uploadBoxShow,
-} from '@/store/lyrics.slice'
+import { setEdited, updateCurrentIndex, uploadBoxShow } from '@/store/lyrics.slice'
 import { playPause } from '@/store/play.slice'
 import { saveHistoryItem } from '@/store/history.slice'
 import { btnTapSpringVariant } from '@/variants'
@@ -29,7 +27,7 @@ const Lyricsedit = React.memo(() => {
     id,
     quality,
     picUrl,
-    duration,
+    duration
   } = useSelector((state) => ({
     edited: state.lyricsEdit.edited,
     lytimes: state.lyricsEdit.times,
@@ -41,7 +39,7 @@ const Lyricsedit = React.memo(() => {
     currentIndex: state.lyricsEdit.currentIndex,
     quality: state.setting.quality,
     picUrl: state.uploadFiles.picUrl,
-    duration: state.player.duration,
+    duration: state.player.duration
   }))
 
   const handlerUploadBtn = () => {
@@ -60,7 +58,7 @@ const Lyricsedit = React.memo(() => {
   const [hinted, setHinted] = useState({
     isCopied: false,
     clearTimeId: 0,
-    content: '',
+    content: ''
   })
   const handlerCopyBtn = () => {
     const content = copyLyrics(lytimes, lyrics)
@@ -70,7 +68,7 @@ const Lyricsedit = React.memo(() => {
         ...pre,
         isCopied: false,
         clearTimeId,
-        content,
+        content
       }))
     }, 1500)
     if (clearTimeId === hinted.clearTimeId) {
@@ -87,7 +85,7 @@ const Lyricsedit = React.memo(() => {
           title,
           artist,
           picUrl,
-          duration: duration * 1000,
+          duration: duration * 1000
         })
       )
     }
@@ -142,12 +140,7 @@ const Lyricsedit = React.memo(() => {
               data-hint="复制成功"
               onClick={handlerCopyBtn}
             >
-              <span
-                className={[
-                  style.hint,
-                  hinted.isCopied ? style.hint_active : '',
-                ].join(' ')}
-              >
+              <span className={[style.hint, hinted.isCopied ? style.hint_active : ''].join(' ')}>
                 {hinted.content}
               </span>
             </i>

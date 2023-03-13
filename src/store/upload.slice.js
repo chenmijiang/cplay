@@ -1,29 +1,33 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+/** @format */
+
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import { songPic as songPicApi, songUrl as songUrlApi } from '@/apis'
 
 // 歌曲封面 && 歌曲播放地址
-export const songPicAndUrl = createAsyncThunk('upload/songPicAndUrl', async (
-  { id, name, artist, br = 128000 }) => {
-  let src = ''
-  let picUrl = ''
-  try {
-    const { data } = await songUrlApi({ id, br })
-    const { songs } = await songPicApi({ ids: id })
-    src = data[0].url
-    picUrl = songs[0].al.picUrl
-  } catch (e) {
-    console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
-  } finally {
-    return {
-      id,
-      src,
-      name,
-      artist,
-      picUrl,
+export const songPicAndUrl = createAsyncThunk(
+  'upload/songPicAndUrl',
+  async ({ id, name, artist, br = 128000 }) => {
+    let src = ''
+    let picUrl = ''
+    try {
+      const { data } = await songUrlApi({ id, br })
+      const { songs } = await songPicApi({ ids: id })
+      src = data[0].url
+      picUrl = songs[0].al.picUrl
+    } catch (e) {
+      console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+    } finally {
+      return {
+        id,
+        src,
+        name,
+        artist,
+        picUrl
+      }
     }
   }
-})
+)
 
 // 歌曲播放地址，一段时间会失效，需要重新请求
 export const songUrl = createAsyncThunk('upload/songUrl', async ({ id, br = 128000 }) => {
@@ -115,8 +119,8 @@ const uploadSlice = createSlice({
       '',
       '“而在这座山的那边，就是海呀',
       '是一个全新的世界',
-      '在一瞬间照亮你的眼睛……”',
-    ],
+      '在一瞬间照亮你的眼睛……”'
+    ]
   },
   reducers: {
     uploadLyrics: (state, action) => {
@@ -146,7 +150,7 @@ const uploadSlice = createSlice({
       state.picUrl = picUrl
     }
   },
-  extraReducers: build => {
+  extraReducers: (build) => {
     build
       .addCase(songPicAndUrl.fulfilled, (state, action) => {
         const { id, src, name, artist, picUrl } = action.payload
@@ -163,11 +167,6 @@ const uploadSlice = createSlice({
   }
 })
 
-export const {
-  uploadLyrics,
-  uploadMusicWay,
-  uploadSameUrl,
-  uploadPicUrl,
-  restoreUploadState
-} = uploadSlice.actions
+export const { uploadLyrics, uploadMusicWay, uploadSameUrl, uploadPicUrl, restoreUploadState } =
+  uploadSlice.actions
 export default uploadSlice.reducer

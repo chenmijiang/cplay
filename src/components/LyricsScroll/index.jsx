@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import SimpleBar from 'simplebar-react'
@@ -26,7 +28,7 @@ const LyricsScroll = React.memo(
     lyTimes, //歌词时间轴
     animate_time, //滚动动画时间
     currentIndex, //当前歌词索引
-    edited, // 编辑模式
+    edited // 编辑模式
   }) => {
     // 1. 组件自身维护的时间轴，lyTimes改变了也会更新状态
     const [lytimes, setLytimes] = useCopyState(lyTimes)
@@ -99,23 +101,13 @@ const LyricsScroll = React.memo(
           return -timeFraction * timeFraction + 2 * timeFraction
         },
         draw: function (progress) {
-          contentWrapper.scroll(
-            0,
-            height + (1 - progress) * (currentHeight - height)
-          )
-        },
+          contentWrapper.scroll(0, height + (1 - progress) * (currentHeight - height))
+        }
       })
     }, [currentIndex, animate_time])
     return (
-      <LyContent
-        edited={edited}
-        lyheight="39px"
-        blockHeight={blockHeight}
-      >
-        <SimpleBar
-          className="lyrics_list"
-          scrollableNodeProps={{ ref: scrollableNodeRef }}
-        >
+      <LyContent edited={edited} lyheight="39px" blockHeight={blockHeight}>
+        <SimpleBar className="lyrics_list" scrollableNodeProps={{ ref: scrollableNodeRef }}>
           <div className="ly_block"></div>
           {lyrics.map((ly, index) => (
             <li
@@ -127,8 +119,7 @@ const LyricsScroll = React.memo(
               <div
                 className="ly_time"
                 style={{
-                  width:
-                    edited || clickIndex === index ? 'max(120px, 20%)' : '0%',
+                  width: edited || clickIndex === index ? 'max(120px, 20%)' : '0%'
                 }}
               >
                 <span>[</span>

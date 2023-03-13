@@ -1,3 +1,5 @@
+/** @format */
+
 import { useRef } from 'react'
 
 import { formatLyrics } from '@/utils/file_parser'
@@ -18,9 +20,5 @@ export default function useLyricsContent() {
     }
   }
 
-  return [
-    [lyrics, timeShaft, isLyricsEmpty],
-    lyricsContentRef,
-    lyricsContentListener
-  ]
+  return [[lyrics, timeShaft, isLyricsEmpty], lyricsContentRef, lyricsContentListener]
 }

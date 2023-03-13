@@ -1,17 +1,12 @@
+/** @format */
+
 import React from 'react'
 import styled from 'styled-components'
 
 import Progressbar from '@/components/Progressbar'
 
 const PlayProgressbar = React.memo(
-  ({
-    setCurrentPercent,
-    setCurrentTime,
-    current,
-    curPercent,
-    prePercent,
-    duration,
-  }) => {
+  ({ setCurrentPercent, setCurrentTime, current, curPercent, prePercent, duration }) => {
     return (
       <PlayContainer>
         <span>{current}</span>

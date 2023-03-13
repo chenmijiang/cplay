@@ -1,4 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+/** @format */
+
+import { createSlice } from '@reduxjs/toolkit'
 
 import { setBaseUrl as setBaseUrlApi } from '@/apis'
 
@@ -7,7 +9,7 @@ const settingSlice = createSlice({
   initialState: {
     quality: 128000, //音质
     baseUrl: 'https://cplay-api.vercel.app',
-    animationTime: 300,
+    animationTime: 300
   },
   reducers: {
     setMusicQuality: (state, action) => {

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useCallback, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -12,31 +14,25 @@ import Portal from '@/components/common/Portals'
 import { secondsToFormat } from '@/utils/time_parser'
 import { setKeyEvents, clearKeyEvents } from '@/utils/keyEvent'
 import style from './home.module.scss'
-import {
-  updateCurrentIndex,
-  updateTime,
-  uploadBoxShow,
-} from '@/store/lyrics.slice'
+import { updateCurrentIndex, updateTime, uploadBoxShow } from '@/store/lyrics.slice'
 import { playPause, setTargetTime } from '@/store/play.slice'
 
 function HomePage() {
-  const { paused, buffered, duration, currentTime, scrolled } = useSelector(
-    (state) => ({
-      paused: state.player.paused,
-      buffered: state.player.buffered,
-      duration: state.player.duration,
-      currentTime: state.player.currentTime,
-      scrolled: state.player.scrolled,
-    })
-  )
+  const { paused, buffered, duration, currentTime, scrolled } = useSelector((state) => ({
+    paused: state.player.paused,
+    buffered: state.player.buffered,
+    duration: state.player.duration,
+    currentTime: state.player.currentTime,
+    scrolled: state.player.scrolled
+  }))
   const { edited, uploaded, currentIndex } = useSelector((state) => ({
     edited: state.lyricsEdit.edited,
     uploaded: state.lyricsEdit.uploaded,
-    currentIndex: state.lyricsEdit.currentIndex,
+    currentIndex: state.lyricsEdit.currentIndex
   }))
   const { lyrics, picUrl } = useSelector((state) => ({
     lyrics: state.uploadFiles.lyrics,
-    picUrl: state.uploadFiles.picUrl,
+    picUrl: state.uploadFiles.picUrl
   }))
   const dispatch = useDispatch()
   const [isDrag, setIsDrag] = useState(false)
@@ -61,9 +57,7 @@ function HomePage() {
             if (currentIndex < lyrics.length - 1) {
               let index = currentIndex + 1
               dispatch(updateCurrentIndex(index))
-              dispatch(
-                updateTime({ time: secondsToFormat(currentTime), index: index })
-              )
+              dispatch(updateTime({ time: secondsToFormat(currentTime), index: index }))
             }
             break
           default:
@@ -82,10 +76,7 @@ function HomePage() {
     }
     return () => clearKeyEvents()
   }, [uploaded, keyEvents])
-  const closeUploadBox = useCallback(
-    (bool) => dispatch(uploadBoxShow(bool)),
-    [dispatch]
-  )
+  const closeUploadBox = useCallback((bool) => dispatch(uploadBoxShow(bool)), [dispatch])
 
   return (
     <motion.div
@@ -94,7 +85,7 @@ function HomePage() {
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: '100vh', opacity: 0 }}
       transition={{
-        ease: 'easeInOut',
+        ease: 'easeInOut'
       }}
     >
       <div className={style.home_page_contain}>

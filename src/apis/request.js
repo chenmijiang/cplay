@@ -1,8 +1,10 @@
-import axios from 'axios';
+/** @format */
+
+import axios from 'axios'
 
 const instance = axios.create({
   withCredentials: true,
-  timeout: 30000,
+  timeout: 30000
 })
 
 // 取消请求令牌的容器
@@ -16,20 +18,20 @@ const generateCancelTokenKey = (config) => {
 
 instance.interceptors.request.use((config) => {
   // 取消请求令牌
-  const controller = new AbortController();
+  const controller = new AbortController()
   pendingRequests.set(generateCancelTokenKey(config), controller)
   config.signal = controller.signal
   return config
 })
 
 instance.interceptors.response.use(
-  response => {
+  (response) => {
     // 清除请求令牌
     const key = generateCancelTokenKey(response.config)
     pendingRequests.delete(key)
     return response.data
   },
-  error => Promise.reject(error)
+  (error) => Promise.reject(error)
 )
 
 const request = (method, url, data, params) => {

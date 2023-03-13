@@ -1,4 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+/** @format */
+
+import { createSlice } from '@reduxjs/toolkit'
 
 const playSlice = createSlice({
   name: 'play',
@@ -9,7 +11,7 @@ const playSlice = createSlice({
     duration: 830, //时长
     currentTime: 0, //现时间
     targetTime: 0, //目标时间，用于拖拽后替换的时间
-    scrolled: true, //唱片是否滚动
+    scrolled: true //唱片是否滚动
   },
   reducers: {
     playPause: (state, action) => {

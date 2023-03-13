@@ -1,3 +1,5 @@
+/** @format */
+
 import cookie from 'react-cookies'
 
 // 获取当前用户cookie
@@ -10,7 +12,7 @@ export const onLogin = (cookieStr) => {
   cookie.save('userinfo', 'https://github.com/chenmijiang/cplay', {
     path: '/',
     maxAge: 60 * 60 * 24 * 300,
-    expires: new Date(Date.now() + 60 * 60 * 24 * 300),
+    expires: new Date(Date.now() + 60 * 60 * 24 * 300)
   })
   document.cookie = parseCookies(cookieStr)
 }

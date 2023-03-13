@@ -1,33 +1,19 @@
+<!-- @format -->
+
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1" />
-  <meta name="keywords" content="时间轴,滚动轴,音乐,网易云,歌词,react,网页">
-  <meta name="description" content="Cplay 是一款仿照网易云风格的在线歌词时间轴制作的网页，操作简单，轻松获取带有时间轴的歌词。">
-  <meta name="theme-color" content="#000000" />
-  <!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> -->
-  <script src="./static/jsmediatags.min.js"></script>
-  <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-  <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
-  <link rel="stylesheet" href="./static/github.markdown.min.css" />
-  <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-  <title>Cplay</title>
-  <!-- 用于百度统计网站访问数据，可以删除 -->
-  <!-- <script>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1" />
+    <meta name="keywords" content="时间轴,滚动轴,音乐,网易云,歌词,react,网页" />
+    <meta name="description" content="Cplay 是一款仿照网易云风格的在线歌词时间轴制作的网页，操作简单，轻松获取带有时间轴的歌词。同时提供在线搜索音频的功能，省去全网搜索的烦恼。" />
+    <meta name="theme-color" content="#000000" />
+    <script src="%PUBLIC_URL%/static/jsmediatags.min.js"></script>
+    <link rel="stylesheet" href="%PUBLIC_URL%/static/github.markdown.min.css" />
+    <title>Cplay</title>
+    <!-- 用于百度统计网站访问数据，可以删除 -->
+    <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -35,22 +21,113 @@
       var s = document.getElementsByTagName("script")[0]; 
       s.parentNode.insertBefore(hm, s);
     })();
-    </script>     -->
-</head>
+    </script>    
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        background-color: #e3e3e3;
+        position: absolute;
+        top: 0;
+        z-index: 200;
+      }
+      #loading .spinner {
+        height: 52px;
+      }
+      .spinner > div {
+        background: rgb(138, 189, 202);
+        height: 100%;
+        width: 12px;
+        float: left;
+        margin: 0 1px;
+        animation: stretch 2s infinite;
+        animation-timing-function: cubic-bezier(0.62, 0.28, 0.23, 0.99);
+      }
+      .spinner .r1 {
+        animation-delay: -1s;
+      }
+      .spinner .r2 {
+        animation-delay: -0.9s;
+      }
+      .spinner .r3 {
+        animation-delay: -0.8s;
+      }
+      .spinner .r4 {
+        animation-delay: -0.7s;
+      }
+      .spinner .r5 {
+        animation-delay: -0.6s;
+      }
 
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-  <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+      @keyframes stretch {
+        0%,
+        20%,
+        49% {
+          transform: scaleY(0.4);
+          background-color: rgb(138, 189, 202);
+        }
+        10% {
+          transform: scaleY(1);
+        }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        50%,
+        70%,
+        100% {
+          transform: scaleY(0.4);
+          background-color: rgb(234 147 147);
+        }
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-</body>
+        60% {
+          transform: scaleY(1);
+          background-color: rgb(234 147 147);
+        }
+      }
+    </style>
+  </head>
 
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <div id="loading">
+      <!-- 在这里添加你的加载动画，比如一个旋转的圆圈或一个进度条 -->
+      <div class="spinner">
+        <div class="r1"></div>
+        <div class="r2"></div>
+        <div class="r3"></div>
+        <div class="r4"></div>
+        <div class="r5"></div>
+      </div>
+    </div>
+    <script>
+      // 设置最小显示时间为 1 秒
+      const MINIMUM_DISPLAY_TIME = 1000
+      // 记录开始显示时间
+      let startTime = Date.now()
+      // 隐藏加载动画
+      function hideLoading() {
+        let loadingContainer = document.getElementById('loading')
+        if (loadingContainer) {
+          loadingContainer.style.display = 'none'
+        }
+      }
+      // 如果显示时间不足最小显示时间，延迟隐藏加载动画
+      function delayHideLoading() {
+        let elapsedTime = Date.now() - startTime
+        if (elapsedTime < MINIMUM_DISPLAY_TIME) {
+          setTimeout(hideLoading, MINIMUM_DISPLAY_TIME - elapsedTime)
+        } else {
+          hideLoading()
+        }
+      }
+      // 在页面加载完成后，延迟隐藏加载动画
+      window.onload = delayHideLoading
+    </script>
+  </body>
 </html>

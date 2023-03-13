@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect, useRef } from 'react'
 
 const useCopyState = (state) => {

@@ -1,3 +1,5 @@
+/** @format */
+
 import { AnimatePresence, motion, useTime, useTransform } from 'framer-motion'
 import React, { useLayoutEffect, useState, useRef } from 'react'
 
@@ -20,14 +22,10 @@ const Glasscover = React.memo(({ targetUrl }) => {
     'blur(0px) brightness(100%)',
     'blur(5px) brightness(89%)',
     'blur(10px) brightness(75%)',
-    'blur(16px) brightness(64%)',
+    'blur(16px) brightness(64%)'
   ]
   const filter = useTransform(time, [100, 200, 300, 400], filterArr)
-  const filterReverse = useTransform(
-    time,
-    [100, 200, 300, 400],
-    filterArr.reverse()
-  )
+  const filterReverse = useTransform(time, [100, 200, 300, 400], filterArr.reverse())
 
   useLayoutEffect(() => {
     if (intialized.current[0] === true) {
@@ -54,13 +52,10 @@ const Glasscover = React.memo(({ targetUrl }) => {
           : actived
           ? 'blur(16px) brightness(64%)'
           : 'blur(0px) brightness(100%)',
-        transform: `scale(${actived ? 2 : 1})`,
+        transform: `scale(${actived ? 2 : 1})`
       }}
     >
-      <AnimatePresence
-        initial={false}
-        custom={actived}
-      >
+      <AnimatePresence initial={false} custom={actived}>
         <motion.img
           className={style.glass_img}
           key={targetUrl}

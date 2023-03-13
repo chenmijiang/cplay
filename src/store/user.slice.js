@@ -1,4 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+/** @format */
+
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import { onLogin as onLoginCookie, logout as logoutCookie } from '@/utils/cookie'
 
@@ -7,7 +9,7 @@ import {
   createQrCode as createQrCodeApi,
   checkQrCode as checkQrCodeApi,
   getUserInfo as getUserInfoApi,
-  logout as logoutApi,
+  logout as logoutApi
 } from '@/apis'
 
 // 请求 key 和二维码
@@ -29,7 +31,7 @@ export const getUserInfo = createAsyncThunk('user/getUserInfo', async () => {
   return {
     uid: profile.userId,
     nickname: profile.nickname,
-    avatarUrl: profile.avatarUrl,
+    avatarUrl: profile.avatarUrl
   }
 })
 // 退出登录
@@ -38,7 +40,7 @@ export const logout = createAsyncThunk('user/logout', async () => {
 })
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState: {
     key: '',
     qrimg: '',
@@ -50,11 +52,11 @@ const userSlice = createSlice({
     profile: {
       uid: '',
       nickname: '',
-      avatarUrl: '',
+      avatarUrl: ''
     }
   },
   reducers: {},
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(createQrKey.fulfilled, (state, action) => {
         const { key, qrimg } = action.payload

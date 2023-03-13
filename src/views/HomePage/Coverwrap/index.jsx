@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -28,10 +30,7 @@ const Coverwrap = React.memo(({ coverUrl, paused, scrolled, playPause }) => {
           src={url}
           alt="cover"
           srcSet=""
-          className={[
-            style.cover_img,
-            paused || !scrolled ? '' : style.cover_img_scroll,
-          ].join(' ')}
+          className={[style.cover_img, paused || !scrolled ? '' : style.cover_img_scroll].join(' ')}
         />
         <span className={style.msk}></span>
       </div>
@@ -52,11 +51,7 @@ const Coverwrap = React.memo(({ coverUrl, paused, scrolled, playPause }) => {
           <motion.i
             variants={btnTapSpringVariant}
             whileTap="tap"
-            className={[
-              style.icon,
-              style.play_pause,
-              paused ? '' : style.play_active,
-            ].join(' ')}
+            className={[style.icon, style.play_pause, paused ? '' : style.play_active].join(' ')}
             onClick={() => {
               playPause(!paused)
             }}

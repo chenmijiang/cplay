@@ -1,3 +1,5 @@
+/** @format */
+
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { HashRouter as Router } from 'react-router-dom'

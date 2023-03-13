@@ -1,16 +1,18 @@
+/** @format */
+
 import storage from 'redux-persist/lib/storage'
 // defaults to localStorage for web
 
 export const playerPersistConfig = {
   key: 'player',
   storage: storage,
-  whitelist: ['volume'],
+  whitelist: ['volume']
 }
 
 export const searchPersistConfig = {
   key: 'search',
   storage,
-  whitelist: ['history', 'songsCache'],
+  whitelist: ['history', 'songsCache']
 }
 
 export const profilePersistConfig = {
@@ -22,7 +24,7 @@ export const profilePersistConfig = {
 export const settingPersistConfig = {
   key: 'setting',
   storage,
-  whitelist: ['quality', 'baseUrl', 'animationTime'],
+  whitelist: ['quality', 'baseUrl', 'animationTime']
 }
 
 export const historyPersistConfig = {
