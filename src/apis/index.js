@@ -8,10 +8,9 @@ export { setBaseUrl, testUrl, cancelAllPendingRequests }
  * 1. 登录
  */
 // 生成 key
-export const createQrKey = () => request('get', '/login/qr/key')
+export const createQrKey = () => request('get', '/login/qr/key', null, { timestamp: Date.now() })
 // 生成二维码
-export const createQrCode = ({ key }) =>
-  request('get', ' / login / qr / create', null, { key, qrimg: 1 })
+export const createQrCode = ({ key }) => request('get', '/login/qr/create', null, { key, qrimg: 1 })
 // 检查二维码状态
 export const checkQrCode = ({ key }) =>
   request('get', '/login/qr/check', null, { key, _: Date.now() })

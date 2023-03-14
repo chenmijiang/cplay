@@ -7,10 +7,8 @@ import styled, { keyframes } from 'styled-components'
 
 import Icon from '@/components/common/IconSvg'
 import { createQrKey, checkQrCode, getUserInfo } from '@/store/user.slice'
-import useFecthCancel from '@/hooks/useFetchCancel'
 
 const LoginQR = React.memo(() => {
-  useFecthCancel()
   const { key, qrimg, verify } = useSelector((state) => state.user)
   const { code } = verify
   const dispatch = useDispatch()
