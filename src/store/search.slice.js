@@ -2,6 +2,7 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { search as searchApi, songPic as songPicApi } from '@/apis'
+import { showErrorToast } from '@/utils/message'
 
 export const searchByKeywords = createAsyncThunk('search/search', async ({ keywords, offset }) => {
   let result = {},
@@ -23,7 +24,7 @@ export const searchByKeywords = createAsyncThunk('search/search', async ({ keywo
       }
     })
   } catch (e) {
-    console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+    showErrorToast(e)
   } finally {
     return { songs, keywords, offset }
   }
@@ -37,7 +38,7 @@ export const songPicByIds = createAsyncThunk(
       const { songs } = await songPicApi({ ids })
       pics = songs.map((song) => song.al.picUrl.replace('http://', 'https://'))
     } catch (e) {
-      console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+      showErrorToast(e)
     } finally {
       return { pics, keywords, offset }
     }
@@ -123,7 +124,7 @@ const binarySearch = async ({ keywords, offset = 0, limit = 30 }) => {
         right = mid - 1
       }
     } catch (e) {
-      console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+      showErrorToast(e)
     }
     await new Promise((resolve) => setTimeout(resolve, 1500))
   }

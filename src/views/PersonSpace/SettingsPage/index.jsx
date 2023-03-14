@@ -12,13 +12,13 @@ import { logout } from '@/store/user.slice'
 import { playPause } from '@/store/play.slice'
 import { setBaseUrl, setMusicQuality } from '@/store/setting.slice'
 import { setAnimationTime } from '@/store/setting.slice'
-import { showToast } from '@/store/toast.slice'
 import { testUrl } from '@/apis'
 
 import { routerSwitchVariant } from '@/variants'
 
 import { qualityItems } from '@/configs/default'
 import useFecthCancel from '@/hooks/useFetchCancel'
+import { showToast } from '@/utils/message'
 
 const SettingsPage = () => {
   useFecthCancel()
@@ -51,11 +51,11 @@ const SettingsPage = () => {
           dispatch(setBaseUrl(url))
           apiRef.current.value = ''
           // toast 提示
-          dispatch(showToast({ message: '接口测试成功' }))
+          showToast('接口测试成功')
         })
         .catch((e) => {
           // toast 提示
-          dispatch(showToast({ message: '接口测试失败' }))
+          showToast('接口测试失败')
         })
     }
   }
@@ -71,9 +71,9 @@ const SettingsPage = () => {
     if (200 <= +time && +time <= 800) {
       dispatch(setAnimationTime(time))
       aniamtionRef.current.value = ''
-      dispatch(showToast({ message: '设置成功' }))
+      showToast('设置成功')
     } else {
-      dispatch(showToast({ message: '超出范围200~800(ms)' }))
+      showToast('超出范围200~800(ms)')
     }
   }
   const resetAnimationTime = () => {

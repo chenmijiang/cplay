@@ -3,6 +3,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import { songPic as songPicApi, songUrl as songUrlApi } from '@/apis'
+import { showErrorToast } from '@/utils/message'
 
 // 歌曲封面 && 歌曲播放地址
 export const songPicAndUrl = createAsyncThunk(
@@ -16,7 +17,7 @@ export const songPicAndUrl = createAsyncThunk(
       src = data[0].url
       picUrl = songs[0].al.picUrl
     } catch (e) {
-      console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+      showErrorToast(e)
     } finally {
       return {
         id,
@@ -36,7 +37,7 @@ export const songUrl = createAsyncThunk('upload/songUrl', async ({ id, br = 1280
     const { data } = await songUrlApi({ id, br })
     src = data[0].url
   } catch (e) {
-    console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+    showErrorToast(e)
   } finally {
     return { src }
   }

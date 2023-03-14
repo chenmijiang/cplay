@@ -2,11 +2,7 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import {
-  onLogin as onLoginCookie,
-  logout as logoutCookie,
-  refreshCookie
-} from '@/utils/cookie'
+import { onLogin as onLoginCookie, logout as logoutCookie, refreshCookie } from '@/utils/cookie'
 
 import {
   createQrKey as createQrKeyApi,
@@ -16,12 +12,19 @@ import {
   refreshLogin as refreshLoginApi,
   logout as logoutApi
 } from '@/apis'
+import { showErrorToast } from '@/utils/message'
 
 // 请求 key 和二维码
 export const createQrKey = createAsyncThunk('user/createQrKey', async () => {
-  const { data } = await createQrKeyApi()
-  const { data: imgData } = await createQrCodeApi({ key: data.unikey })
-  return { key: data.unikey, qrimg: imgData.qrimg }
+  try {
+    const { data } = await createQrKeyApi()
+    const { data: imgData } = await createQrCodeApi({ key: data.unikey })
+    return { key: data.unikey, qrimg: imgData.qrimg }
+  } catch (e) {
+    showErrorToast(e)
+  } finally {
+    return { key: '', qrimg: '' }
+  }
 })
 // 检查二维码状态
 export const checkQrCode = createAsyncThunk('user/checkQrCode', async (key) => {
@@ -46,7 +49,11 @@ export const getUserInfo = createAsyncThunk('user/getUserInfo', async () => {
 })
 // 退出登录
 export const logout = createAsyncThunk('user/logout', async () => {
-  await logoutApi()
+  try {
+    await logoutApi()
+  } catch (e) {
+    showErrorToast(e)
+  }
 })
 
 const userSlice = createSlice({

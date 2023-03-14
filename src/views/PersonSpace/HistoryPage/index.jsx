@@ -9,11 +9,11 @@ import { routerSwitchVariant } from '@/variants'
 import SongsDisplay from '@/components/SongsDisplay'
 import Icon from '@/components/common/IconSvg'
 import { playPause } from '@/store/play.slice'
-import { showToast } from '@/store/toast.slice'
 import { restoreUploadState, songPicAndUrl, uploadLyrics } from '@/store/upload.slice'
 import { initTimes } from '@/store/lyrics.slice'
 import { clearAllHistory } from '@/store/history.slice'
 import { useSongsDB } from '@/hooks/useSongsDB'
+import { showToast } from '@/utils/message'
 
 const HistoryPage = () => {
   const dispatch = useDispatch()
@@ -36,13 +36,13 @@ const HistoryPage = () => {
       dispatch(uploadLyrics(song.lyrics))
       dispatch(initTimes(song.lytimes))
       if (Number.isInteger(+id)) {
-        dispatch(showToast({ message: '恢复制作记录中...' }))
+        showToast('恢复制作记录中...')
         dispatch(songPicAndUrl({ id, name, artist, br: song.quality }))
           .then(() => {
-            dispatch(showToast({ message: '恢复成功' }))
+            showToast('恢复成功')
           })
           .catch(() => {
-            dispatch(showToast({ message: '未知错误，获取失败' }))
+            showToast('未知错误，获取失败')
           })
       } else {
         selectSong(id).then((item) => {
