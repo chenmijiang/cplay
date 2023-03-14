@@ -10,11 +10,13 @@ import { getUserCloud, shouldUpdateCloud } from '@/store/cloud.slice'
 import SongsDisplay from '@/components/SongsDisplay'
 import Icon from '@/components/common/IconSvg'
 import { playPause } from '@/store/play.slice'
-import { showToast } from '@/store/toast.slice'
 import { songUrl, uploadMusicWay } from '@/store/upload.slice'
 import { clearCloudList } from '@/store/cloud.slice'
+import useFecthCancel from '@/hooks/useFetchCancel'
+import { showToast } from '@/utils/message'
 
 const CloudPage = () => {
+  useFecthCancel()
   const songs = useSelector((state) => state.cloud.cloudList)
   const lastUploadTime = useSelector((state) => state.cloud.lastUploadTime)
   const dispatch = useDispatch()
@@ -36,7 +38,7 @@ const CloudPage = () => {
     ({ id, name, artist }) => {
       const song = songs.find((song) => +song.id === +id)
       dispatch(playPause(true))
-      dispatch(showToast({ message: '正在尝试获取音频...' }))
+      showToast('正在尝试获取音频...')
       dispatch(songUrl({ id }))
         .then((res) => {
           let { src } = res.payload
@@ -50,10 +52,10 @@ const CloudPage = () => {
               sameUrled: false
             })
           )
-          dispatch(showToast({ message: '获取成功' }))
+          showToast('获取成功')
         })
         .catch(() => {
-          dispatch(showToast({ message: '未知错误，获取失败' }))
+          showToast('未知错误，获取失败')
         })
     },
     [dispatch, songs]

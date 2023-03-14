@@ -2,6 +2,7 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getUserCloud as getUserCloudApi } from '@/apis'
+import { showErrorToast } from '@/utils/message'
 
 // 接口获取云盘歌曲数据
 export const getUserCloud = createAsyncThunk('cloud/getCloudList', async ({ offset }) => {
@@ -19,7 +20,7 @@ export const getUserCloud = createAsyncThunk('cloud/getCloudList', async ({ offs
       }
     })
   } catch (e) {
-    console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+    showErrorToast(e)
   } finally {
     return { songs, lastUploadTime: songs[0].addTime }
   }
@@ -32,7 +33,7 @@ export const shouldUpdateCloud = createAsyncThunk('cloud/shouldUpdateCloud', asy
     let res = await getUserCloudApi({ offset: 0, limit: 1 })
     lastUploadTime = res.data[0].addTime
   } catch (e) {
-    console.error('接口取消 或 (网络不佳，请使用自建接口或者代理)')
+    showErrorToast(e)
   } finally {
     return { lastUploadTime }
   }

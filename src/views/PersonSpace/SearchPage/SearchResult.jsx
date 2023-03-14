@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useMemo, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -8,18 +8,13 @@ import styled from 'styled-components'
 import SongsDisplay from '@/components/SongsDisplay'
 import { LoadAnimations } from '@/components/common/LazyLoad'
 import { playPause } from '@/store/play.slice'
-import { showToast } from '@/store/toast.slice'
 import { songPicAndUrl } from '@/store/upload.slice'
 
-import { cancelAllPendingRequests } from '@/apis'
+import useFecthCancel from '@/hooks/useFetchCancel'
+import { showToast } from '@/utils/message'
 
 const SearchResult = React.memo(({ searchHandler, currentPageRef, isLoading, isError }) => {
-  useEffect(() => {
-    return () => {
-      // 清空所有请求
-      cancelAllPendingRequests()
-    }
-  }, [])
+  useFecthCancel()
   const dispatch = useDispatch()
   const { songs, quality } = useSelector((state) => ({
     songs: state.search.songs,
@@ -66,13 +61,13 @@ const SearchResult = React.memo(({ searchHandler, currentPageRef, isLoading, isE
   const getAudioAndPic = useCallback(
     ({ id, name, artist }) => {
       dispatch(playPause(true))
-      dispatch(showToast({ message: '正在尝试获取音频...' }))
+      showToast('正在尝试获取音频...')
       dispatch(songPicAndUrl({ id, name, artist, br: quality }))
         .then(() => {
-          dispatch(showToast({ message: '获取成功' }))
+          showToast('获取成功')
         })
         .catch(() => {
-          dispatch(showToast({ message: '未知错误，获取失败' }))
+          showToast('未知错误，获取失败')
         })
     },
     [dispatch, quality]

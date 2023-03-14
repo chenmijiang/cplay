@@ -17,6 +17,9 @@ export const onLogin = (cookieStr) => {
   document.cookie = parseCookies(cookieStr)
 }
 
+// 刷新登录
+export const refreshCookie = onLogin
+
 // 用户登出，删除cookie
 export const logout = () => {
   cookie.save('MUSIC_U', '', {})
