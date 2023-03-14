@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { saveHistory, searchByKeywords, setSongsByCache, songPicByIds } from '@/store/search.slice'
+import useFecthCancel from './useFetchCancel'
 
 export default function useSearchHandler() {
   // 加载动画
@@ -11,7 +12,8 @@ export default function useSearchHandler() {
   // 歌曲缓存
   const songsCache = useSelector((state) => state.search.songsCache)
   const dispatch = useDispatch()
-
+  // 手动取消请求
+  useFecthCancel()
   /**
    * 通过缓存或远程获取歌曲
    */

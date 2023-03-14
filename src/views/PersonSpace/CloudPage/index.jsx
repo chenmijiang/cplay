@@ -13,8 +13,10 @@ import { playPause } from '@/store/play.slice'
 import { showToast } from '@/store/toast.slice'
 import { songUrl, uploadMusicWay } from '@/store/upload.slice'
 import { clearCloudList } from '@/store/cloud.slice'
+import useFecthCancel from '@/hooks/useFetchCancel'
 
 const CloudPage = () => {
+  useFecthCancel()
   const songs = useSelector((state) => state.cloud.cloudList)
   const lastUploadTime = useSelector((state) => state.cloud.lastUploadTime)
   const dispatch = useDispatch()

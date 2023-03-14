@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { Suspense } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import 'reset-css'
@@ -16,11 +16,7 @@ import reportWebVitals from './reportWebVitals'
 import LazyLoad from './components/common/LazyLoad'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-// 白屏加载动画
-// const loadingContainer = document.getElementById('loading')
-// if (loadingContainer) {
-//   loadingContainer.remove()
-// }
+
 root.render(
   <>
     {isMobile() === true ? (

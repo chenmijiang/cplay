@@ -2,13 +2,18 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import { onLogin as onLoginCookie, logout as logoutCookie } from '@/utils/cookie'
+import {
+  onLogin as onLoginCookie,
+  logout as logoutCookie,
+  refreshCookie
+} from '@/utils/cookie'
 
 import {
   createQrKey as createQrKeyApi,
   createQrCode as createQrCodeApi,
   checkQrCode as checkQrCodeApi,
   getUserInfo as getUserInfoApi,
+  refreshLogin as refreshLoginApi,
   logout as logoutApi
 } from '@/apis'
 
@@ -21,6 +26,11 @@ export const createQrKey = createAsyncThunk('user/createQrKey', async () => {
 // 检查二维码状态
 export const checkQrCode = createAsyncThunk('user/checkQrCode', async (key) => {
   const data = await checkQrCodeApi({ key })
+  return data
+})
+// 刷新登录
+export const refreshLogin = createAsyncThunk('user/refreshLogin', async () => {
+  const data = await refreshLoginApi()
   return data
 })
 // 获取用户信息
@@ -72,6 +82,15 @@ const userSlice = createSlice({
           state.verify.code = 1
         } else if (code === 800) {
           state.verify = { state: 2, message }
+        }
+      })
+      .addCase(refreshLogin.fulfilled, (state, action) => {
+        const { cookie } = action.payload
+        if (cookie === undefined) {
+          logoutCookie()
+          state.profile = { uid: '', nickname: '', avatarUrl: '' }
+        } else {
+          refreshCookie(cookie)
         }
       })
       .addCase(getUserInfo.fulfilled, (state, action) => {

@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useMemo, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -11,15 +11,10 @@ import { playPause } from '@/store/play.slice'
 import { showToast } from '@/store/toast.slice'
 import { songPicAndUrl } from '@/store/upload.slice'
 
-import { cancelAllPendingRequests } from '@/apis'
+import useFecthCancel from '@/hooks/useFetchCancel'
 
 const SearchResult = React.memo(({ searchHandler, currentPageRef, isLoading, isError }) => {
-  useEffect(() => {
-    return () => {
-      // 清空所有请求
-      cancelAllPendingRequests()
-    }
-  }, [])
+  useFecthCancel()
   const dispatch = useDispatch()
   const { songs, quality } = useSelector((state) => ({
     songs: state.search.songs,

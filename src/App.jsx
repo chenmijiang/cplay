@@ -1,7 +1,5 @@
 /** @format */
 
-import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { HashRouter as Router } from 'react-router-dom'
 
 import DefaultRoutes from '@/router'
@@ -10,19 +8,10 @@ import HeaderNavbar from '@/components/HeaderNavbar'
 
 import { navbar_links } from '@/configs/default'
 import Toast from '@/components/common/Toast'
-import { setBaseUrl } from '@/apis'
-import { initDB } from '@/hooks/useSongsDB'
+import useInit from '@/hooks/useInit'
 
 function App() {
-  const baseUrl = useSelector((state) => state.setting.baseUrl)
-  useEffect(() => {
-    if (baseUrl) {
-      setBaseUrl(baseUrl)
-    }
-    // 初始化 db
-    initDB()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  useInit()
   return (
     <Router>
       <MusicPlayer />

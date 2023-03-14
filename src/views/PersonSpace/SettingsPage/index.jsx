@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
@@ -13,18 +13,15 @@ import { playPause } from '@/store/play.slice'
 import { setBaseUrl, setMusicQuality } from '@/store/setting.slice'
 import { setAnimationTime } from '@/store/setting.slice'
 import { showToast } from '@/store/toast.slice'
-import { testUrl, cancelAllPendingRequests } from '@/apis'
+import { testUrl } from '@/apis'
 
 import { routerSwitchVariant } from '@/variants'
 
 import { qualityItems } from '@/configs/default'
+import useFecthCancel from '@/hooks/useFetchCancel'
 
 const SettingsPage = () => {
-  useEffect(() => {
-    return () => {
-      cancelAllPendingRequests()
-    }
-  }, [])
+  useFecthCancel()
   // 获取用户信息
   const { profile, quality, baseUrl, animationTime } = useSelector((state) => ({
     profile: state.user.profile,
