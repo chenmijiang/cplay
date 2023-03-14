@@ -16,14 +16,17 @@ import { showErrorToast } from '@/utils/message'
 
 // 请求 key 和二维码
 export const createQrKey = createAsyncThunk('user/createQrKey', async () => {
+  let key = ''
+  let qrimg = ''
   try {
     const { data } = await createQrKeyApi()
     const { data: imgData } = await createQrCodeApi({ key: data.unikey })
-    return { key: data.unikey, qrimg: imgData.qrimg }
+    key = data.unikey
+    qrimg = imgData.qrimg
   } catch (e) {
     showErrorToast(e)
   } finally {
-    return { key: '', qrimg: '' }
+    return { key, qrimg }
   }
 })
 // 检查二维码状态
