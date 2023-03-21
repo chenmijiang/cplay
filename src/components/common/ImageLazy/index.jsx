@@ -6,11 +6,12 @@ import styled, { keyframes } from 'styled-components'
 
 import Icon from '@/components/common/IconSvg'
 
-const ImageLazy = React.memo(({ src, iconame, root, ...props }) => {
+const ImageLazy = React.memo(({ src, iconame, rootMargin, ...props }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isError, setIsError] = useState(false)
   const imageRef = useRef(null)
-  const [inViewport] = useInViewport(imageRef)
+  // 实现懒加载和预加载的核心代码
+  const [inViewport] = useInViewport(imageRef, { rootMargin: rootMargin || '0px 0px 0px 0px' })
   useEffect(() => {
     if (inViewport) {
       const img = imageRef.current
