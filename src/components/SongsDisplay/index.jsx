@@ -77,8 +77,8 @@ const SongsDisplay = React.memo(({ songs, scrollToBottom, DoubleClick, hintwords
 function SongItems({ id, pic, name, artist, duration }) {
   return (
     <SongItemsWrapper className="song_item" data={id}>
-      {/* 图片懒加载 */}
-      <ImageLazy className="record" src={pic} iconame="record" />
+      {/* 图片懒加载和预加载 */}
+      <ImageLazy className="record" src={pic} iconame="record" rootMargin="0px 0px 400px 0px" />
       <div className="name" title={name}>
         {name}
       </div>
